@@ -26,4 +26,11 @@ class ShiftResolverTest {
         val result = ShiftResolver.resolveShiftTypeId(emptyList(), emptyMap(), 100L)
         assertNull(result)
     }
+
+    @Test
+    fun `오버라이드 맵에 다른 날짜만 있으면 패턴값을 쓴다`() {
+        val overrides = mapOf(99L to 5L)
+        val result = ShiftResolver.resolveShiftTypeId(listOf(pattern), overrides, 100L)
+        assertEquals(1L, result)
+    }
 }
