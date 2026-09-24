@@ -8,8 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "shift_pattern_items",
     foreignKeys = [
-        ForeignKey(entity = ShiftPattern::class, parentColumns = ["id"], childColumns = ["patternId"], onDelete = ForeignKey.CASCADE),
-        ForeignKey(entity = ShiftType::class, parentColumns = ["id"], childColumns = ["shiftTypeId"], onDelete = ForeignKey.CASCADE)
+        ForeignKey(entity = ShiftPattern::class, parentColumns = ["id"], childColumns = ["patternId"], onDelete = ForeignKey.CASCADE)
     ],
     indices = [Index("patternId"), Index("shiftTypeId")]
 )
