@@ -12,7 +12,6 @@ import androidx.glance.background
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
 import androidx.glance.layout.Row
-import androidx.glance.layout.Spacer
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
@@ -54,19 +53,23 @@ fun WeekdayHeaderRow(weekStartMonday: Boolean, fontScale: Float) {
     }
 }
 
-fun buildMonthGrid(month: YearMonth, weekStartMonday: Boolean): List<List<LocalDate?>> {
+// 이전/다음 달의 채움 날짜도 실제 LocalDate로 반환한다(null이 아님). 디자인 스펙 4.1: "이전/다음 달의
+// 날짜(앞뒤 채움용)는 흐린 회색, 근무 정보 없음" — 화면에는 실제 날짜 숫자를 흐리게 표시해야 하므로
+// 호출부에서 어느 달에 속하는지 판단할 수 있도록 null 대신 실제 날짜를 내려준다.
+fun buildMonthGrid(month: YearMonth, weekStartMonday: Boolean): List<List<LocalDate>> {
     val firstDay = month.atDay(1)
     val firstDayIndex = if (weekStartMonday) (firstDay.dayOfWeek.value + 6) % 7 else firstDay.dayOfWeek.value % 7
     val totalDays = month.lengthOfMonth()
-    val cells = List(firstDayIndex) { null } + (1..totalDays).map { month.atDay(it) }
-    val paddedSize = ((cells.size + 6) / 7) * 7
-    val padded = cells + List(paddedSize - cells.size) { null }
-    return padded.chunked(7)
+    val gridStart = firstDay.minusDays(firstDayIndex.toLong())
+    val totalCells = firstDayIndex + totalDays
+    val paddedSize = ((totalCells + 6) / 7) * 7
+    return (0 until paddedSize).map { gridStart.plusDays(it.toLong()) }.chunked(7)
 }
 
 @Composable
 fun MonthGridView(
-    weeks: List<List<LocalDate?>>,
+    month: YearMonth,
+    weeks: List<List<LocalDate>>,
     dayInfoByEpochDay: Map<Long, DayInfo>,
     shiftTypeById: Map<Long, ShiftType>,
     style: WidgetStyle,
@@ -78,11 +81,16 @@ fun MonthGridView(
             Row(modifier = GlanceModifier.fillMaxWidth()) {
                 week.forEach { date ->
                     Box(modifier = GlanceModifier.defaultWeight()) {
-                        if (date != null) {
-                            MonthDayCell(date, dayInfoByEpochDay[date.toEpochDay()], shiftTypeById, style, showShiftName, date == today)
-                        } else {
-                            Spacer(modifier = GlanceModifier.height(1.dp))
-                        }
+                        val isInCurrentMonth = YearMonth.from(date) == month
+                        MonthDayCell(
+                            date,
+                            dayInfoByEpochDay[date.toEpochDay()],
+                            shiftTypeById,
+                            style,
+                            showShiftName,
+                            date == today,
+                            isInCurrentMonth
+                        )
                     }
                 }
             }
@@ -97,9 +105,10 @@ private fun MonthDayCell(
     shiftTypeById: Map<Long, ShiftType>,
     style: WidgetStyle,
     showShiftName: Boolean,
-    isToday: Boolean
+    isToday: Boolean,
+    isInCurrentMonth: Boolean
 ) {
-    val shiftType = dayInfo?.shiftTypeId?.let { shiftTypeById[it] }
+    val shiftType = if (isInCurrentMonth) dayInfo?.shiftTypeId?.let { shiftTypeById[it] } else null
     Column(
         modifier = GlanceModifier
             .padding(1.dp)
@@ -112,20 +121,22 @@ private fun MonthDayCell(
             style = TextStyle(
                 fontSize = (10 * style.dateFontScale).sp,
                 fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal,
-                color = ColorProvider(Color(0xFFEEEEEE))
+                color = ColorProvider(if (isInCurrentMonth) Color(0xFFEEEEEE) else Color(0xFF555555))
             )
         )
-        if (showShiftName && shiftType != null) {
-            Text(
-                shiftType.name,
-                style = TextStyle(fontSize = (8 * style.shiftFontScale).sp, color = ColorProvider(Color(shiftType.colorArgb)))
-            )
-        }
-        if (shiftType != null) {
-            Box(modifier = GlanceModifier.fillMaxWidth().height(2.dp).background(ColorProvider(Color(shiftType.colorArgb)))) {}
-        }
-        if (dayInfo?.memoText?.isNotBlank() == true) {
-            Box(modifier = GlanceModifier.height(3.dp).background(ColorProvider(Color(0xFFF1C40F)))) {}
+        if (isInCurrentMonth) {
+            if (showShiftName && shiftType != null) {
+                Text(
+                    shiftType.name,
+                    style = TextStyle(fontSize = (8 * style.shiftFontScale).sp, color = ColorProvider(Color(shiftType.colorArgb)))
+                )
+            }
+            if (shiftType != null) {
+                Box(modifier = GlanceModifier.fillMaxWidth().height(2.dp).background(ColorProvider(Color(shiftType.colorArgb)))) {}
+            }
+            if (dayInfo?.memoText?.isNotBlank() == true) {
+                Box(modifier = GlanceModifier.height(3.dp).background(ColorProvider(Color(0xFFF1C40F)))) {}
+            }
         }
     }
 }

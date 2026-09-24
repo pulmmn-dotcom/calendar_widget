@@ -31,10 +31,12 @@ class MemoEditActivity : ComponentActivity() {
         setContent {
             val date = remember { LocalDate.ofEpochDay(epochDay) }
             var text by remember { mutableStateOf("") }
+            var loaded by remember { mutableStateOf(false) }
             val scope = rememberCoroutineScope()
 
             LaunchedEffect(epochDay) {
                 text = repository.getDayInfoOnce(epochDay).memoText ?: ""
+                loaded = true
             }
 
             MaterialTheme {
@@ -45,12 +47,15 @@ class MemoEditActivity : ComponentActivity() {
                         OutlinedTextField(value = text, onValueChange = { text = it }, modifier = Modifier.fillMaxWidth())
                     },
                     confirmButton = {
-                        TextButton(onClick = {
-                            scope.launch {
-                                repository.setMemo(epochDay, text)
-                                finish()
+                        TextButton(
+                            enabled = loaded,
+                            onClick = {
+                                scope.launch {
+                                    repository.setMemo(epochDay, text)
+                                    finish()
+                                }
                             }
-                        }) { Text("저장") }
+                        ) { Text("저장") }
                     },
                     dismissButton = { TextButton(onClick = { finish() }) { Text("취소") } }
                 )
