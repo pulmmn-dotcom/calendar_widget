@@ -54,6 +54,12 @@ dependencies {
 
     implementation("androidx.glance:glance-appwidget:1.1.1")
     implementation("androidx.glance:glance-material3:1.1.1")
+    // glance-appwidget:1.1.1은 androidx.datastore:datastore-preferences-core:1.0.0을 Gradle Module
+    // Metadata의 "runtime" 변형(releaseVariantReleaseRuntimePublication)으로만 끌어오고 "api" 변형에는
+    // 포함하지 않는다. 그 결과 Preferences/MutablePreferences/intPreferencesKey() 등의 타입이 컴파일
+    // classpath에 자동으로 올라오지 않아(실측: compileDebugKotlin이 "Unresolved reference" 오류) 직접
+    // 선언이 필요하다.
+    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
 
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
