@@ -14,11 +14,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -57,7 +60,11 @@ fun PatternScreen() {
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("근무 패턴 관리") }) },
-        floatingActionButton = { FloatingActionButton(onClick = { showAddDialog = true }) { Text("+") } }
+        floatingActionButton = {
+            FloatingActionButton(onClick = { showAddDialog = true }) {
+                Icon(Icons.Default.Add, contentDescription = "근무 패턴 추가")
+            }
+        }
     ) { padding ->
         LazyColumn(modifier = Modifier.padding(padding).fillMaxSize()) {
             items(patterns, key = { it.pattern.id }) { patternWithItems ->
@@ -85,13 +92,15 @@ fun PatternScreen() {
 @Composable
 private fun PatternRow(patternWithItems: PatternWithItems, shiftTypeById: Map<Long, ShiftType>, onDelete: () -> Unit) {
     val startDate = LocalDate.ofEpochDay(patternWithItems.pattern.startEpochDay)
+    var showDeleteConfirm by remember { mutableStateOf(false) }
+
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(modifier = Modifier.weight(1f, fill = true)) {
                 Text(patternWithItems.pattern.name, style = MaterialTheme.typography.titleMedium)
                 Text("시작일: ${startDate.format(DateTimeFormatter.ISO_LOCAL_DATE)}", style = MaterialTheme.typography.bodySmall)
             }
-            TextButton(onClick = onDelete) { Text("삭제") }
+            TextButton(onClick = { showDeleteConfirm = true }) { Text("삭제") }
         }
         Row(modifier = Modifier.padding(top = 8.dp)) {
             patternWithItems.items.sortedBy { it.orderIndex }.forEach { item ->
@@ -107,6 +116,23 @@ private fun PatternRow(patternWithItems: PatternWithItems, shiftTypeById: Map<Lo
                 }
             }
         }
+    }
+
+    if (showDeleteConfirm) {
+        AlertDialog(
+            onDismissRequest = { showDeleteConfirm = false },
+            title = { Text("근무 패턴 삭제") },
+            text = { Text("이 근무 패턴을 삭제하시겠어요?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDeleteConfirm = false
+                    onDelete()
+                }) { Text("삭제") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteConfirm = false }) { Text("취소") }
+            }
+        )
     }
 }
 
@@ -163,6 +189,7 @@ private fun AddPatternDialog(
 
     if (showDatePicker) {
         StartDatePickerDialog(
+            initialDate = startDate,
             onDismiss = { showDatePicker = false },
             onConfirm = { date -> startDate = date; showDatePicker = false }
         )
@@ -171,8 +198,10 @@ private fun AddPatternDialog(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun StartDatePickerDialog(onDismiss: () -> Unit, onConfirm: (LocalDate) -> Unit) {
-    val state = rememberDatePickerState()
+private fun StartDatePickerDialog(initialDate: LocalDate, onDismiss: () -> Unit, onConfirm: (LocalDate) -> Unit) {
+    val state = rememberDatePickerState(
+        initialSelectedDateMillis = initialDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+    )
     DatePickerDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
