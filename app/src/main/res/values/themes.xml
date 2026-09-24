@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.ShiftCalendar" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.ShiftCalendar.Dialog" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>
