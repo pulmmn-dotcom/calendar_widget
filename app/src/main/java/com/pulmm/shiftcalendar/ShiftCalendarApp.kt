@@ -6,6 +6,7 @@ import com.pulmm.shiftcalendar.data.ShiftRepository
 
 class ShiftCalendarApp : Application() {
     val repository: ShiftRepository by lazy {
+        // Task 19에서 두 번째 인자로 실제 위젯 새로고침 콜백을 연결한다
         ShiftRepository(AppDatabase.getInstance(this))
     }
 }

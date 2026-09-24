@@ -8,6 +8,7 @@ import com.pulmm.shiftcalendar.data.entity.ShiftType
 import com.pulmm.shiftcalendar.logic.DayInfo
 import com.pulmm.shiftcalendar.logic.PatternDefinition
 import com.pulmm.shiftcalendar.logic.ShiftResolver
+import androidx.room.withTransaction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
@@ -46,9 +47,12 @@ class ShiftRepository(
             }
         }
 
+    // 매 호출마다 Room Flow 3개를 새로 구독하고 패턴 목록을 재계산한다. 여러 날짜(예: 월간 위젯 그리드)가
+    // 필요하면 이 함수를 날짜별로 반복 호출하지 말고 observeDayInfoRange(start, end)를 한 번만 호출할 것.
     suspend fun getDayInfoOnce(epochDay: Long): DayInfo =
         observeDayInfoRange(epochDay, epochDay).first().first()
 
+    // shiftTypeId가 null이면 해당 날짜의 오버라이드를 삭제(해제)한다. null이 아니면 오버라이드를 설정/교체한다.
     suspend fun setOverride(epochDay: Long, shiftTypeId: Long?) {
         if (shiftTypeId == null) db.dayOverrideDao().delete(epochDay)
         else db.dayOverrideDao().upsert(DayOverride(epochDay, shiftTypeId))
@@ -77,12 +81,14 @@ class ShiftRepository(
     }
 
     suspend fun savePattern(name: String, startEpochDay: Long, shiftTypeIdsInOrder: List<Long>) {
-        val patternId = db.shiftPatternDao().insertPattern(ShiftPattern(name = name, startEpochDay = startEpochDay))
-        db.shiftPatternDao().insertItems(
-            shiftTypeIdsInOrder.mapIndexed { index, shiftTypeId ->
-                ShiftPatternItem(patternId = patternId, shiftTypeId = shiftTypeId, orderIndex = index)
-            }
-        )
+        db.withTransaction {
+            val patternId = db.shiftPatternDao().insertPattern(ShiftPattern(name = name, startEpochDay = startEpochDay))
+            db.shiftPatternDao().insertItems(
+                shiftTypeIdsInOrder.mapIndexed { index, shiftTypeId ->
+                    ShiftPatternItem(patternId = patternId, shiftTypeId = shiftTypeId, orderIndex = index)
+                }
+            )
+        }
         onDataChanged.onDataChanged()
     }
 
