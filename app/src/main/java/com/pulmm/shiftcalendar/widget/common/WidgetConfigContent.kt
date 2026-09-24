@@ -3,6 +3,7 @@ package com.pulmm.shiftcalendar.widget.common
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,18 +37,18 @@ private val BG_PALETTE = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WidgetConfigContent(initialStyle: WidgetStyle, showLunarOption: Boolean, onSave: (WidgetStyle) -> Unit) {
-    var bgColor by remember { mutableStateOf(initialStyle.bgColorArgb) }
-    var opacity by remember { mutableStateOf(initialStyle.opacity) }
-    var dateFontScale by remember { mutableStateOf(initialStyle.dateFontScale) }
-    var shiftFontScale by remember { mutableStateOf(initialStyle.shiftFontScale) }
-    var memoFontScale by remember { mutableStateOf(initialStyle.memoFontScale) }
-    var showLunar by remember { mutableStateOf(initialStyle.showLunar) }
-    var weekStartMonday by remember { mutableStateOf(initialStyle.weekStartMonday) }
+fun WidgetConfigContent(initialStyle: WidgetStyle, showLunarOption: Boolean, title: String, onSave: (WidgetStyle) -> Unit) {
+    var bgColor by remember(initialStyle) { mutableStateOf(initialStyle.bgColorArgb) }
+    var opacity by remember(initialStyle) { mutableStateOf(initialStyle.opacity) }
+    var dateFontScale by remember(initialStyle) { mutableStateOf(initialStyle.dateFontScale) }
+    var shiftFontScale by remember(initialStyle) { mutableStateOf(initialStyle.shiftFontScale) }
+    var memoFontScale by remember(initialStyle) { mutableStateOf(initialStyle.memoFontScale) }
+    var showLunar by remember(initialStyle) { mutableStateOf(initialStyle.showLunar) }
+    var weekStartMonday by remember(initialStyle) { mutableStateOf(initialStyle.weekStartMonday) }
 
     MaterialTheme {
         Scaffold(
-            topBar = { TopAppBar(title = { Text("위젯 디자인 설정") }) },
+            topBar = { TopAppBar(title = { Text(title) }) },
             bottomBar = {
                 Button(
                     onClick = {
@@ -61,7 +62,7 @@ fun WidgetConfigContent(initialStyle: WidgetStyle, showLunarOption: Boolean, onS
                 Text("배경색")
                 Row(modifier = Modifier.padding(vertical = 8.dp)) {
                     BG_PALETTE.forEach { colorInt ->
-                        androidx.compose.foundation.layout.Box(
+                        Box(
                             modifier = Modifier
                                 .padding(end = 8.dp)
                                 .size(32.dp)
