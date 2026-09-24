@@ -114,7 +114,8 @@ private fun MonthGrid(
     val leadingBlanks = firstDayOfMonth.dayOfWeek.value % 7
     val totalDays = month.lengthOfMonth()
     val cells: List<LocalDate?> = List(leadingBlanks) { null } + (1..totalDays).map { month.atDay(it) }
-    val weeks = cells.chunked(7)
+    val paddedCells = cells + List((7 - cells.size % 7) % 7) { null }
+    val weeks = paddedCells.chunked(7)
     val today = LocalDate.now()
 
     Column {

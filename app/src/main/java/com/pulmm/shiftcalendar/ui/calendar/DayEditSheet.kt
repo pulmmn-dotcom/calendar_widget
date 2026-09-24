@@ -1,6 +1,7 @@
 package com.pulmm.shiftcalendar.ui.calendar
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -56,6 +57,13 @@ fun DayEditSheet(
                             .padding(end = 6.dp)
                             .clip(RoundedCornerShape(6.dp))
                             .background(Color(shiftType.colorArgb))
+                            .then(
+                                if (shiftType.id == dayInfo?.shiftTypeId) {
+                                    Modifier.border(2.dp, Color.Black, RoundedCornerShape(6.dp))
+                                } else {
+                                    Modifier
+                                }
+                            )
                             .clickable { onSelectShiftType(shiftType.id) }
                             .padding(horizontal = 10.dp, vertical = 6.dp)
                     ) {
