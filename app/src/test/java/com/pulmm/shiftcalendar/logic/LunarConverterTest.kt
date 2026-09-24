@@ -30,4 +30,16 @@ class LunarConverterTest {
         val result = LunarConverter.toLunar(LocalDate.of(2050, 12, 31))
         assertEquals(LunarDate(2050, 11, 18, false), result)
     }
+
+    @Test
+    fun `지원 범위의 최솟값 경계를 처리한다`() {
+        val result = LunarConverter.toLunar(LocalDate.of(1000, 2, 13))
+        assertEquals(LunarDate(1000, 1, 1, false), result)
+    }
+
+    @Test
+    fun `지원 범위의 최솟값보다 이전이면 null을 반환한다`() {
+        val result = LunarConverter.toLunar(LocalDate.of(1000, 2, 12))
+        assertNull(result)
+    }
 }

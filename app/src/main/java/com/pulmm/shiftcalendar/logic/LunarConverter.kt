@@ -10,6 +10,11 @@ data class LunarDate(val year: Int, val month: Int, val day: Int, val isLeapMont
     }
 }
 
+/**
+ * 이 오브젝트를 거쳐서만 [KoreanLunarCalendar]를 사용해야 한다.
+ * getInstance()가 반환하는 인스턴스는 JVM 전역에서 공유되는 가변 싱글턴이라,
+ * 다른 곳에서 직접 호출하면 이 클래스의 @Synchronized 보호가 무력화된다.
+ */
 object LunarConverter {
     @Synchronized
     fun toLunar(date: LocalDate): LunarDate? {
