@@ -14,10 +14,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -54,7 +58,9 @@ fun ShiftTypeScreen() {
     Scaffold(
         topBar = { TopAppBar(title = { Text("근무 종류 관리") }) },
         floatingActionButton = {
-            FloatingActionButton(onClick = { showAddDialog = true }) { Text("+") }
+            FloatingActionButton(onClick = { showAddDialog = true }) {
+                Icon(Icons.Default.Add, contentDescription = "근무 종류 추가")
+            }
         }
     ) { padding ->
         LazyColumn(modifier = Modifier.padding(padding).fillMaxSize()) {
@@ -77,6 +83,8 @@ fun ShiftTypeScreen() {
 
 @Composable
 private fun ShiftTypeRow(shiftType: ShiftType, onDelete: () -> Unit) {
+    var showDeleteConfirm by remember { mutableStateOf(false) }
+
     Row(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -88,7 +96,24 @@ private fun ShiftTypeRow(shiftType: ShiftType, onDelete: () -> Unit) {
         }
         Spacer(modifier = Modifier.width(12.dp))
         Text(shiftType.name, modifier = Modifier.weight(1f, fill = true))
-        TextButton(onClick = onDelete) { Text("삭제") }
+        TextButton(onClick = { showDeleteConfirm = true }) { Text("삭제") }
+    }
+
+    if (showDeleteConfirm) {
+        AlertDialog(
+            onDismissRequest = { showDeleteConfirm = false },
+            title = { Text("근무 종류 삭제") },
+            text = { Text("이 근무 종류를 삭제하시겠어요? 이미 등록된 패턴/날짜에서는 '삭제됨'으로 표시됩니다.") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDeleteConfirm = false
+                    onDelete()
+                }) { Text("삭제") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteConfirm = false }) { Text("취소") }
+            }
+        )
     }
 }
 
@@ -112,6 +137,13 @@ private fun AddShiftTypeDialog(onDismiss: () -> Unit, onConfirm: (String, Int) -
                                 .size(28.dp)
                                 .clip(CircleShape)
                                 .background(Color(colorInt))
+                                .then(
+                                    if (colorInt == selectedColor) {
+                                        Modifier.border(2.dp, Color.Black, CircleShape)
+                                    } else {
+                                        Modifier
+                                    }
+                                )
                                 .clickable { selectedColor = colorInt }
                         )
                     }
