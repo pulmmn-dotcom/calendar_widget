@@ -234,7 +234,7 @@ private fun MonthGrid(
                 Row(modifier = Modifier.fillMaxWidth().height(rowHeight)) {
                     week.forEach { date ->
                         val inMonth = YearMonth.from(date) == month
-                        val dayInfo = if (inMonth) dayInfoByEpochDay[date.toEpochDay()] else null
+                        val dayInfo = dayInfoByEpochDay[date.toEpochDay()]
                         val shiftId = dayInfo?.shiftTypeId
                         DayCell(
                             date = date,
@@ -242,9 +242,9 @@ private fun MonthGrid(
                             isToday = inMonth && date == today,
                             shiftType = shiftId?.let { shiftTypeById[it] },
                             isShiftDeleted = shiftId != null && shiftTypeById[shiftId] == null,
-                            holidayName = if (inMonth) KoreanHolidays.nameOf(date) else null,
+                            holidayName = KoreanHolidays.nameOf(date),
                             memo = dayInfo?.memoText?.takeIf { it.isNotBlank() },
-                            onClick = if (inMonth) ({ onDayClick(date) }) else null,
+                            onClick = { onDayClick(date) },
                             modifier = Modifier.weight(1f).fillMaxHeight()
                         )
                     }
@@ -263,7 +263,7 @@ private fun DayCell(
     isShiftDeleted: Boolean,
     holidayName: String?,
     memo: String?,
-    onClick: (() -> Unit)?,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val numberColor = when {
@@ -277,7 +277,7 @@ private fun DayCell(
     Box(
         modifier = modifier
             .border(0.5.dp, CalendarColors.gridLine)
-            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+            .clickable(onClick = onClick)
     ) {
         Box(
             modifier = Modifier
@@ -315,13 +315,11 @@ private fun DayCell(
                         overflow = TextOverflow.Clip
                     )
                 }
-                if (inMonth) {
-                    Spacer(modifier = Modifier.height(1.dp))
-                    if (shiftType != null) {
-                        ShiftBadge(name = shiftType.name, color = Color(shiftType.colorArgb))
-                    } else if (isShiftDeleted) {
-                        DeletedShiftBadge()
-                    }
+                Spacer(modifier = Modifier.height(1.dp))
+                if (shiftType != null) {
+                    ShiftBadge(name = shiftType.name, color = Color(shiftType.colorArgb))
+                } else if (isShiftDeleted) {
+                    DeletedShiftBadge()
                 }
                 if (memo != null) {
                     // 메모는 남은 높이만큼 앞부분을 보여주고, 넘치는 뒷부분은 잘라낸다.

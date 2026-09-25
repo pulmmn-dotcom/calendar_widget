@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.pulmm.shiftcalendar.data.ShiftRepository
 import com.pulmm.shiftcalendar.data.entity.ShiftType
 import com.pulmm.shiftcalendar.logic.DayInfo
+import com.pulmm.shiftcalendar.widget.common.monthGridRange
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -30,7 +31,8 @@ class CalendarViewModel(
     @OptIn(ExperimentalCoroutinesApi::class)
     val monthDayInfos: StateFlow<List<DayInfo>> = visibleMonth
         .flatMapLatest { month ->
-            repository.observeDayInfoRange(month.atDay(1).toEpochDay(), month.atEndOfMonth().toEpochDay())
+            val (from, to) = monthGridRange(month)
+            repository.observeDayInfoRange(from, to)
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 

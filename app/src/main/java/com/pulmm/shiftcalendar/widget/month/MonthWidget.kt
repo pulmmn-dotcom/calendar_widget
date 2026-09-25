@@ -41,6 +41,7 @@ import com.pulmm.shiftcalendar.widget.common.WidgetIconButton
 import com.pulmm.shiftcalendar.widget.common.WidgetRoot
 import com.pulmm.shiftcalendar.widget.common.WidgetSettingsKeys
 import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
+import com.pulmm.shiftcalendar.widget.common.monthGridRange
 import com.pulmm.shiftcalendar.widget.common.openCalendarAction
 import com.pulmm.shiftcalendar.widget.common.toWidgetStyle
 import com.pulmm.shiftcalendar.widget.common.widgetPalette
@@ -57,7 +58,7 @@ class MonthWidget : GlanceAppWidget() {
         val initialMonth = YearMonth.now().plusMonths((initialPrefs[WidgetSettingsKeys.MONTH_OFFSET] ?: 0).toLong())
         // 첫 화면이 비어 보이지 않도록 처음 한 번만 미리 읽어 둔다.
         val initialDayInfos = repository
-            .observeDayInfoRange(initialMonth.atDay(1).toEpochDay(), initialMonth.atEndOfMonth().toEpochDay()).first()
+            .observeDayInfoRange(monthGridRange(initialMonth).first, monthGridRange(initialMonth).second).first()
         val initialShiftTypes = repository.getShiftTypesOnce()
         val appWidgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
 
@@ -68,7 +69,7 @@ class MonthWidget : GlanceAppWidget() {
             val rawStyle = prefs.toWidgetStyle()
             val month = YearMonth.now().plusMonths((prefs[WidgetSettingsKeys.MONTH_OFFSET] ?: 0).toLong())
             val dayInfos by remember(month) {
-                repository.observeDayInfoRange(month.atDay(1).toEpochDay(), month.atEndOfMonth().toEpochDay())
+                repository.observeDayInfoRange(monthGridRange(month).first, monthGridRange(month).second)
             }.collectAsState(if (month == initialMonth) initialDayInfos else emptyList())
             val shiftTypes by remember { repository.observeShiftTypes() }.collectAsState(initialShiftTypes)
             val dayInfoByEpochDay = remember(dayInfos) { dayInfos.associateBy { it.epochDay } }
@@ -76,7 +77,7 @@ class MonthWidget : GlanceAppWidget() {
             val weeks = remember(month, rawStyle.weekStartMonday) { buildMonthGrid(month, rawStyle.weekStartMonday) }
             val size = LocalSize.current
             // 위젯이 작은데 글자 배율이 크면 잘리므로, 이 크기에 들어가는 배율로 줄여서 그린다.
-            val monthShifts = weeks.flatten().filter { YearMonth.from(it) == month }.mapNotNull { date ->
+            val monthShifts = weeks.flatten().mapNotNull { date ->
                 val typeId = dayInfoByEpochDay[date.toEpochDay()]?.shiftTypeId ?: return@mapNotNull null
                 val type = shiftTypeById[typeId]
                 (type?.name ?: "삭제됨") to (type == null)

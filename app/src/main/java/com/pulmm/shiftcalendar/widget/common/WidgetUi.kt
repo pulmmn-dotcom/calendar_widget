@@ -76,9 +76,12 @@ fun WeekdayHeaderRow(weekStartMonday: Boolean, fontScale: Float, palette: Widget
     }
 }
 
-// 이전/다음 달의 채움 날짜도 실제 LocalDate로 반환한다(null이 아님). 디자인 스펙 4.1: "이전/다음 달의
-// 날짜(앞뒤 채움용)는 흐린 회색, 근무 정보 없음" — 화면에는 실제 날짜 숫자를 흐리게 표시해야 하므로
-// 호출부에서 어느 달에 속하는지 판단할 수 있도록 null 대신 실제 날짜를 내려준다.
+/** 달력 칸 전체(앞뒤 채움 날짜 포함)를 덮는 기간. 채움은 한쪽에 최대 6일이라 7일씩 넓혀 읽는다. */
+fun monthGridRange(month: YearMonth): Pair<Long, Long> =
+    month.atDay(1).minusDays(7).toEpochDay() to month.atEndOfMonth().plusDays(7).toEpochDay()
+
+// 이전/다음 달의 채움 날짜도 실제 LocalDate로 반환한다(null이 아님). 채움 날짜는 숫자만 흐리게 하고
+// 근무·메모는 이번 달과 똑같이 보여주므로, 호출부에서 어느 달에 속하는지 판단할 수 있도록 실제 날짜를 내려준다.
 fun buildMonthGrid(month: YearMonth, weekStartMonday: Boolean): List<List<LocalDate>> {
     val firstDay = month.atDay(1)
     val firstDayIndex = if (weekStartMonday) (firstDay.dayOfWeek.value + 6) % 7 else firstDay.dayOfWeek.value % 7
@@ -148,11 +151,11 @@ private fun MonthDayCell(
         SmallMonthDayCell(date, dayInfo, shiftTypeById, style, palette, isToday, isInCurrentMonth, cellHeight)
         return
     }
-    val shiftTypeId = if (isInCurrentMonth) dayInfo?.shiftTypeId else null
+    val shiftTypeId = dayInfo?.shiftTypeId
     val shiftType = shiftTypeId?.let { shiftTypeById[it] }
     // 근무 종류가 지정돼 있는데 목록에 없으면 "삭제된 근무".
     val isDeletedShift = shiftTypeId != null && shiftType == null
-    val hasMemo = isInCurrentMonth && dayInfo?.memoText?.isNotBlank() == true
+    val hasMemo = dayInfo?.memoText?.isNotBlank() == true
 
     val dateColor = when {
         isToday -> palette.todayText
@@ -208,7 +211,7 @@ private fun MonthDayCell(
                     }
                 }
             }
-            if (isInCurrentMonth && (shiftType != null || isDeletedShift)) {
+            if (shiftType != null || isDeletedShift) {
                 WidgetShiftPill(
                     name = shiftType?.name ?: "삭제됨",
                     colorArgb = shiftType?.colorArgb ?: DELETED_SHIFT_COLOR,
@@ -240,11 +243,11 @@ private fun SmallMonthDayCell(
     isInCurrentMonth: Boolean,
     cellHeight: Dp
 ) {
-    val shiftTypeId = if (isInCurrentMonth) dayInfo?.shiftTypeId else null
+    val shiftTypeId = dayInfo?.shiftTypeId
     val shiftType = shiftTypeId?.let { shiftTypeById[it] }
     // 근무 종류가 지정돼 있는데 목록에 없으면 "삭제된 근무".
     val isDeletedShift = shiftTypeId != null && shiftType == null
-    val hasMemo = isInCurrentMonth && dayInfo?.memoText?.isNotBlank() == true
+    val hasMemo = dayInfo?.memoText?.isNotBlank() == true
     val hasBar = shiftType != null || isDeletedShift
     val barColor = Color(shiftType?.colorArgb ?: DELETED_SHIFT_COLOR)
 

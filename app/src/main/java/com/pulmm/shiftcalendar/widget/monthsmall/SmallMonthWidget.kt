@@ -36,6 +36,7 @@ import com.pulmm.shiftcalendar.widget.common.WidgetFit
 import com.pulmm.shiftcalendar.widget.common.WidgetHeaderButtons
 import com.pulmm.shiftcalendar.widget.common.WidgetRoot
 import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
+import com.pulmm.shiftcalendar.widget.common.monthGridRange
 import com.pulmm.shiftcalendar.widget.common.openCalendarAction
 import com.pulmm.shiftcalendar.widget.common.toWidgetStyle
 import com.pulmm.shiftcalendar.widget.common.widgetPalette
@@ -51,7 +52,7 @@ class SmallMonthWidget : GlanceAppWidget() {
         val initialMonth = YearMonth.now()
         // 첫 화면이 비어 보이지 않도록 처음 한 번만 미리 읽어 둔다.
         val initialDayInfos = repository
-            .observeDayInfoRange(initialMonth.atDay(1).toEpochDay(), initialMonth.atEndOfMonth().toEpochDay()).first()
+            .observeDayInfoRange(monthGridRange(initialMonth).first, monthGridRange(initialMonth).second).first()
         val initialShiftTypes = repository.getShiftTypesOnce()
         val appWidgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
 
@@ -61,7 +62,7 @@ class SmallMonthWidget : GlanceAppWidget() {
             val rawStyle = currentState<Preferences>().toWidgetStyle()
             val month = YearMonth.now()
             val dayInfos by remember(month) {
-                repository.observeDayInfoRange(month.atDay(1).toEpochDay(), month.atEndOfMonth().toEpochDay())
+                repository.observeDayInfoRange(monthGridRange(month).first, monthGridRange(month).second)
             }.collectAsState(if (month == initialMonth) initialDayInfos else emptyList())
             val shiftTypes by remember { repository.observeShiftTypes() }.collectAsState(initialShiftTypes)
             val dayInfoByEpochDay = remember(dayInfos) { dayInfos.associateBy { it.epochDay } }

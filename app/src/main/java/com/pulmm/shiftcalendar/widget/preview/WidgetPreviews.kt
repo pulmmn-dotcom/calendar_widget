@@ -398,7 +398,7 @@ fun MonthWidgetPreview(
     val month = YearMonth.from(data.today)
     val weeks = remember(month, rawStyle.weekStartMonday) { buildMonthGrid(month, rawStyle.weekStartMonday) }
     // 실제 위젯과 같은 규칙으로, 이 크기에 안 들어가는 글자 배율은 줄여서 그린다.
-    val monthShifts = weeks.flatten().filter { YearMonth.from(it) == month }.mapNotNull { date ->
+    val monthShifts = weeks.flatten().mapNotNull { date ->
         data.dayAt(date)?.shift?.let { it.name to false }
     }
     val style = WidgetFit.month(
@@ -586,7 +586,7 @@ private fun MonthGrid(
                         contentAlignment = Alignment.Center
                     ) {
                         val inMonth = YearMonth.from(date) == month
-                        val info = if (inMonth) data.dayAt(date) else null
+                        val info = data.dayAt(date)
                         if (showShiftName) {
                             MonthDayCell(date, info, style, palette, date == data.today, inMonth)
                         } else {
@@ -618,7 +618,7 @@ private fun MonthDayCell(
     inMonth: Boolean
 ) {
     val shift = info?.shift
-    val hasMemo = inMonth && info?.memoText?.isNotBlank() == true
+    val hasMemo = info?.memoText?.isNotBlank() == true
     val circleSize = (20 * style.dateFontScale).dp
 
     Box(
@@ -647,7 +647,7 @@ private fun MonthDayCell(
                     }
                 }
             }
-            if (inMonth && shift != null) {
+            if (shift != null) {
                 PreviewPill(
                     shift.name, shift.colorArgb, style, palette,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 1.dp),
@@ -669,8 +669,8 @@ private fun SmallMonthDayCell(
     cellHeight: Dp
 ) {
     val shift = info?.shift
-    val hasMemo = inMonth && info?.memoText?.isNotBlank() == true
-    val hasBar = inMonth && shift != null
+    val hasMemo = info?.memoText?.isNotBlank() == true
+    val hasBar = shift != null
     val barColor = Color(shift?.colorArgb ?: NO_SHIFT_COLOR)
 
     val scale = style.dateFontScale
