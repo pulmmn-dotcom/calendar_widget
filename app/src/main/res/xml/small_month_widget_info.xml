@@ -5,7 +5,7 @@
     android:targetCellWidth="3"
     android:targetCellHeight="2"
     android:minResizeWidth="110dp"
-    android:minResizeHeight="110dp"
+    android:minResizeHeight="130dp"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     android:previewImage="@mipmap/ic_launcher"
