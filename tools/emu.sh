@@ -18,7 +18,7 @@ case "$1" in
   home)    adb shell input keyevent KEYCODE_HOME; sleep 1;;
   pin)     # pin day|week|small|month : 홈화면에 위젯 추가 (확인 창의 'Add to home screen'까지 누름)
            adb shell input keyevent KEYCODE_HOME; sleep 1
-           adb shell am start -n $PKG/.debug.DebugPinWidgetActivity --es type "$2" >/dev/null; sleep 3
+           adb shell am start -n $PKG/.debug.DebugPinWidgetActivity --es type "$2" >/dev/null; sleep 6
            adb shell input tap 830 2254; sleep 3;;
   shot)    adb exec-out screencap -p > "$2"; echo "$2";;
   tap)     adb shell input tap "$2" "$3"; sleep 1;;
