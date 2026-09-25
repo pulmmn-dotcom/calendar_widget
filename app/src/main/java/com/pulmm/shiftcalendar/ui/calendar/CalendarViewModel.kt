@@ -33,6 +33,7 @@ class CalendarViewModel(private val repository: ShiftRepository) : ViewModel() {
 
     fun goToPreviousMonth() { visibleMonth.value = visibleMonth.value.minusMonths(1) }
     fun goToNextMonth() { visibleMonth.value = visibleMonth.value.plusMonths(1) }
+    fun goToMonth(yearMonth: YearMonth) { visibleMonth.value = yearMonth }
 
     fun setOverride(date: LocalDate, shiftTypeId: Long?) {
         viewModelScope.launch { repository.setOverride(date.toEpochDay(), shiftTypeId) }

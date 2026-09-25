@@ -2,6 +2,8 @@ package com.pulmm.shiftcalendar.ui.calendar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,12 +17,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -32,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -51,10 +58,16 @@ fun CalendarScreen() {
     val shiftTypes by viewModel.shiftTypes.collectAsState()
     val shiftTypeById = remember(shiftTypes) { shiftTypes.associateBy { it.id } }
     var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+    var showMonthPicker by remember { mutableStateOf(false) }
 
     Scaffold(topBar = {
         TopAppBar(
-            title = { Text("${month.year}년 ${month.monthValue}월") },
+            title = {
+                Text(
+                    "${month.year}년 ${month.monthValue}월",
+                    modifier = Modifier.clickable { showMonthPicker = true }
+                )
+            },
             navigationIcon = {
                 IconButton(onClick = viewModel::goToPreviousMonth) {
                     Icon(Icons.Default.ArrowBack, contentDescription = "이전 달")
@@ -67,7 +80,32 @@ fun CalendarScreen() {
             }
         )
     }) { padding ->
-        Column(modifier = Modifier.padding(padding).fillMaxSize()) {
+        val dragAccumulator = remember { mutableStateOf(0f) }
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .pointerInput(Unit) {
+                    detectHorizontalDragGestures(
+                        onDragEnd = { dragAccumulator.value = 0f },
+                        onDragCancel = { dragAccumulator.value = 0f },
+                        onHorizontalDrag = { change, dragAmount ->
+                            change.consume()
+                            dragAccumulator.value += dragAmount
+                            when {
+                                dragAccumulator.value > 120f -> {
+                                    viewModel.goToPreviousMonth()
+                                    dragAccumulator.value = 0f
+                                }
+                                dragAccumulator.value < -120f -> {
+                                    viewModel.goToNextMonth()
+                                    dragAccumulator.value = 0f
+                                }
+                            }
+                        }
+                    )
+                }
+        ) {
             WeekdayHeaderRow()
             MonthGrid(
                 month = month,
@@ -76,6 +114,17 @@ fun CalendarScreen() {
                 onDayClick = { date -> selectedDate = date }
             )
         }
+    }
+
+    if (showMonthPicker) {
+        MonthYearPickerDialog(
+            initialYearMonth = month,
+            onDismiss = { showMonthPicker = false },
+            onConfirm = { picked ->
+                viewModel.goToMonth(picked)
+                showMonthPicker = false
+            }
+        )
     }
 
     selectedDate?.let { date ->
@@ -154,4 +203,76 @@ private fun MonthGrid(
             }
         }
     }
+}
+
+@Composable
+private fun MonthYearPickerDialog(
+    initialYearMonth: YearMonth,
+    onDismiss: () -> Unit,
+    onConfirm: (YearMonth) -> Unit
+) {
+    var selectedYear by remember { mutableStateOf(initialYearMonth.year) }
+    var selectedMonth by remember { mutableStateOf(initialYearMonth.monthValue) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("연월 이동") },
+        text = {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(onClick = { selectedYear -= 1 }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "이전 연도")
+                    }
+                    Text(
+                        "${selectedYear}년",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    IconButton(onClick = { selectedYear += 1 }) {
+                        Icon(Icons.Default.ArrowForward, contentDescription = "다음 연도")
+                    }
+                }
+                val monthRows = (1..12).chunked(4)
+                monthRows.forEach { rowMonths ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        rowMonths.forEach { monthValue ->
+                            val isSelected = monthValue == selectedMonth
+                            if (isSelected) {
+                                Button(
+                                    onClick = { selectedMonth = monthValue },
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text("${monthValue}월")
+                                }
+                            } else {
+                                OutlinedButton(
+                                    onClick = { selectedMonth = monthValue },
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text("${monthValue}월")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = { onConfirm(YearMonth.of(selectedYear, selectedMonth)) }) {
+                Text("이동")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("취소")
+            }
+        }
+    )
 }
