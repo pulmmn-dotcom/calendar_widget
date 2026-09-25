@@ -14,7 +14,7 @@ data class WidgetStyle(
 )
 
 val DEFAULT_WIDGET_STYLE = WidgetStyle(
-    bgColorArgb = 0xFF2A2A2A.toInt(),
+    bgColorArgb = 0xFFFFFFFF.toInt(),
     opacity = 1f,
     dateFontScale = 1f,
     shiftFontScale = 1f,

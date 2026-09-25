@@ -15,6 +15,7 @@ import com.pulmm.shiftcalendar.widget.common.WeekdayHeaderRow
 import com.pulmm.shiftcalendar.widget.common.WidgetRoot
 import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
 import com.pulmm.shiftcalendar.widget.common.toWidgetStyle
+import com.pulmm.shiftcalendar.widget.common.widgetPalette
 import kotlinx.coroutines.flow.first
 import java.time.YearMonth
 
@@ -35,7 +36,7 @@ class SmallMonthWidget : GlanceAppWidget() {
         provideContent {
             WidgetRoot(style) {
                 Column(modifier = GlanceModifier.fillMaxSize()) {
-                    WeekdayHeaderRow(style.weekStartMonday, style.dateFontScale)
+                    WeekdayHeaderRow(style.weekStartMonday, style.dateFontScale, widgetPalette(style))
                     MonthGridView(
                         month, weeks, dayInfoByEpochDay, shiftTypeById, style, showShiftName = false,
                         modifier = GlanceModifier.defaultWeight()
