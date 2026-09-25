@@ -1,9 +1,17 @@
 package com.pulmm.shiftcalendar.widget.common
 
 import android.content.Context
+import androidx.glance.appwidget.updateAll
+import com.pulmm.shiftcalendar.widget.day.DayWidget
+import com.pulmm.shiftcalendar.widget.month.MonthWidget
+import com.pulmm.shiftcalendar.widget.monthsmall.SmallMonthWidget
+import com.pulmm.shiftcalendar.widget.week.WeekWidget
 
 object WidgetRefresher {
     suspend fun refreshAll(context: Context) {
-        // Task 19에서 하루/일주일/작은한달/한달위젯 updateAll 호출로 채운다
+        DayWidget().updateAll(context)
+        WeekWidget().updateAll(context)
+        SmallMonthWidget().updateAll(context)
+        MonthWidget().updateAll(context)
     }
 }
