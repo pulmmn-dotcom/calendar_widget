@@ -46,6 +46,7 @@ import com.pulmm.shiftcalendar.ShiftCalendarApp
 import com.pulmm.shiftcalendar.logic.LunarConverter
 import com.pulmm.shiftcalendar.logic.LunarDate
 import com.pulmm.shiftcalendar.widget.common.MemoEditActivity
+import com.pulmm.shiftcalendar.widget.common.WidgetFit
 import com.pulmm.shiftcalendar.widget.common.WidgetHeaderButtons
 import com.pulmm.shiftcalendar.widget.common.WidgetPalette
 import com.pulmm.shiftcalendar.widget.common.WidgetRoot
@@ -91,9 +92,9 @@ class WeekWidget : GlanceAppWidget() {
         provideContent {
             // 위젯 세션이 살아 있는 동안 update()는 provideGlance를 다시 부르지 않고 다시 그리기만 하므로,
             // 메모/근무/스타일 변경이 바로 보이도록 상태와 데이터를 컴포지션 안에서 읽는다.
-            val style = currentState<Preferences>().toWidgetStyle()
+            val rawStyle = currentState<Preferences>().toWidgetStyle()
             val today = LocalDate.now()
-            val weekStart = weekStartOf(today, style.weekStartMonday)
+            val weekStart = weekStartOf(today, rawStyle.weekStartMonday)
             val weekDates = remember(weekStart) { (0..6).map { weekStart.plusDays(it.toLong()) } }
             val dayInfos by remember(weekStart) {
                 repository.observeDayInfoRange(weekStart.toEpochDay(), weekStart.plusDays(6).toEpochDay())
@@ -102,17 +103,34 @@ class WeekWidget : GlanceAppWidget() {
             val dayInfoByEpochDay = remember(dayInfos) { dayInfos.associateBy { it.epochDay } }
             val shiftTypeById = remember(shiftTypes) { shiftTypes.associateBy { it.id } }
             // LunarConverter는 동기화된 싱글턴이라 순서대로 하나씩 부른다.
-            val lunarByEpochDay = remember(weekDates, style.showLunar) {
-                if (style.showLunar) {
+            val lunarByEpochDay = remember(weekDates, rawStyle.showLunar) {
+                if (rawStyle.showLunar) {
                     weekDates.mapNotNull { d -> LunarConverter.toLunar(d)?.let { d.toEpochDay() to it.compact() } }.toMap()
                 } else emptyMap()
             }
-            val weekOfMonth = remember(today, style.weekStartMonday) {
-                buildMonthGrid(YearMonth.from(today), style.weekStartMonday)
+            val weekOfMonth = remember(today, rawStyle.weekStartMonday) {
+                buildMonthGrid(YearMonth.from(today), rawStyle.weekStartMonday)
                     .indexOfFirst { week -> today in week } + 1
             }
+            val size = LocalSize.current
+            val compact = size.height < 125.dp
+            // 위젯이 작은데 글자 배율이 크면 잘리므로, 이 크기에 들어가는 배율로 줄여서 그린다.
+            val style = WidgetFit.week(
+                rawStyle, size.width.value, size.height.value, compact,
+                weekDates.map { date ->
+                    val info = dayInfoByEpochDay[date.toEpochDay()]
+                    val typeId = info?.shiftTypeId
+                    val type = typeId?.let { shiftTypeById[it] }
+                    WidgetFit.WeekDay(
+                        isToday = date == today,
+                        shiftName = type?.name ?: if (typeId != null) "삭제됨" else null,
+                        shiftDeleted = typeId != null && type == null,
+                        memo = info?.memoText?.takeIf { it.isNotBlank() },
+                        hasLunar = lunarByEpochDay.containsKey(date.toEpochDay())
+                    )
+                }
+            )
             val palette = widgetPalette(style)
-            val compact = LocalSize.current.height < 125.dp
             val rangeText = "${weekDates.first().monthValue}.${weekDates.first().dayOfMonth} ~ " +
                 "${weekDates.last().monthValue}.${weekDates.last().dayOfMonth}"
 

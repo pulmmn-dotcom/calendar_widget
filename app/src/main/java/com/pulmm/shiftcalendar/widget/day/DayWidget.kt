@@ -42,6 +42,7 @@ import com.pulmm.shiftcalendar.ShiftCalendarApp
 import com.pulmm.shiftcalendar.logic.DayInfo
 import com.pulmm.shiftcalendar.logic.LunarConverter
 import com.pulmm.shiftcalendar.widget.common.MemoEditActivity
+import com.pulmm.shiftcalendar.widget.common.WidgetFit
 import com.pulmm.shiftcalendar.widget.common.WidgetHeaderButtons
 import com.pulmm.shiftcalendar.widget.common.WidgetRoot
 import com.pulmm.shiftcalendar.widget.common.WidgetShiftPill
@@ -70,7 +71,7 @@ class DayWidget : GlanceAppWidget() {
         provideContent {
             // 위젯 세션이 살아 있는 동안 update()는 provideGlance를 다시 부르지 않고 다시 그리기만 하므로,
             // 메모/근무/스타일 변경이 바로 보이도록 상태와 데이터를 컴포지션 안에서 읽는다.
-            val style = currentState<Preferences>().toWidgetStyle()
+            val rawStyle = currentState<Preferences>().toWidgetStyle()
             val today = LocalDate.now()
             val dayInfos by remember(today) {
                 repository.observeDayInfoRange(today.toEpochDay(), today.toEpochDay())
@@ -80,12 +81,22 @@ class DayWidget : GlanceAppWidget() {
             val shiftType = dayInfo?.shiftTypeId?.let { typeId -> shiftTypes.find { it.id == typeId } }
             val isDeletedShift = dayInfo?.shiftTypeId != null && shiftType == null
             val memo = dayInfo?.memoText?.takeIf { it.isNotBlank() }
-            val lunar = remember(today, style.showLunar) {
-                if (style.showLunar) LunarConverter.toLunar(today) else null
+            val lunar = remember(today, rawStyle.showLunar) {
+                if (rawStyle.showLunar) LunarConverter.toLunar(today) else null
             }
-            val palette = widgetPalette(style)
-            val compact = LocalSize.current.height < COMPACT_HEIGHT
+            val size = LocalSize.current
+            val compact = size.height < COMPACT_HEIGHT
             val weekday = today.dayOfWeek.getDisplayName(JavaTextStyle.FULL, Locale.KOREAN)
+            val weekdayLine = weekday + (lunar?.let { " (${it.toShortDisplay()})" } ?: "")
+            // 위젯이 작은데 글자 배율이 크면 잘리므로, 이 크기에 들어가는 배율로 줄여서 그린다.
+            val style = WidgetFit.day(
+                rawStyle, size.width.value, size.height.value, compact, weekdayLine,
+                "${today.monthValue}.${today.dayOfMonth}",
+                shiftType?.name ?: if (isDeletedShift) "삭제됨" else "근무 없음",
+                if (shiftType != null) (if (compact) 14f else 18f) else (if (compact) 12f else 14f),
+                memo
+            )
+            val palette = widgetPalette(style)
 
             WidgetRoot(style) {
                 Column(
@@ -95,7 +106,6 @@ class DayWidget : GlanceAppWidget() {
                         )
                     )
                 ) {
-                    val weekdayLine = weekday + (lunar?.let { " (${it.toShortDisplay()})" } ?: "")
                     val weekdayStyle = TextStyle(
                         fontSize = ((if (compact) 10 else 11) * style.dateFontScale).sp,
                         color = ColorProvider(palette.textSecondary)

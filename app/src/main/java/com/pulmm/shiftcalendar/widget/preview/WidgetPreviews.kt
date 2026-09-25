@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.pulmm.shiftcalendar.R
 import com.pulmm.shiftcalendar.ui.theme.OnSurface
 import com.pulmm.shiftcalendar.ui.theme.SurfaceContainerHigh
+import com.pulmm.shiftcalendar.widget.common.WidgetFit
 import com.pulmm.shiftcalendar.widget.common.WidgetPalette
 import com.pulmm.shiftcalendar.widget.common.WidgetStyle
 import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
@@ -104,20 +105,28 @@ fun WidgetPreviewBackdrop(
 
 @Composable
 fun DayWidgetPreview(
-    style: WidgetStyle,
+    rawStyle: WidgetStyle,
     data: PreviewData,
     modifier: Modifier = Modifier,
     size: DpSize = PreviewSizes.Day
 ) {
-    val palette = widgetPalette(style)
     val today = data.today
     val day = data.dayAt(today)
     val shift = day?.shift
     val memo = day?.memoText?.takeIf { it.isNotBlank() }
     val compact = size.height < COMPACT_HEIGHT
     val weekday = today.dayOfWeek.getDisplayName(JavaTextStyle.FULL, Locale.KOREAN)
-    val lunar = if (style.showLunar) day?.lunarText else null
+    val lunar = if (rawStyle.showLunar) day?.lunarText else null
     val weekdayLine = weekday + (lunar?.let { " (음 $it)" } ?: "")
+    // 실제 위젯과 같은 규칙으로, 이 크기에 안 들어가는 글자 배율은 줄여서 그린다.
+    val style = WidgetFit.day(
+        rawStyle, size.width.value, size.height.value, compact, weekdayLine,
+        "${today.monthValue}.${today.dayOfMonth}",
+        shift?.name ?: "근무 없음",
+        if (shift != null) (if (compact) 14f else 18f) else (if (compact) 12f else 14f),
+        memo
+    )
+    val palette = widgetPalette(style)
 
     PreviewCard(style, size, modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -187,19 +196,33 @@ fun DayWidgetPreview(
 
 @Composable
 fun WeekWidgetPreview(
-    style: WidgetStyle,
+    rawStyle: WidgetStyle,
     data: PreviewData,
     modifier: Modifier = Modifier,
     size: DpSize = PreviewSizes.Week
 ) {
-    val palette = widgetPalette(style)
     val today = data.today
-    val weekStart = weekStartOf(today, style.weekStartMonday)
+    val weekStart = weekStartOf(today, rawStyle.weekStartMonday)
     val weekDates = remember(weekStart) { (0..6).map { weekStart.plusDays(it.toLong()) } }
-    val weekOfMonth = remember(today, style.weekStartMonday) {
-        buildMonthGrid(YearMonth.from(today), style.weekStartMonday).indexOfFirst { today in it } + 1
+    val weekOfMonth = remember(today, rawStyle.weekStartMonday) {
+        buildMonthGrid(YearMonth.from(today), rawStyle.weekStartMonday).indexOfFirst { today in it } + 1
     }
     val compact = size.height < COMPACT_HEIGHT
+    // 실제 위젯과 같은 규칙으로, 이 크기에 안 들어가는 글자 배율은 줄여서 그린다.
+    val style = WidgetFit.week(
+        rawStyle, size.width.value, size.height.value, compact,
+        weekDates.map { date ->
+            val info = data.dayAt(date)
+            WidgetFit.WeekDay(
+                isToday = date == today,
+                shiftName = info?.shift?.name,
+                shiftDeleted = false,
+                memo = info?.memoText?.takeIf { it.isNotBlank() },
+                hasLunar = rawStyle.showLunar && info?.lunarText != null
+            )
+        }
+    )
+    val palette = widgetPalette(style)
     val rangeText = "${weekDates.first().monthValue}.${weekDates.first().dayOfMonth} ~ " +
         "${weekDates.last().monthValue}.${weekDates.last().dayOfMonth}"
 
@@ -313,14 +336,13 @@ private fun WeekDayColumn(
 
 @Composable
 fun SmallMonthWidgetPreview(
-    style: WidgetStyle,
+    rawStyle: WidgetStyle,
     data: PreviewData,
     modifier: Modifier = Modifier,
     size: DpSize = PreviewSizes.SmallMonth
 ) {
-    val palette = widgetPalette(style)
     val month = YearMonth.from(data.today)
-    val weeks = remember(month, style.weekStartMonday) { buildMonthGrid(month, style.weekStartMonday) }
+    val weeks = remember(month, rawStyle.weekStartMonday) { buildMonthGrid(month, rawStyle.weekStartMonday) }
 
     // 실제 SmallMonthWidget과 같은 계산: 한 주 줄 높이가 빠듯하면 촘촘한 배치.
     val height = size.height
@@ -332,6 +354,9 @@ fun SmallMonthWidgetPreview(
     val headerHeight = buttonBox + if (compact) 1.dp else 4.dp
     val weekdayHeight = if (compact) 15.dp else 17.dp
     val rowHeight = (height - rootPadding * 2 - headerHeight - weekdayHeight) / weeks.size
+    // 실제 위젯과 같은 규칙으로, 이 폭에 안 들어가는 날짜 배율은 줄여서 그린다.
+    val style = WidgetFit.smallMonth(rawStyle, size.width.value, rootPadding.value, rowHeight.value)
+    val palette = widgetPalette(style)
 
     PreviewCard(style, size, modifier, padding = rootPadding) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -361,14 +386,22 @@ fun SmallMonthWidgetPreview(
 
 @Composable
 fun MonthWidgetPreview(
-    style: WidgetStyle,
+    rawStyle: WidgetStyle,
     data: PreviewData,
     modifier: Modifier = Modifier,
     size: DpSize = PreviewSizes.Month
 ) {
-    val palette = widgetPalette(style)
     val month = YearMonth.from(data.today)
-    val weeks = remember(month, style.weekStartMonday) { buildMonthGrid(month, style.weekStartMonday) }
+    val weeks = remember(month, rawStyle.weekStartMonday) { buildMonthGrid(month, rawStyle.weekStartMonday) }
+    // 실제 위젯과 같은 규칙으로, 이 크기에 안 들어가는 글자 배율은 줄여서 그린다.
+    val monthShifts = weeks.flatten().filter { YearMonth.from(it) == month }.mapNotNull { date ->
+        data.dayAt(date)?.shift?.let { it.name to false }
+    }
+    val style = WidgetFit.month(
+        rawStyle, size.width.value, size.height.value, weeks.size,
+        monthShifts.distinct(), monthShifts.isNotEmpty()
+    )
+    val palette = widgetPalette(style)
 
     PreviewCard(style, size, modifier) {
         Column(modifier = Modifier.fillMaxSize()) {

@@ -13,6 +13,8 @@ import androidx.glance.currentState
 import androidx.glance.action.actionParametersOf
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
+import androidx.glance.appwidget.SizeMode
+import androidx.glance.LocalSize
 import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.provideContent
 import androidx.glance.appwidget.state.getAppWidgetState
@@ -32,6 +34,7 @@ import com.pulmm.shiftcalendar.R
 import com.pulmm.shiftcalendar.ShiftCalendarApp
 import com.pulmm.shiftcalendar.widget.common.MonthGridView
 import com.pulmm.shiftcalendar.widget.common.WeekdayHeaderRow
+import com.pulmm.shiftcalendar.widget.common.WidgetFit
 import com.pulmm.shiftcalendar.widget.common.WidgetHeaderButtons
 import com.pulmm.shiftcalendar.widget.common.WidgetIconButton
 import com.pulmm.shiftcalendar.widget.common.WidgetRoot
@@ -43,6 +46,9 @@ import kotlinx.coroutines.flow.first
 import java.time.YearMonth
 
 class MonthWidget : GlanceAppWidget() {
+    // 실제 위젯 크기를 알아야 글자 배율이 칸보다 커서 잘리는 것을 막을 수 있다.
+    override val sizeMode: SizeMode = SizeMode.Exact
+
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val repository = (context.applicationContext as ShiftCalendarApp).repository
         val initialPrefs = getAppWidgetState(context, PreferencesGlanceStateDefinition, id)
@@ -57,7 +63,7 @@ class MonthWidget : GlanceAppWidget() {
             // 위젯 세션이 살아 있는 동안 update()는 provideGlance를 다시 부르지 않고 다시 그리기만 하므로,
             // 달 이동/스타일 변경이 바로 보이도록 상태와 데이터를 컴포지션 안에서 읽는다.
             val prefs = currentState<Preferences>()
-            val style = prefs.toWidgetStyle()
+            val rawStyle = prefs.toWidgetStyle()
             val month = YearMonth.now().plusMonths((prefs[WidgetSettingsKeys.MONTH_OFFSET] ?: 0).toLong())
             val dayInfos by remember(month) {
                 repository.observeDayInfoRange(month.atDay(1).toEpochDay(), month.atEndOfMonth().toEpochDay())
@@ -65,7 +71,18 @@ class MonthWidget : GlanceAppWidget() {
             val shiftTypes by remember { repository.observeShiftTypes() }.collectAsState(initialShiftTypes)
             val dayInfoByEpochDay = remember(dayInfos) { dayInfos.associateBy { it.epochDay } }
             val shiftTypeById = remember(shiftTypes) { shiftTypes.associateBy { it.id } }
-            val weeks = remember(month, style.weekStartMonday) { buildMonthGrid(month, style.weekStartMonday) }
+            val weeks = remember(month, rawStyle.weekStartMonday) { buildMonthGrid(month, rawStyle.weekStartMonday) }
+            val size = LocalSize.current
+            // 위젯이 작은데 글자 배율이 크면 잘리므로, 이 크기에 들어가는 배율로 줄여서 그린다.
+            val monthShifts = weeks.flatten().filter { YearMonth.from(it) == month }.mapNotNull { date ->
+                val typeId = dayInfoByEpochDay[date.toEpochDay()]?.shiftTypeId ?: return@mapNotNull null
+                val type = shiftTypeById[typeId]
+                (type?.name ?: "삭제됨") to (type == null)
+            }
+            val style = WidgetFit.month(
+                rawStyle, size.width.value, size.height.value, weeks.size,
+                monthShifts.distinct(), monthShifts.isNotEmpty()
+            )
             val palette = widgetPalette(style)
             WidgetRoot(style) {
                 Column(modifier = GlanceModifier.fillMaxSize()) {

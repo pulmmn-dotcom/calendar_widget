@@ -31,6 +31,7 @@ import androidx.glance.unit.ColorProvider
 import com.pulmm.shiftcalendar.ShiftCalendarApp
 import com.pulmm.shiftcalendar.widget.common.MonthGridView
 import com.pulmm.shiftcalendar.widget.common.WeekdayHeaderRow
+import com.pulmm.shiftcalendar.widget.common.WidgetFit
 import com.pulmm.shiftcalendar.widget.common.WidgetHeaderButtons
 import com.pulmm.shiftcalendar.widget.common.WidgetRoot
 import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
@@ -55,7 +56,7 @@ class SmallMonthWidget : GlanceAppWidget() {
         provideContent {
             // 위젯 세션이 살아 있는 동안 update()는 provideGlance를 다시 부르지 않고 다시 그리기만 하므로,
             // 메모/근무/스타일 변경이 바로 보이도록 상태와 데이터를 컴포지션 안에서 읽는다.
-            val style = currentState<Preferences>().toWidgetStyle()
+            val rawStyle = currentState<Preferences>().toWidgetStyle()
             val month = YearMonth.now()
             val dayInfos by remember(month) {
                 repository.observeDayInfoRange(month.atDay(1).toEpochDay(), month.atEndOfMonth().toEpochDay())
@@ -63,11 +64,11 @@ class SmallMonthWidget : GlanceAppWidget() {
             val shiftTypes by remember { repository.observeShiftTypes() }.collectAsState(initialShiftTypes)
             val dayInfoByEpochDay = remember(dayInfos) { dayInfos.associateBy { it.epochDay } }
             val shiftTypeById = remember(shiftTypes) { shiftTypes.associateBy { it.id } }
-            val weeks = remember(month, style.weekStartMonday) { buildMonthGrid(month, style.weekStartMonday) }
-            val palette = widgetPalette(style)
+            val weeks = remember(month, rawStyle.weekStartMonday) { buildMonthGrid(month, rawStyle.weekStartMonday) }
 
             // 한 주 줄에 쓸 수 있는 높이를 계산해, 넉넉하면 기본 배치, 빠듯하면 촘촘한 배치(작은 머리줄/여백)를 쓴다.
-            val height = LocalSize.current.height
+            val size = LocalSize.current
+            val height = size.height
             val roomyRowHeight = (height - 20.dp - ROOMY_HEADER - ROOMY_WEEKDAY) / weeks.size
             val compact = roomyRowHeight < ROOMY_ROW_MIN
             val rootPadding = if (compact) 6.dp else 10.dp
@@ -76,6 +77,9 @@ class SmallMonthWidget : GlanceAppWidget() {
             val headerHeight = buttonBox + if (compact) 1.dp else 4.dp
             val weekdayHeight = if (compact) 15.dp else ROOMY_WEEKDAY
             val rowHeight = (height - rootPadding * 2 - headerHeight - weekdayHeight) / weeks.size
+            // 위젯이 좁은데 날짜 배율이 크면 숫자 원이 칸보다 커지므로, 이 폭에 들어가는 배율로 줄여서 그린다.
+            val style = WidgetFit.smallMonth(rawStyle, size.width.value, rootPadding.value, rowHeight.value)
+            val palette = widgetPalette(style)
 
             WidgetRoot(style, padding = rootPadding) {
                 Column(modifier = GlanceModifier.fillMaxSize()) {
