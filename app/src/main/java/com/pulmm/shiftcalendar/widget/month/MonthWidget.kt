@@ -70,7 +70,10 @@ class MonthWidget : GlanceAppWidget() {
                         )
                     }
                     WeekdayHeaderRow(style.weekStartMonday, style.dateFontScale)
-                    MonthGridView(month, weeks, dayInfoByEpochDay, shiftTypeById, style, showShiftName = true)
+                    MonthGridView(
+                        month, weeks, dayInfoByEpochDay, shiftTypeById, style, showShiftName = true,
+                        modifier = GlanceModifier.defaultWeight()
+                    )
                 }
             }
         }

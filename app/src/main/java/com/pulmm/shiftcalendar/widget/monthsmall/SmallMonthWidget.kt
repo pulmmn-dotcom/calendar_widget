@@ -36,7 +36,10 @@ class SmallMonthWidget : GlanceAppWidget() {
             WidgetRoot(style) {
                 Column(modifier = GlanceModifier.fillMaxSize()) {
                     WeekdayHeaderRow(style.weekStartMonday, style.dateFontScale)
-                    MonthGridView(month, weeks, dayInfoByEpochDay, shiftTypeById, style, showShiftName = false)
+                    MonthGridView(
+                        month, weeks, dayInfoByEpochDay, shiftTypeById, style, showShiftName = false,
+                        modifier = GlanceModifier.defaultWeight()
+                    )
                 }
             }
         }
