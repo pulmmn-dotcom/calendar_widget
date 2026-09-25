@@ -1,33 +1,41 @@
 package com.pulmm.shiftcalendar.ui.calendar
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ChevronLeft
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -39,17 +47,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pulmm.shiftcalendar.data.entity.ShiftType
 import com.pulmm.shiftcalendar.logic.DayInfo
 import com.pulmm.shiftcalendar.ui.rememberRepository
+import com.pulmm.shiftcalendar.ui.theme.CalendarColors
+import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 
-@OptIn(ExperimentalMaterial3Api::class)
+private val MinCellHeight = 44.dp
+
 @Composable
 fun CalendarScreen() {
     val viewModel: CalendarViewModel = viewModel(factory = CalendarViewModel.Factory(rememberRepository()))
@@ -60,58 +75,53 @@ fun CalendarScreen() {
     var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
     var showMonthPicker by remember { mutableStateOf(false) }
 
-    Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Text(
-                    "${month.year}년 ${month.monthValue}월",
-                    modifier = Modifier.clickable { showMonthPicker = true }
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = viewModel::goToPreviousMonth) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "이전 달")
-                }
-            },
-            actions = {
-                IconButton(onClick = viewModel::goToNextMonth) {
-                    Icon(Icons.Default.ArrowForward, contentDescription = "다음 달")
-                }
-            }
-        )
-    }) { padding ->
-        val dragAccumulator = remember { mutableStateOf(0f) }
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectHorizontalDragGestures(
-                        onDragEnd = { dragAccumulator.value = 0f },
-                        onDragCancel = { dragAccumulator.value = 0f },
-                        onHorizontalDrag = { change, dragAmount ->
-                            change.consume()
-                            dragAccumulator.value += dragAmount
-                            when {
-                                dragAccumulator.value > 120f -> {
-                                    viewModel.goToPreviousMonth()
-                                    dragAccumulator.value = 0f
-                                }
-                                dragAccumulator.value < -120f -> {
-                                    viewModel.goToNextMonth()
-                                    dragAccumulator.value = 0f
-                                }
+    val dragAccumulator = remember { mutableStateOf(0f) }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.statusBars)
+            .pointerInput(Unit) {
+                detectHorizontalDragGestures(
+                    onDragEnd = { dragAccumulator.value = 0f },
+                    onDragCancel = { dragAccumulator.value = 0f },
+                    onHorizontalDrag = { change, dragAmount ->
+                        change.consume()
+                        dragAccumulator.value += dragAmount
+                        when {
+                            dragAccumulator.value > 120f -> {
+                                viewModel.goToPreviousMonth()
+                                dragAccumulator.value = 0f
+                            }
+                            dragAccumulator.value < -120f -> {
+                                viewModel.goToNextMonth()
+                                dragAccumulator.value = 0f
                             }
                         }
-                    )
-                }
+                    }
+                )
+            }
+    ) {
+        CalendarHeader(
+            month = month,
+            onPrevious = viewModel::goToPreviousMonth,
+            onNext = viewModel::goToNextMonth,
+            onTitleClick = { showMonthPicker = true }
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(CalendarColors.surfaceCard)
         ) {
+            HorizontalDivider(color = CalendarColors.gridLine)
             WeekdayHeaderRow()
+            HorizontalDivider(color = CalendarColors.gridLine)
             MonthGrid(
                 month = month,
                 dayInfoByEpochDay = remember(dayInfos) { dayInfos.associateBy { it.epochDay } },
                 shiftTypeById = shiftTypeById,
-                onDayClick = { date -> selectedDate = date }
+                onDayClick = { date -> selectedDate = date },
+                modifier = Modifier.weight(1f)
             )
         }
     }
@@ -142,12 +152,64 @@ fun CalendarScreen() {
 }
 
 @Composable
+private fun CalendarHeader(
+    month: YearMonth,
+    onPrevious: () -> Unit,
+    onNext: () -> Unit,
+    onTitleClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        IconButton(onClick = onPrevious) {
+            Icon(Icons.Default.ChevronLeft, contentDescription = "이전 달")
+        }
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(role = Role.Button, onClick = onTitleClick)
+                .padding(start = 12.dp, end = 6.dp, top = 6.dp, bottom = 6.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                "${month.year}년 ${month.monthValue}월",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Icon(
+                Icons.Default.ArrowDropDown,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+        IconButton(onClick = onNext) {
+            Icon(Icons.Default.ChevronRight, contentDescription = "다음 달")
+        }
+    }
+}
+
+@Composable
 private fun WeekdayHeaderRow() {
     val labels = listOf("일", "월", "화", "수", "목", "금", "토")
     Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
         labels.forEachIndexed { index, label ->
-            val color = when (index) { 0 -> Color.Red; 6 -> Color.Blue; else -> Color.Gray }
-            Text(label, color = color, modifier = Modifier.weight(1f, fill = true), textAlign = TextAlign.Center)
+            val color = when (index) {
+                0 -> CalendarColors.sunday
+                6 -> CalendarColors.saturday
+                else -> MaterialTheme.colorScheme.onSurfaceVariant
+            }
+            Text(
+                label,
+                style = MaterialTheme.typography.labelMedium,
+                color = color,
+                modifier = Modifier.weight(1f, fill = true),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
@@ -157,49 +219,106 @@ private fun MonthGrid(
     month: YearMonth,
     dayInfoByEpochDay: Map<Long, DayInfo>,
     shiftTypeById: Map<Long, ShiftType>,
-    onDayClick: (LocalDate) -> Unit
+    onDayClick: (LocalDate) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    val firstDayOfMonth = month.atDay(1)
-    val leadingBlanks = firstDayOfMonth.dayOfWeek.value % 7
-    val totalDays = month.lengthOfMonth()
-    val cells: List<LocalDate?> = List(leadingBlanks) { null } + (1..totalDays).map { month.atDay(it) }
-    val paddedCells = cells + List((7 - cells.size % 7) % 7) { null }
-    val weeks = paddedCells.chunked(7)
+    val weeks = remember(month) { buildMonthGrid(month, weekStartMonday = false) }
     val today = LocalDate.now()
 
-    Column {
-        weeks.forEach { week ->
-            Row(modifier = Modifier.fillMaxWidth()) {
-                week.forEach { date ->
-                    Box(
-                        modifier = Modifier
-                            .weight(1f, fill = true)
-                            .aspectRatio(1f)
-                            .padding(2.dp)
-                            .then(
-                                if (date == today) Modifier.background(Color(0xFFFFF3CD), RoundedCornerShape(6.dp))
-                                else Modifier
-                            )
-                            .clickable(enabled = date != null) { date?.let(onDayClick) },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        if (date != null) {
-                            val dayInfo = dayInfoByEpochDay[date.toEpochDay()]
-                            val shiftType = dayInfo?.shiftTypeId?.let { shiftTypeById[it] }
-                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                Text("${date.dayOfMonth}", fontWeight = if (date == today) FontWeight.Bold else FontWeight.Normal)
-                                if (shiftType != null) {
-                                    Text(shiftType.name, style = MaterialTheme.typography.labelSmall, color = Color(shiftType.colorArgb))
-                                } else if (dayInfo?.shiftTypeId != null) {
-                                    Text("삭제됨", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-                                }
-                                if (dayInfo?.memoText?.isNotBlank() == true) {
-                                    Box(modifier = Modifier.size(4.dp).clip(CircleShape).background(Color(0xFFF1C40F)))
-                                }
-                            }
-                        }
+    // 주 행들이 남는 높이를 똑같이 나눠 갖고, 칸 최소 높이(44dp)에 못 미치면 스크롤한다.
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val rowHeight: Dp = maxOf(MinCellHeight, maxHeight / weeks.size)
+        Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+            weeks.forEach { week ->
+                Row(modifier = Modifier.fillMaxWidth().height(rowHeight)) {
+                    week.forEach { date ->
+                        val inMonth = YearMonth.from(date) == month
+                        val dayInfo = if (inMonth) dayInfoByEpochDay[date.toEpochDay()] else null
+                        val shiftId = dayInfo?.shiftTypeId
+                        DayCell(
+                            date = date,
+                            inMonth = inMonth,
+                            isToday = inMonth && date == today,
+                            shiftType = shiftId?.let { shiftTypeById[it] },
+                            isShiftDeleted = shiftId != null && shiftTypeById[shiftId] == null,
+                            hasMemo = dayInfo?.memoText?.isNotBlank() == true,
+                            onClick = if (inMonth) ({ onDayClick(date) }) else null,
+                            modifier = Modifier.weight(1f).fillMaxHeight()
+                        )
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DayCell(
+    date: LocalDate,
+    inMonth: Boolean,
+    isToday: Boolean,
+    shiftType: ShiftType?,
+    isShiftDeleted: Boolean,
+    hasMemo: Boolean,
+    onClick: (() -> Unit)?,
+    modifier: Modifier = Modifier
+) {
+    val numberColor = when {
+        !inMonth -> CalendarColors.otherMonthText
+        date.dayOfWeek == DayOfWeek.SUNDAY -> CalendarColors.sunday
+        date.dayOfWeek == DayOfWeek.SATURDAY -> CalendarColors.saturday
+        else -> MaterialTheme.colorScheme.onSurface
+    }
+    val todayShape = RoundedCornerShape(8.dp)
+
+    Box(
+        modifier = modifier
+            .border(0.5.dp, CalendarColors.gridLine)
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(2.dp)
+                .then(
+                    if (isToday) {
+                        Modifier
+                            .background(CalendarColors.todayBg, todayShape)
+                            .border(BorderStroke(1.5.dp, CalendarColors.todayRing), todayShape)
+                    } else {
+                        Modifier
+                    }
+                )
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize().padding(top = 3.dp, start = 2.dp, end = 2.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    "${date.dayOfMonth}",
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp,
+                    fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium,
+                    color = numberColor
+                )
+                if (inMonth) {
+                    Spacer(modifier = Modifier.height(1.dp))
+                    if (shiftType != null) {
+                        ShiftBadge(name = shiftType.name, color = Color(shiftType.colorArgb))
+                    } else if (isShiftDeleted) {
+                        DeletedShiftBadge()
+                    }
+                }
+            }
+            if (hasMemo) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(top = 4.dp, end = 4.dp)
+                        .size(3.5.dp)
+                        .clip(CircleShape)
+                        .background(CalendarColors.memoDot)
+                )
             }
         }
     }
@@ -216,16 +335,18 @@ private fun MonthYearPickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("연월 이동") },
+        shape = RoundedCornerShape(20.dp),
+        containerColor = CalendarColors.surfaceSheet,
+        title = { Text("연월 이동", fontWeight = FontWeight.Bold) },
         text = {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(onClick = { selectedYear -= 1 }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "이전 연도")
+                        Icon(Icons.Default.ChevronLeft, contentDescription = "이전 연도")
                     }
                     Text(
                         "${selectedYear}년",
@@ -233,39 +354,28 @@ private fun MonthYearPickerDialog(
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                     IconButton(onClick = { selectedYear += 1 }) {
-                        Icon(Icons.Default.ArrowForward, contentDescription = "다음 연도")
+                        Icon(Icons.Default.ChevronRight, contentDescription = "다음 연도")
                     }
                 }
-                val monthRows = (1..12).chunked(4)
-                monthRows.forEach { rowMonths ->
+                (1..12).chunked(3).forEach { rowMonths ->
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         rowMonths.forEach { monthValue ->
-                            val isSelected = monthValue == selectedMonth
-                            if (isSelected) {
-                                Button(
-                                    onClick = { selectedMonth = monthValue },
-                                    modifier = Modifier.weight(1f)
-                                ) {
-                                    Text("${monthValue}월")
-                                }
-                            } else {
-                                OutlinedButton(
-                                    onClick = { selectedMonth = monthValue },
-                                    modifier = Modifier.weight(1f)
-                                ) {
-                                    Text("${monthValue}월")
-                                }
-                            }
+                            MonthPill(
+                                label = "${monthValue}월",
+                                selected = monthValue == selectedMonth,
+                                onClick = { selectedMonth = monthValue },
+                                modifier = Modifier.weight(1f)
+                            )
                         }
                     }
                 }
             }
         },
         confirmButton = {
-            TextButton(onClick = { onConfirm(YearMonth.of(selectedYear, selectedMonth)) }) {
+            Button(onClick = { onConfirm(YearMonth.of(selectedYear, selectedMonth)) }) {
                 Text("이동")
             }
         },
@@ -275,4 +385,29 @@ private fun MonthYearPickerDialog(
             }
         }
     )
+}
+
+@Composable
+private fun MonthPill(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val shape = CircleShape
+    Box(
+        modifier = modifier
+            .height(40.dp)
+            .clip(shape)
+            .background(if (selected) MaterialTheme.colorScheme.primary else CalendarColors.surfaceBg)
+            .then(if (selected) Modifier else Modifier.border(1.dp, CalendarColors.borderSubtle, shape))
+            .clickable(role = Role.Button, onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            label,
+            style = MaterialTheme.typography.labelLarge,
+            color = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+        )
+    }
 }
