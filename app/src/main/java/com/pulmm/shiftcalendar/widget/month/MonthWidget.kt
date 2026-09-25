@@ -1,6 +1,7 @@
 package com.pulmm.shiftcalendar.widget.month
 
 import android.content.Context
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
@@ -17,6 +18,7 @@ import androidx.glance.layout.fillMaxWidth
 import androidx.glance.state.PreferencesGlanceStateDefinition
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import androidx.glance.unit.ColorProvider
 import com.pulmm.shiftcalendar.ShiftCalendarApp
 import com.pulmm.shiftcalendar.widget.common.MonthGridView
 import com.pulmm.shiftcalendar.widget.common.WeekdayHeaderRow
@@ -51,18 +53,20 @@ class MonthWidget : GlanceAppWidget() {
                             "◀",
                             modifier = GlanceModifier.clickable(
                                 actionRunCallback<MonthOffsetAction>(actionParametersOf(MonthOffsetAction.DELTA_KEY to -1))
-                            )
+                            ),
+                            style = TextStyle(color = ColorProvider(Color(0xFFEEEEEE)))
                         )
                         Text(
                             "${month.year}년 ${month.monthValue}월",
                             modifier = GlanceModifier.defaultWeight(),
-                            style = TextStyle(fontSize = (12 * style.dateFontScale).sp)
+                            style = TextStyle(fontSize = (12 * style.dateFontScale).sp, color = ColorProvider(Color(0xFFEEEEEE)))
                         )
                         Text(
                             "▶",
                             modifier = GlanceModifier.clickable(
                                 actionRunCallback<MonthOffsetAction>(actionParametersOf(MonthOffsetAction.DELTA_KEY to 1))
-                            )
+                            ),
+                            style = TextStyle(color = ColorProvider(Color(0xFFEEEEEE)))
                         )
                     }
                     WeekdayHeaderRow(style.weekStartMonday, style.dateFontScale)
