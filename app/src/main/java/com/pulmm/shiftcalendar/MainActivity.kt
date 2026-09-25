@@ -42,9 +42,16 @@ import com.pulmm.shiftcalendar.ui.widgethelp.WidgetHelpScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val startTab = if (intent?.getStringExtra(EXTRA_START_TAB) == START_TAB_PATTERN) Tab.PATTERN else Tab.CALENDAR
         setContent {
-            ShiftCalendarTheme { MainScreen() }
+            ShiftCalendarTheme { MainScreen(startTab) }
         }
+    }
+
+    companion object {
+        /** 앱을 열 때 처음 보여줄 탭을 정하는 값. 없으면 달력. */
+        const val EXTRA_START_TAB = "tab"
+        const val START_TAB_PATTERN = "pattern"
     }
 }
 
@@ -60,8 +67,8 @@ private enum class Tab(
 }
 
 @Composable
-private fun MainScreen() {
-    var selectedTab by remember { mutableStateOf(Tab.CALENDAR) }
+private fun MainScreen(startTab: Tab) {
+    var selectedTab by remember { mutableStateOf(startTab) }
 
     Scaffold(
         bottomBar = {

@@ -21,6 +21,7 @@ import com.pulmm.shiftcalendar.widget.common.DEFAULT_WIDGET_STYLE
 import com.pulmm.shiftcalendar.widget.common.WidgetConfigContent
 import com.pulmm.shiftcalendar.widget.common.applyStyle
 import com.pulmm.shiftcalendar.widget.common.toWidgetStyle
+import com.pulmm.shiftcalendar.widget.preview.PreviewType
 import kotlinx.coroutines.launch
 
 class SmallMonthWidgetConfigActivity : ComponentActivity() {
@@ -45,7 +46,13 @@ class SmallMonthWidgetConfigActivity : ComponentActivity() {
                 initialStyle = getAppWidgetState(this@SmallMonthWidgetConfigActivity, PreferencesGlanceStateDefinition, glanceId).toWidgetStyle()
             }
 
-            WidgetConfigContent(initialStyle = initialStyle, showLunarOption = false, title = "작은한달위젯 설정") { style ->
+            WidgetConfigContent(
+                initialStyle = initialStyle,
+                showLunarOption = false,
+                title = "작은한달위젯 설정",
+                previewType = PreviewType.SMALL_MONTH,
+                onCancel = { finish() }
+            ) { style ->
                 lifecycleScope.launch {
                     updateAppWidgetState(this@SmallMonthWidgetConfigActivity, PreferencesGlanceStateDefinition, glanceId) { prefs ->
                         prefs.toMutablePreferences().applyStyle(style).toPreferences()

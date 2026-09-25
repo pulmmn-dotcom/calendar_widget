@@ -42,7 +42,7 @@
         <activity
             android:name=".widget.day.DayWidgetConfigActivity"
             android:exported="false"
-            android:theme="@style/Theme.ShiftCalendar.Dialog">
+            android:theme="@style/Theme.ShiftCalendar">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -67,7 +67,7 @@
         <activity
             android:name=".widget.week.WeekWidgetConfigActivity"
             android:exported="false"
-            android:theme="@style/Theme.ShiftCalendar.Dialog">
+            android:theme="@style/Theme.ShiftCalendar">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -87,7 +87,7 @@
         <activity
             android:name=".widget.monthsmall.SmallMonthWidgetConfigActivity"
             android:exported="false"
-            android:theme="@style/Theme.ShiftCalendar.Dialog">
+            android:theme="@style/Theme.ShiftCalendar">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -107,7 +107,7 @@
         <activity
             android:name=".widget.month.MonthWidgetConfigActivity"
             android:exported="false"
-            android:theme="@style/Theme.ShiftCalendar.Dialog">
+            android:theme="@style/Theme.ShiftCalendar">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
