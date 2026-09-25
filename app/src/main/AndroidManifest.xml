@@ -53,5 +53,25 @@
             android:exported="false"
             android:theme="@style/Theme.ShiftCalendar.Dialog" />
 
+        <receiver
+            android:name=".widget.week.WeekWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/week_widget_info" />
+        </receiver>
+
+        <activity
+            android:name=".widget.week.WeekWidgetConfigActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ShiftCalendar.Dialog">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
