@@ -1,0 +1,493 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-card": "#FFFFFF", "calendar-today-ring": "#3B82F6", "shift-special": "#E11D48", "primary-container": "#1e3a8a", "surface-container-low": "#eff4ff", "on-primary-container": "#90a8ff", "outline": "#757682", "tertiary-fixed": "#ffdbcb", "on-error-container": "#93000a", "surface-sheet": "#FFFFFF", "background": "#f8f9ff", "surface-container-highest": "#d3e4fe", "on-secondary-container": "#006f66", "primary": "#00236f", "shift-off": "#64748B", "secondary-fixed-dim": "#6bd8cb", "shift-standby": "#06B6D4", "on-primary-fixed": "#00164e", "on-tertiary": "#ffffff", "error-container": "#ffdad6", "calendar-today-bg": "#EFF6FF", "on-background": "#0b1c30", "calendar-saturday": "#2563EB", "memo-dot": "#F59E0B", "surface-dim": "#cbdbf5", "tertiary-container": "#6e2c00", "secondary-container": "#86f2e4", "shift-training": "#EC4899", "inverse-on-surface": "#eaf1ff", "on-primary-fixed-variant": "#264191", "shift-night": "#7C3AED", "secondary-fixed": "#89f5e7", "tertiary-fixed-dim": "#ffb691", "surface-tint": "#4059aa", "on-error": "#ffffff", "surface-container": "#e5eeff", "surface-variant": "#d3e4fe", "border-subtle": "#E2E8F0", "shift-evening": "#F59E0B", "shift-vacation": "#10B981", "on-secondary-fixed": "#00201d", "tertiary": "#4b1c00", "surface-container-lowest": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#f39461", "outline-variant": "#c5c5d3", "surface-container-high": "#dce9ff", "surface-bright": "#f8f9ff", "on-surface": "#0b1c30", "on-primary": "#ffffff", "primary-fixed": "#dce1ff", "secondary": "#006a61", "shift-day": "#2563EB", "on-tertiary-fixed-variant": "#773205", "on-secondary-fixed-variant": "#005049", "on-surface-variant": "#444651", "inverse-surface": "#213145", "error": "#ba1a1a", "surface": "#f8f9ff", "on-tertiary-fixed": "#341100", "calendar-sunday": "#DC2626", "surface-bg": "#F8FAFC", "primary-fixed-dim": "#b6c4ff", "inverse-primary": "#b6c4ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xl": "1.5rem", "margin": "1rem", "space-xs": "0.25rem", "space-2xs": "0.125rem", "space-2xl": "2rem", "space-md": "0.75rem", "space-lg": "1rem", "margin-mobile": "0.875rem", "gutter": "0.75rem", "space-sm": "0.5rem" }, fontFamily: { "headline-md": ["Inter"], "label-sm": ["Inter"], "shift-tag": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "label-md": ["Inter"], "widget-numeral": ["Inter"], "headline-lg": ["Inter"], "body-md": ["Inter"], "label-lg": ["Inter"], "body-lg": ["Inter"] }, fontSize: { "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.01em", "fontWeight": "600" }], "shift-tag": ["10.5px", { "lineHeight": "12px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "widget-numeral": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-space-sm flex items-center justify-between"><div class="flex items-center gap-space-2xs"><button aria-label="뒤로 가기" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-md text-headline-md text-on-surface">Widget Settings</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-28">
+<div class="px-margin pt-space-xs pb-space-sm flex items-center justify-between">
+<button class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-md text-label-md flex items-center gap-space-2xs" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+<span class="">취소</span>
+</button>
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-primary text-[20px]">widgets</span>
+<span class="font-headline-md text-headline-md text-on-surface">위젯 커스텀 설정</span>
+</div>
+<button class="px-space-md py-space-xs rounded-full bg-primary text-on-primary hover:bg-primary-container transition-all shadow-sm font-label-md text-label-md flex items-center gap-space-2xs" id="top-apply-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span class="">완료</span>
+</button>
+</div>
+<section class="px-margin mb-space-lg">
+<div class="relative w-full rounded-xl overflow-hidden shadow-md bg-inverse-surface p-space-md">
+<div class="absolute inset-0 bg-cover bg-center opacity-70" data-alt="Soft atmospheric blurred abstract gradient wallpaper mimicking Android launcher home screen with calm dusk violet and deep navy hues, minimal and clean smartphone aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBK9j-lo836Nouf9ZSurCzCTYwV2IdBD3MXxQi7mB_R0UJ3jfNBDKsL2cqJ0NiPm70yO_NAFr1esotsqGcsjSm3h18REewd51If4GJh5jC2SSu4Sp2vyhNSw3Qo7T8CXFkPJDAz7nCpxLtA8Qtd_AdT-e3oxp79yST8KQY9Qu2N5m-JLB-xF3eWHP6s3mQFim0iBUO3BHUs3lAAEx_xe_PcysQEc1CBziHsBMzSfbsnFn5uAgwQH4M')"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none"></div>
+<div class="relative z-10 flex items-center justify-between mb-space-md text-surface">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px] text-surface-container-highest">view_quilt</span>
+<span class="font-label-sm text-label-sm text-surface-container-highest tracking-wide">실시간 런처 미리보기 (4×2)</span>
+</div>
+<div class="flex items-center gap-space-2xs bg-black/40 backdrop-blur-md px-space-xs py-space-2xs rounded-full text-surface text-[11px] font-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed animate-pulse"></span>
+<span class="">라이브 동기화</span>
+</div>
+</div>
+<div class="relative z-10 mx-auto w-full max-w-sm rounded-xl p-space-md shadow-xl transition-all duration-300 backdrop-blur-sm" id="widget-preview-box" style="background-color: rgba(255, 255, 255, 0.9);">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md font-bold transition-all text-on-surface" id="preview-month-label">10월 3주차</span>
+<span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface-variant transition-all" id="preview-lunar-pill" style="display: inline-block;">음력 9.15</span>
+</div>
+<div class="flex items-center gap-space-2xs px-space-xs py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">sync</span>
+
+</div>
+</div>
+<div class="grid grid-cols-7 gap-space-2xs text-center mb-space-xs" id="preview-calendar-days">
+<div class="flex flex-col items-center">
+<span class="header-day-label font-label-sm text-label-sm text-calendar-sunday font-semibold" id="preview-header-0">일</span>
+<span class="preview-date-font text-on-surface font-semibold text-[13px]" id="preview-date-0" style="font-size: 13px; line-height: 16px;">12</span>
+<div class="preview-shift-pill mt-space-2xs px-1 py-0.5 rounded-md font-shift-tag text-shift-tag bg-shift-off/15 text-shift-off" id="preview-shift-0" style="font-size: 12.6px; line-height: 14.4px;">휴무</div>
+<span class="preview-memo-text font-body-sm text-[10px] text-memo-dot mt-0.5 line-clamp-1" id="preview-memo-0" style="font-size: 9px; line-height: 11.7px;">병원</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="header-day-label font-label-sm text-label-sm text-on-surface-variant" id="preview-header-1">월</span>
+<span class="preview-date-font text-on-surface font-semibold text-[13px]" id="preview-date-1" style="font-size: 13px; line-height: 16px;">13</span>
+<div class="preview-shift-pill mt-space-2xs px-1 py-0.5 rounded-md font-shift-tag text-shift-tag bg-shift-day/15 text-shift-day" id="preview-shift-1" style="font-size: 12.6px; line-height: 14.4px;">주간</div>
+<span class="preview-memo-text font-body-sm text-[10px] text-outline mt-0.5" id="preview-memo-1" style="font-size: 9px; line-height: 11.7px;">-</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="header-day-label font-label-sm text-label-sm text-on-surface-variant" id="preview-header-2">화</span>
+<span class="preview-date-font text-on-surface font-semibold text-[13px]" id="preview-date-2" style="font-size: 13px; line-height: 16px;">14</span>
+<div class="preview-shift-pill mt-space-2xs px-1 py-0.5 rounded-md font-shift-tag text-shift-tag bg-shift-day/15 text-shift-day" id="preview-shift-2" style="font-size: 12.6px; line-height: 14.4px;">주간</div>
+<span class="preview-memo-text font-body-sm text-[10px] text-outline mt-0.5" id="preview-memo-2" style="font-size: 9px; line-height: 11.7px;">-</span>
+</div>
+<div class="flex flex-col items-center rounded-lg bg-calendar-today-bg/80 p-0.5">
+<span class="header-day-label font-label-sm text-label-sm text-calendar-today-ring font-bold" id="preview-header-3">수</span>
+<span class="preview-date-font text-calendar-today-ring font-bold text-[13px]" id="preview-date-3" style="font-size: 13px; line-height: 16px;">15</span>
+<div class="preview-shift-pill mt-space-2xs px-1 py-0.5 rounded-md font-shift-tag text-shift-tag bg-shift-night text-on-primary" id="preview-shift-3" style="font-size: 12.6px; line-height: 14.4px;">야간</div>
+<span class="preview-memo-text font-body-sm text-[10px] text-memo-dot font-semibold mt-0.5 line-clamp-1" id="preview-memo-3" style="font-size: 9px; line-height: 11.7px;">야식회</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="header-day-label font-label-sm text-label-sm text-on-surface-variant" id="preview-header-4">목</span>
+<span class="preview-date-font text-on-surface font-semibold text-[13px]" id="preview-date-4" style="font-size: 13px; line-height: 16px;">16</span>
+<div class="preview-shift-pill mt-space-2xs px-1 py-0.5 rounded-md font-shift-tag text-shift-tag bg-shift-night/15 text-shift-night" id="preview-shift-4" style="font-size: 12.6px; line-height: 14.4px;">야간</div>
+<span class="preview-memo-text font-body-sm text-[10px] text-outline mt-0.5" id="preview-memo-4" style="font-size: 9px; line-height: 11.7px;">-</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="header-day-label font-label-sm text-label-sm text-on-surface-variant" id="preview-header-5">금</span>
+<span class="preview-date-font text-on-surface font-semibold text-[13px]" id="preview-date-5" style="font-size: 13px; line-height: 16px;">17</span>
+<div class="preview-shift-pill mt-space-2xs px-1 py-0.5 rounded-md font-shift-tag text-shift-tag bg-shift-off/15 text-shift-off" id="preview-shift-5" style="font-size: 12.6px; line-height: 14.4px;">비번</div>
+<span class="preview-memo-text font-body-sm text-[10px] text-outline mt-0.5" id="preview-memo-5" style="font-size: 9px; line-height: 11.7px;">-</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="header-day-label font-label-sm text-label-sm text-calendar-saturday font-semibold" id="preview-header-6">토</span>
+<span class="preview-date-font text-on-surface font-semibold text-[13px]" id="preview-date-6" style="font-size: 13px; line-height: 16px;">18</span>
+<div class="preview-shift-pill mt-space-2xs px-1 py-0.5 rounded-md font-shift-tag text-shift-tag bg-shift-off/15 text-shift-off" id="preview-shift-6" style="font-size: 12.6px; line-height: 14.4px;">휴무</div>
+<span class="preview-memo-text font-body-sm text-[10px] text-memo-dot mt-0.5 line-clamp-1" id="preview-memo-6" style="font-size: 9px; line-height: 11.7px;">캠핑</span>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant">
+<span class="flex items-center gap-space-2xs">
+<span class="w-1.5 h-1.5 rounded-full bg-shift-night"></span>
+<span class="">오늘: 집중 야간근무 (20:00~08:00)</span>
+</span>
+<span class="font-body-sm text-outline">업데이트 14:02</span>
+</div>
+</div>
+</div>
+</section>
+<div class="px-margin flex flex-col gap-space-md">
+<section class="bg-surface-card rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">palette</span>
+<span class="font-headline-md text-headline-md text-on-surface">배경 색상 테마</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium" id="theme-indicator-text">화이트 테마</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm p-1 bg-surface-container rounded-lg">
+<button class="flex items-center justify-center gap-space-xs py-space-sm rounded-md bg-surface-card text-on-surface shadow-sm font-label-lg text-label-lg transition-all" id="btn-theme-white" type="button">
+<span class="w-4 h-4 rounded-full bg-white shadow-inner flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+</span>
+<span class="">화이트 (White)</span>
+</button>
+<button class="flex items-center justify-center gap-space-xs py-space-sm rounded-md text-on-surface-variant hover:text-on-surface transition-all font-label-lg text-label-lg" id="btn-theme-black" type="button">
+<span class="w-4 h-4 rounded-full bg-inverse-surface shadow-inner"></span>
+<span class="">블랙 (Black)</span>
+</button>
+</div>
+</section>
+<section class="bg-surface-card rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">opacity</span>
+<span class="font-headline-md text-headline-md text-on-surface">배경 투명도</span>
+</div>
+<span class="px-space-xs py-0.5 rounded-md bg-primary-fixed text-on-primary-fixed font-label-md text-label-md" id="opacity-val-badge">90%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+        내부 텍스트와 뱃지는 선명하게 유지되며, 배경 투명도만 조절됩니다.
+      </p>
+<div class="flex items-center gap-space-md">
+<span class="font-label-sm text-label-sm text-outline">20%</span>
+<input class="w-full h-2 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" id="slider-opacity" max="100" min="20" step="5" type="range" value="90">
+<span class="font-label-sm text-label-sm text-outline">100%</span>
+</div>
+</section>
+<section class="bg-surface-card rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">format_size</span>
+<span class="font-headline-md text-headline-md text-on-surface">글자 크기 스케일 (0.7x ~ 1.6x)</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary flex items-center gap-space-2xs hover:underline" id="btn-reset-scale" type="button">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+<span class="">기본값 초기화</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+        근무 현장에서 글자 식별이 편안하도록 항목별 스케일을 정밀 조정합니다.
+      </p>
+<div class="flex flex-col gap-space-md">
+<div class="p-space-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface">날짜 / 요일 글자 크기</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-primary" id="scale-date-text">1.0x</span>
+<div class="flex items-center gap-space-2xs">
+<button class="btn-step w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center hover:bg-surface-dim transition-colors" data-delta="-0.1" data-target="slider-scale-date" type="button">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<button class="btn-step w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center hover:bg-surface-dim transition-colors" data-delta="0.1" data-target="slider-scale-date" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" id="slider-scale-date" max="1.6" min="0.7" step="0.1" type="range" value="1.0">
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface">근무 이름 글자 크기</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-shift-night" id="scale-shift-text">1.2x</span>
+<div class="flex items-center gap-space-2xs">
+<button class="btn-step w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center hover:bg-surface-dim transition-colors" data-delta="-0.1" data-target="slider-scale-shift" type="button">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<button class="btn-step w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center hover:bg-surface-dim transition-colors" data-delta="0.1" data-target="slider-scale-shift" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" id="slider-scale-shift" max="1.6" min="0.7" step="0.1" type="range" value="1.2">
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface">메모 글자 크기</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-memo-dot" id="scale-memo-text">0.9x</span>
+<div class="flex items-center gap-space-2xs">
+<button class="btn-step w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center hover:bg-surface-dim transition-colors" data-delta="-0.1" data-target="slider-scale-memo" type="button">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<button class="btn-step w-7 h-7 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center hover:bg-surface-dim transition-colors" data-delta="0.1" data-target="slider-scale-memo" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" id="slider-scale-memo" max="1.6" min="0.7" step="0.1" type="range" value="0.9">
+</div>
+</div>
+</section>
+<section class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<span class="font-headline-md text-headline-md text-on-surface">부가 기능 설정</span>
+</div>
+<div class="flex items-center justify-between py-space-xs">
+<div class="flex flex-col pr-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface">음력 표시</span>
+<span class="px-space-xs py-0.5 rounded text-[10px] font-label-sm bg-secondary-container text-on-secondary-container">하루/일주일 전용</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">위젯 상단에 오늘 날짜의 음력 정보를 병기합니다.</span>
+</div>
+<button class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-primary transition-colors duration-200 ease-in-out focus:outline-none" id="toggle-lunar" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform translate-x-5.5 rounded-full bg-surface-card shadow ring-0 transition duration-200 ease-in-out mt-0.5" id="toggle-lunar-thumb"></span>
+</button>
+</div>
+<div class="h-[1px] bg-surface-container"></div>
+<div class="flex items-center justify-between py-space-xs">
+<div class="flex flex-col pr-space-md">
+<span class="font-label-lg text-label-lg text-on-surface">월요일부터 시작</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">주간 캘린더의 첫 요일을 일요일 대신 월요일로 배치합니다.</span>
+</div>
+<button class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-surface-container-highest transition-colors duration-200 ease-in-out focus:outline-none" id="toggle-monday" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform translate-x-0.5 rounded-full bg-surface-card shadow ring-0 transition duration-200 ease-in-out mt-0.5" id="toggle-monday-thumb"></span>
+</button>
+</div>
+</section>
+<section class="bg-surface-container-high rounded-xl p-space-md shadow-sm relative overflow-hidden">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">info</span>
+</div>
+<div class="flex-1">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-space-2xs">근무 패턴 연동 확인</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+            등록된 근무 패턴이 없을 경우 기본 근무표가 표시됩니다. 정확한 내 근무일정을 위젯에 띄우려면 패턴을 완성해 주세요.
+          </p>
+<button class="inline-flex items-center gap-space-2xs px-space-md py-space-xs rounded-full bg-surface-card text-primary font-label-md text-label-md shadow-sm hover:bg-surface-bright transition-all" type="button">
+<span class="">교대 패턴 설정하러 가기</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<div class="fixed bottom-0 inset-x-0 p-margin bg-surface/90 backdrop-blur-lg shadow-lg z-40">
+<button class="w-full py-space-md px-space-lg rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary-container active:scale-[0.99] transition-all flex items-center justify-center gap-space-xs" id="bottom-submit-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">add_to_home_screen</span>
+<span class="">위젯 생성 및 홈에 추가</span>
+</button>
+</div>
+</div>
+<script>
+(() => {
+  let isWhiteTheme = true;
+  let opacity = 90;
+  let scaleDate = 1.0;
+  let scaleShift = 1.2;
+  let scaleMemo = 0.9;
+  let isLunarOn = true;
+  let isMondayStart = false;
+
+  const previewBox = document.getElementById('widget-preview-box');
+  const monthLabel = document.getElementById('preview-month-label');
+  const lunarPill = document.getElementById('preview-lunar-pill');
+  const opacityBadge = document.getElementById('opacity-val-badge');
+  const themeIndicator = document.getElementById('theme-indicator-text');
+
+  const btnWhite = document.getElementById('btn-theme-white');
+  const btnBlack = document.getElementById('btn-theme-black');
+  const sliderOpacity = document.getElementById('slider-opacity');
+
+  const sliderScaleDate = document.getElementById('slider-scale-date');
+  const sliderScaleShift = document.getElementById('slider-scale-shift');
+  const sliderScaleMemo = document.getElementById('slider-scale-memo');
+  const textScaleDate = document.getElementById('scale-date-text');
+  const textScaleShift = document.getElementById('scale-shift-text');
+  const textScaleMemo = document.getElementById('scale-memo-text');
+  const btnResetScale = document.getElementById('btn-reset-scale');
+
+  const toggleLunar = document.getElementById('toggle-lunar');
+  const toggleLunarThumb = document.getElementById('toggle-lunar-thumb');
+  const toggleMonday = document.getElementById('toggle-monday');
+  const toggleMondayThumb = document.getElementById('toggle-monday-thumb');
+
+  function updatePreview() {
+    const alpha = opacity / 100;
+    if (isWhiteTheme) {
+      previewBox.style.backgroundColor = `rgba(255, 255, 255, ${alpha})`;
+      previewBox.classList.remove('text-surface');
+      monthLabel.classList.remove('text-surface');
+      monthLabel.classList.add('text-on-surface');
+      themeIndicator.textContent = '화이트 테마';
+      btnWhite.className = 'flex items-center justify-center gap-space-xs py-space-sm rounded-md bg-surface-card text-on-surface shadow-sm font-label-lg text-label-lg transition-all';
+      btnBlack.className = 'flex items-center justify-center gap-space-xs py-space-sm rounded-md text-on-surface-variant hover:text-on-surface transition-all font-label-lg text-label-lg';
+    } else {
+      previewBox.style.backgroundColor = `rgba(11, 28, 48, ${alpha})`;
+      previewBox.classList.add('text-surface');
+      monthLabel.classList.add('text-surface');
+      monthLabel.classList.remove('text-on-surface');
+      themeIndicator.textContent = '블랙 테마';
+      btnBlack.className = 'flex items-center justify-center gap-space-xs py-space-sm rounded-md bg-inverse-surface text-surface shadow-sm font-label-lg text-label-lg transition-all';
+      btnWhite.className = 'flex items-center justify-center gap-space-xs py-space-sm rounded-md text-on-surface-variant hover:text-on-surface transition-all font-label-lg text-label-lg';
+    }
+
+    opacityBadge.textContent = `${opacity}%`;
+
+    document.querySelectorAll('.preview-date-font').forEach(el => {
+      el.style.fontSize = `${13 * scaleDate}px`;
+      el.style.lineHeight = `${16 * scaleDate}px`;
+      if (!isWhiteTheme && !el.classList.contains('text-calendar-today-ring')) {
+        el.classList.add('text-surface');
+        el.classList.remove('text-on-surface');
+      } else if (isWhiteTheme && !el.classList.contains('text-calendar-today-ring')) {
+        el.classList.remove('text-surface');
+        el.classList.add('text-on-surface');
+      }
+    });
+
+    document.querySelectorAll('.preview-shift-pill').forEach(el => {
+      el.style.fontSize = `${10.5 * scaleShift}px`;
+      el.style.lineHeight = `${12 * scaleShift}px`;
+    });
+
+    document.querySelectorAll('.preview-memo-text').forEach(el => {
+      el.style.fontSize = `${10 * scaleMemo}px`;
+      el.style.lineHeight = `${13 * scaleMemo}px`;
+    });
+
+    if (isLunarOn) {
+      lunarPill.style.display = 'inline-block';
+    } else {
+      lunarPill.style.display = 'none';
+    }
+
+    renderWeekdays();
+  }
+
+  const daysSun = [
+    { day: '일', date: '12', shift: '휴무', cls: 'bg-shift-off/15 text-shift-off', isSun: true, isSat: false, memo: '병원' },
+    { day: '월', date: '13', shift: '주간', cls: 'bg-shift-day/15 text-shift-day', isSun: false, isSat: false, memo: '-' },
+    { day: '화', date: '14', shift: '주간', cls: 'bg-shift-day/15 text-shift-day', isSun: false, isSat: false, memo: '-' },
+    { day: '수', date: '15', shift: '야간', cls: 'bg-shift-night text-on-primary', isToday: true, memo: '야식회' },
+    { day: '목', date: '16', shift: '야간', cls: 'bg-shift-night/15 text-shift-night', isSun: false, isSat: false, memo: '-' },
+    { day: '금', date: '17', shift: '비번', cls: 'bg-shift-off/15 text-shift-off', isSun: false, isSat: false, memo: '-' },
+    { day: '토', date: '18', shift: '휴무', cls: 'bg-shift-off/15 text-shift-off', isSun: false, isSat: true, memo: '캠핑' }
+  ];
+
+  const daysMon = [
+    { day: '월', date: '13', shift: '주간', cls: 'bg-shift-day/15 text-shift-day', isSun: false, isSat: false, memo: '-' },
+    { day: '화', date: '14', shift: '주간', cls: 'bg-shift-day/15 text-shift-day', isSun: false, isSat: false, memo: '-' },
+    { day: '수', date: '15', shift: '야간', cls: 'bg-shift-night text-on-primary', isToday: true, memo: '야식회' },
+    { day: '목', date: '16', shift: '야간', cls: 'bg-shift-night/15 text-shift-night', isSun: false, isSat: false, memo: '-' },
+    { day: '금', date: '17', shift: '비번', cls: 'bg-shift-off/15 text-shift-off', isSun: false, isSat: false, memo: '-' },
+    { day: '토', date: '18', shift: '휴무', cls: 'bg-shift-off/15 text-shift-off', isSun: false, isSat: true, memo: '캠핑' },
+    { day: '일', date: '19', shift: '휴무', cls: 'bg-shift-off/15 text-shift-off', isSun: true, isSat: false, memo: '-' }
+  ];
+
+  function renderWeekdays() {
+    const arr = isMondayStart ? daysMon : daysSun;
+    arr.forEach((d, idx) => {
+      const h = document.getElementById(`preview-header-${idx}`);
+      const dt = document.getElementById(`preview-date-${idx}`);
+      const sh = document.getElementById(`preview-shift-${idx}`);
+      const me = document.getElementById(`preview-memo-${idx}`);
+
+      if (h && dt && sh && me) {
+        h.textContent = d.day;
+        dt.textContent = d.date;
+        sh.textContent = d.shift;
+        sh.className = `preview-shift-pill mt-space-2xs px-1 py-0.5 rounded-md font-shift-tag text-shift-tag ${d.cls}`;
+        me.textContent = d.memo;
+
+        if (d.isSun) {
+          h.className = 'header-day-label font-label-sm text-label-sm text-calendar-sunday font-semibold';
+        } else if (d.isSat) {
+          h.className = 'header-day-label font-label-sm text-label-sm text-calendar-saturday font-semibold';
+        } else if (d.isToday) {
+          h.className = 'header-day-label font-label-sm text-label-sm text-calendar-today-ring font-bold';
+        } else {
+          h.className = `header-day-label font-label-sm text-label-sm ${isWhiteTheme ? 'text-on-surface-variant' : 'text-surface-variant'}`;
+        }
+      }
+    });
+  }
+
+  btnWhite.addEventListener('click', () => {
+    isWhiteTheme = true;
+    updatePreview();
+  });
+
+  btnBlack.addEventListener('click', () => {
+    isWhiteTheme = false;
+    updatePreview();
+  });
+
+  sliderOpacity.addEventListener('input', (e) => {
+    opacity = parseInt(e.target.value, 10);
+    updatePreview();
+  });
+
+  sliderScaleDate.addEventListener('input', (e) => {
+    scaleDate = parseFloat(e.target.value);
+    textScaleDate.textContent = `${scaleDate.toFixed(1)}x`;
+    updatePreview();
+  });
+
+  sliderScaleShift.addEventListener('input', (e) => {
+    scaleShift = parseFloat(e.target.value);
+    textScaleShift.textContent = `${scaleShift.toFixed(1)}x`;
+    updatePreview();
+  });
+
+  sliderScaleMemo.addEventListener('input', (e) => {
+    scaleMemo = parseFloat(e.target.value);
+    textScaleMemo.textContent = `${scaleMemo.toFixed(1)}x`;
+    updatePreview();
+  });
+
+  document.querySelectorAll('.btn-step').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const delta = parseFloat(btn.getAttribute('data-delta'));
+      const slider = document.getElementById(targetId);
+      if (slider) {
+        let val = Math.min(1.6, Math.max(0.7, parseFloat(slider.value) + delta));
+        slider.value = val.toFixed(1);
+        slider.dispatchEvent(new Event('input'));
+      }
+    });
+  });
+
+  btnResetScale.addEventListener('click', () => {
+    scaleDate = 1.0;
+    scaleShift = 1.2;
+    scaleMemo = 0.9;
+    sliderScaleDate.value = "1.0";
+    sliderScaleShift.value = "1.2";
+    sliderScaleMemo.value = "0.9";
+    textScaleDate.textContent = "1.0x";
+    textScaleShift.textContent = "1.2x";
+    textScaleMemo.textContent = "0.9x";
+    updatePreview();
+  });
+
+  toggleLunar.addEventListener('click', () => {
+    isLunarOn = !isLunarOn;
+    if (isLunarOn) {
+      toggleLunar.classList.replace('bg-surface-container-highest', 'bg-primary');
+      toggleLunarThumb.classList.replace('translate-x-0.5', 'translate-x-5.5');
+    } else {
+      toggleLunar.classList.replace('bg-primary', 'bg-surface-container-highest');
+      toggleLunarThumb.classList.replace('translate-x-5.5', 'translate-x-0.5');
+    }
+    updatePreview();
+  });
+
+  toggleMonday.addEventListener('click', () => {
+    isMondayStart = !isMondayStart;
+    if (isMondayStart) {
+      toggleMonday.classList.replace('bg-surface-container-highest', 'bg-primary');
+      toggleMondayThumb.classList.replace('translate-x-0.5', 'translate-x-5.5');
+    } else {
+      toggleMonday.classList.replace('bg-primary', 'bg-surface-container-highest');
+      toggleMondayThumb.classList.replace('translate-x-5.5', 'translate-x-0.5');
+    }
+    updatePreview();
+  });
+
+  const completeAction = () => {
+    const btn = document.getElementById('bottom-submit-btn');
+    btn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin">sync</span><span>홈 화면에 적용 중...</span>`;
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">check_circle</span><span>적용 완료!</span>`;
+      btn.classList.replace('bg-primary', 'bg-shift-vacation');
+      setTimeout(() => {
+        history.back();
+      }, 700);
+    }, 600);
+  };
+
+  document.getElementById('bottom-submit-btn').addEventListener('click', completeAction);
+  document.getElementById('top-apply-btn').addEventListener('click', completeAction);
+
+  updatePreview();
+})();
+</script></main>
+
+</body></html>

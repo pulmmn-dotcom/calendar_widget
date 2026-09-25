@@ -1,0 +1,446 @@
+<!DOCTYPE html><html lang="ko" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-card": "#FFFFFF", "calendar-today-ring": "#3B82F6", "shift-special": "#E11D48", "primary-container": "#1e3a8a", "surface-container-low": "#eff4ff", "on-primary-container": "#90a8ff", "outline": "#757682", "tertiary-fixed": "#ffdbcb", "on-error-container": "#93000a", "surface-sheet": "#FFFFFF", "background": "#f8f9ff", "surface-container-highest": "#d3e4fe", "on-secondary-container": "#006f66", "primary": "#00236f", "shift-off": "#64748B", "secondary-fixed-dim": "#6bd8cb", "shift-standby": "#06B6D4", "on-primary-fixed": "#00164e", "on-tertiary": "#ffffff", "error-container": "#ffdad6", "calendar-today-bg": "#EFF6FF", "on-background": "#0b1c30", "calendar-saturday": "#2563EB", "memo-dot": "#F59E0B", "surface-dim": "#cbdbf5", "tertiary-container": "#6e2c00", "secondary-container": "#86f2e4", "shift-training": "#EC4899", "inverse-on-surface": "#eaf1ff", "on-primary-fixed-variant": "#264191", "shift-night": "#7C3AED", "secondary-fixed": "#89f5e7", "tertiary-fixed-dim": "#ffb691", "surface-tint": "#4059aa", "on-error": "#ffffff", "surface-container": "#e5eeff", "surface-variant": "#d3e4fe", "border-subtle": "#E2E8F0", "shift-evening": "#F59E0B", "shift-vacation": "#10B981", "on-secondary-fixed": "#00201d", "tertiary": "#4b1c00", "surface-container-lowest": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#f39461", "outline-variant": "#c5c5d3", "surface-container-high": "#dce9ff", "surface-bright": "#f8f9ff", "on-surface": "#0b1c30", "on-primary": "#ffffff", "primary-fixed": "#dce1ff", "secondary": "#006a61", "shift-day": "#2563EB", "on-tertiary-fixed-variant": "#773205", "on-secondary-fixed-variant": "#005049", "on-surface-variant": "#444651", "inverse-surface": "#213145", "error": "#ba1a1a", "surface": "#f8f9ff", "on-tertiary-fixed": "#341100", "calendar-sunday": "#DC2626", "surface-bg": "#F8FAFC", "primary-fixed-dim": "#b6c4ff", "inverse-primary": "#b6c4ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xl": "1.5rem", "margin": "1rem", "space-xs": "0.25rem", "space-2xs": "0.125rem", "space-2xl": "2rem", "space-md": "0.75rem", "space-lg": "1rem", "margin-mobile": "0.875rem", "gutter": "0.75rem", "space-sm": "0.5rem" }, fontFamily: { "headline-md": ["Inter"], "label-sm": ["Inter"], "shift-tag": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "label-md": ["Inter"], "widget-numeral": ["Inter"], "headline-lg": ["Inter"], "body-md": ["Inter"], "label-lg": ["Inter"], "body-lg": ["Inter"] }, fontSize: { "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.01em", "fontWeight": "600" }], "shift-tag": ["10.5px", { "lineHeight": "12px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "widget-numeral": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[24px]">event_repeat</span><h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Widget Showcase</h1></div><div class="flex items-center gap-space-sm"><button aria-label="알림" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full pb-10">
+<!-- Launcher Experience Banner -->
+<div class="px-margin pt-space-md pb-space-sm flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Android Launcher Preview</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">홈 화면 위젯 쇼케이스</h2>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-space-xs rounded-full shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-label-sm text-on-surface">실시간 미리보기</span>
+</div>
+</div>
+<!-- Interactive Mode Switcher & Opacity Slider -->
+<div class="px-margin mb-space-md">
+<div class="bg-surface-card p-space-md rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">palette</span>
+<span class="font-label-lg text-label-lg text-on-surface">위젯 테마 스타일</span>
+</div>
+<div class="inline-flex p-space-2xs bg-surface-container rounded-full">
+<button class="px-space-sm py-1 rounded-full font-label-sm text-label-sm transition-all bg-surface-card text-primary shadow-sm font-bold" id="btn-theme-light" onclick="setWidgetTheme('light')">라이트</button>
+<button class="px-space-sm py-1 rounded-full font-label-sm text-label-sm transition-all text-on-surface-variant hover:text-on-surface" id="btn-theme-dark" onclick="setWidgetTheme('dark')">다크</button>
+<button class="px-space-sm py-1 rounded-full font-label-sm text-label-sm transition-all text-on-surface-variant hover:text-on-surface" id="btn-theme-glass" onclick="setWidgetTheme('glass')">투명 (85%)</button>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<span class="material-symbols-outlined text-outline text-[18px]">opacity</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant shrink-0">배경 투명도</span>
+<input class="w-full h-1.5 bg-surface-container-high rounded-full appearance-none cursor-pointer accent-primary" id="opacity-slider" max="100" min="30" oninput="adjustOpacity(this.value)" type="range" value="95">
+<span class="font-label-sm text-label-sm text-primary font-bold shrink-0 w-8 text-right" id="opacity-val">95%</span>
+</div>
+</div>
+</div>
+<!-- Phone Mockup Container with Realistic Wallpaper -->
+<div class="px-margin mb-space-xl">
+<div class="relative w-full rounded-2xl overflow-hidden shadow-2xl p-space-md" data-alt="Calm minimal mobile phone wallpaper with subtle blurred dawn gradient of deep twilight indigo, soft morning cyan, and warm ambient sunlight, ultra clean high aesthetic, smooth vertical gradient suitable for app icons and widgets." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCfsOcBjFutRUpV6TvxaKBvOPytRuCiF-UR2vHAEkobwzPwWpDXRK7v1sVj7CksHk7bnA4kXNdN80SjClRkh-jzWq40KxTpJgb4xpU8xYY268Ifyobwge_yJmuLfVqV6sj0HHyGZygsju--xwHWdDLq6kbQ9amyX0bxuLKCHMYl4fBcv1cwl7mn88osqVHqRyJpY9hLK7IMTEFVK5x_YQlv6Vr5WPitkhjy7_0vFXsb0oIr3NTlsm4')">
+<!-- Ambient Dark Glass Overlay for Launcher contrast -->
+<div class="absolute inset-0 bg-slate-950/25 pointer-events-none"></div>
+<!-- Android Launcher Status Bar -->
+<div class="relative z-10 flex items-center justify-between text-white/95 px-space-xs pb-space-sm">
+<span class="font-label-md text-label-md tracking-tight font-bold">09:41</span>
+<div class="flex items-center gap-space-xs text-white/90">
+<span class="material-symbols-outlined text-[15px]">notifications</span>
+<span class="material-symbols-outlined text-[15px]">wifi</span>
+<span class="material-symbols-outlined text-[15px]">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[17px]">battery_full</span>
+</div>
+</div>
+<!-- Launcher Search / Glance Bar -->
+<div class="relative z-10 mb-space-md">
+<div class="flex items-center justify-between bg-white/20 backdrop-blur-md px-space-md py-space-xs rounded-full shadow-sm text-white">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-white">search</span>
+<span class="font-body-sm text-body-sm text-white/80">Google 검색 또는 근무 일정</span>
+</div>
+<div class="flex items-center gap-space-xs text-white">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+</div>
+</div>
+</div>
+<!-- SECTION 1: 하루 위젯 (Day Widget 2x2, 110x110dp preview) -->
+<div class="relative z-10 mb-space-lg">
+<!-- Grid spec badge -->
+<div class="flex items-center justify-between mb-space-xs">
+<div class="inline-flex items-center gap-space-2xs bg-slate-900/70 backdrop-blur-sm px-space-xs py-0.5 rounded text-white/90">
+<span class="material-symbols-outlined text-[13px] text-secondary-fixed">grid_view</span>
+<span class="font-label-sm text-label-sm">하루 위젯 (2 × 2) • 110 × 110dp</span>
+</div>
+<span class="font-label-sm text-label-sm text-white/80 drop-shadow">터치하여 메모 확인</span>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<!-- Widget Instance: Shift Day (Primary Active Today) -->
+<div class="widget-box relative cursor-pointer bg-surface-card rounded-2xl p-space-md shadow-xl transition-all duration-300 transform active:scale-95 flex flex-col justify-between h-[156px] overflow-hidden select-none" id="widget-day-card" onclick="openMemoSheet()">
+<!-- Top meta row: Lunar + Quick Info -->
+<div class="flex items-center justify-between"><span class="inline-flex items-center gap-0.5 font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-1.5 py-0.5 rounded-full" id="widget-lunar-tag"><span class="material-symbols-outlined text-[11px] text-memo-dot">dark_mode</span> 음력 9.5</span><div class="flex items-center gap-1"><div class="w-2.5 h-2.5 rounded-full bg-memo-dot shadow-sm mr-0.5" title="메모 있음"></div><button aria-label="오늘 날짜로 이동 및 새로고침" class="w-6 h-6 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="오늘로 이동"><span class="material-symbols-outlined text-[15px]">refresh</span></button><button aria-label="위젯 설정" class="w-6 h-6 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="위젯 설정"><span class="material-symbols-outlined text-[15px]">settings</span></button></div></div>
+<!-- Date and Day info -->
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant" id="widget-date-num">10월 15일 목요일</span>
+<div class="flex items-baseline justify-between mt-space-2xs">
+<span class="px-space-sm py-0.5 rounded-lg bg-shift-day text-on-primary font-headline-md text-headline-md tracking-tight shadow-sm" id="widget-shift-badge">
+                  주간
+                </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold" id="widget-time-range">07:00 ~ 15:30</span>
+</div>
+</div>
+<!-- Memo Preview Strip -->
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-xs py-1 rounded-lg" id="widget-memo-preview">
+<span class="material-symbols-outlined text-[14px] text-memo-dot shrink-0">edit_note</span>
+<p class="font-body-sm text-body-sm text-on-surface truncate" id="widget-memo-text">야간 전 헬스, 안전교육 점검</p>
+</div>
+</div>
+<!-- Paired 2x2 companion / App Shortcuts / Quick Info -->
+<div class="flex flex-col gap-space-sm justify-between">
+<!-- Shift handover companion tile -->
+<div class="widget-box bg-surface-card/90 backdrop-blur-md rounded-2xl p-space-md shadow-xl flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">다음 근무 D-1</span>
+<span class="material-symbols-outlined text-[16px] text-shift-night">bedtime</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10.16 (금)</span>
+<div class="font-headline-md text-headline-md text-shift-night font-bold">야간 근무</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">인수인계 22:00 시작</span>
+</div>
+<!-- Launcher quick-launch dock icon simulation -->
+<div class="flex items-center justify-around bg-surface-card/75 backdrop-blur-md rounded-xl p-space-xs shadow-md">
+<button class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm active:scale-95 transition-transform" title="달력 열기">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center text-primary shadow-sm active:scale-95 transition-transform" title="빠른 교대 알림">
+<span class="material-symbols-outlined text-[20px]">alarm</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center text-primary shadow-sm active:scale-95 transition-transform" onclick="toggleShiftTypeDemo()" title="근무 교대 변경">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 2: 일주일 위젯 (Week Widget 4x2, 250x110dp preview) -->
+<div class="relative z-10 mb-space-sm">
+<!-- Grid spec badge -->
+<div class="flex items-center justify-between mb-space-xs">
+<div class="inline-flex items-center gap-space-2xs bg-slate-900/70 backdrop-blur-sm px-space-xs py-0.5 rounded text-white/90">
+<span class="material-symbols-outlined text-[13px] text-secondary-fixed">calendar_view_week</span>
+<span class="font-label-sm text-label-sm">일주일 위젯 (4 × 2) • 250 × 110dp</span>
+</div>
+<span class="font-label-sm text-label-sm text-white/80 drop-shadow">월간 주기 연속 표시</span>
+</div>
+<!-- 7-Day Timeline Card Container -->
+<div class="widget-box bg-surface-card rounded-2xl p-space-md shadow-2xl transition-all duration-300 overflow-hidden" id="widget-week-card">
+<!-- Week Header Row -->
+<div class="flex items-center justify-between pb-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">date_range</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold" id="week-header-title">10월 3주차 (10.12 ~ 10.18)</span>
+</div>
+<div class="flex items-center gap-space-xs"><div class="flex items-center gap-0.5 ml-1"><button aria-label="오늘 날짜로 이동 및 새로고침" class="w-6 h-6 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="오늘로 이동"><span class="material-symbols-outlined text-[16px]">refresh</span></button><button aria-label="위젯 설정" class="w-6 h-6 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="위젯 설정"><span class="material-symbols-outlined text-[16px]">settings</span></button></div></div>
+</div>
+<!-- 7-Day Horizontal Timeline Grid -->
+<div class="grid grid-cols-7 gap-space-2xs text-center select-none">
+<!-- Day 1: 월 10.12 -->
+<div class="flex flex-col items-center p-space-2xs rounded-lg transition-transform hover:scale-105">
+<span class="font-label-sm text-label-sm text-on-surface-variant">월</span>
+<span class="font-label-md text-label-md text-on-surface font-bold my-0.5">12</span>
+<span class="w-full py-0.5 rounded font-shift-tag text-shift-tag bg-shift-day text-on-primary">주간</span>
+<span class="font-label-sm text-label-sm text-outline mt-1 truncate max-w-full">체력</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 text-[9px]">9.2</span>
+</div>
+<!-- Day 2: 화 10.13 -->
+<div class="flex flex-col items-center p-space-2xs rounded-lg transition-transform hover:scale-105">
+<span class="font-label-sm text-label-sm text-on-surface-variant">화</span>
+<span class="font-label-md text-label-md text-on-surface font-bold my-0.5">13</span>
+<span class="w-full py-0.5 rounded font-shift-tag text-shift-tag bg-shift-day text-on-primary">주간</span>
+<span class="font-label-sm text-label-sm text-outline mt-1 truncate max-w-full">검진</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 text-[9px]">9.3</span>
+</div>
+<!-- Day 3: 수 10.14 -->
+<div class="flex flex-col items-center p-space-2xs rounded-lg transition-transform hover:scale-105">
+<span class="font-label-sm text-label-sm text-on-surface-variant">수</span>
+<span class="font-label-md text-label-md text-on-surface font-bold my-0.5">14</span>
+<span class="w-full py-0.5 rounded font-shift-tag text-shift-tag bg-shift-evening text-on-primary">저녁</span>
+<span class="font-label-sm text-label-sm text-outline mt-1 truncate max-w-full">회식</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 text-[9px]">9.4</span>
+</div>
+<!-- Day 4: 목 10.15 (TODAY - Distinct Highlight) -->
+<div class="flex flex-col items-center p-space-2xs rounded-xl bg-calendar-today-bg shadow-sm ring-2 ring-calendar-today-ring relative -translate-y-0.5">
+<span class="font-label-sm text-label-sm text-calendar-today-ring font-extrabold">오늘</span>
+<span class="font-label-md text-label-md text-on-surface font-extrabold my-0.5">15</span>
+<span class="w-full py-0.5 rounded font-shift-tag text-shift-tag bg-shift-day text-on-primary shadow-sm">주간</span>
+<div class="flex items-center justify-center gap-0.5 mt-1">
+<span class="w-1.5 h-1.5 rounded-full bg-memo-dot shrink-0"></span>
+<span class="font-label-sm text-label-sm text-primary font-bold truncate max-w-full">교육</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold text-[9px]">9.5</span>
+</div>
+<!-- Day 5: 금 10.16 -->
+<div class="flex flex-col items-center p-space-2xs rounded-lg transition-transform hover:scale-105">
+<span class="font-label-sm text-label-sm text-on-surface-variant">금</span>
+<span class="font-label-md text-label-md text-on-surface font-bold my-0.5">16</span>
+<span class="w-full py-0.5 rounded font-shift-tag text-shift-tag bg-shift-night text-on-primary">야간</span>
+<span class="font-label-sm text-label-sm text-outline mt-1 truncate max-w-full">수당</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 text-[9px]">9.6</span>
+</div>
+<!-- Day 6: 토 10.17 -->
+<div class="flex flex-col items-center p-space-2xs rounded-lg transition-transform hover:scale-105">
+<span class="font-label-sm text-label-sm text-calendar-saturday font-bold">토</span>
+<span class="font-label-md text-label-md text-calendar-saturday font-bold my-0.5">17</span>
+<span class="w-full py-0.5 rounded font-shift-tag text-shift-tag bg-shift-night text-on-primary">야간</span>
+<span class="font-label-sm text-label-sm text-outline mt-1 truncate max-w-full">당직</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 text-[9px]">9.7</span>
+</div>
+<!-- Day 7: 일 10.18 -->
+<div class="flex flex-col items-center p-space-2xs rounded-lg transition-transform hover:scale-105">
+<span class="font-label-sm text-label-sm text-calendar-sunday font-bold">일</span>
+<span class="font-label-md text-label-md text-calendar-sunday font-bold my-0.5">18</span>
+<span class="w-full py-0.5 rounded font-shift-tag text-shift-tag bg-shift-off text-on-primary">휴무</span>
+<span class="font-label-sm text-label-sm text-shift-vacation font-bold mt-1 truncate max-w-full">휴식</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant/70 text-[9px]">9.8</span>
+</div>
+</div>
+<!-- Bottom micro-status indicator -->
+<div class="mt-space-xs pt-space-xs flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-space-2xs">
+
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- Android Launcher Bottom App Dock -->
+<div class="relative z-10 pt-space-sm pb-space-xs flex items-center justify-around px-space-md">
+<div class="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined text-[24px]">call</span>
+</div>
+<div class="w-12 h-12 rounded-2xl bg-sky-600 flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined text-[24px]">chat</span>
+</div>
+<div class="w-12 h-12 rounded-2xl bg-indigo-700 flex items-center justify-center text-white shadow-lg ring-2 ring-white/50">
+<span class="material-symbols-outlined text-[24px]">event_repeat</span>
+</div>
+<div class="w-12 h-12 rounded-2xl bg-amber-600 flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined text-[24px]">camera_alt</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Date / Memo Detail Bottom Sheet Mockup (Modal State) -->
+<div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end justify-center hidden" id="memo-bottom-sheet" onclick="closeMemoSheet(event)">
+<div class="w-full max-w-md bg-surface-sheet rounded-t-2xl p-space-lg shadow-2xl flex flex-col gap-space-md" onclick="event.stopPropagation()">
+<!-- Handle -->
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full mx-auto mb-space-2xs cursor-grab"></div>
+<!-- Sheet Header -->
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-primary font-bold">교대 일정 메모 상세보기</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">2026년 10월 15일 목요일</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">음력 9월 5일 • 가을 분기 안전순환 주기</span>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high" onclick="closeMemoSheet(null)">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Shift Switcher Chips -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant">배정된 근무 형태</label>
+<div class="grid grid-cols-4 gap-space-xs">
+<button class="py-2 rounded-xl bg-shift-day text-on-primary font-label-md text-label-md flex flex-col items-center gap-0.5 shadow-sm">
+<span class="font-bold">주간</span>
+<span class="text-[10px] opacity-80">07:00</span>
+</button>
+<button class="py-2 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md flex flex-col items-center gap-0.5 hover:bg-surface-container-high">
+<span class="font-bold">저녁</span>
+<span class="text-[10px] opacity-70">15:00</span>
+</button>
+<button class="py-2 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md flex flex-col items-center gap-0.5 hover:bg-shift-night hover:text-on-primary">
+<span class="font-bold">야간</span>
+<span class="text-[10px] opacity-70">22:00</span>
+</button>
+<button class="py-2 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md flex flex-col items-center gap-0.5 hover:bg-shift-off hover:text-on-primary">
+<span class="font-bold">휴무</span>
+<span class="text-[10px] opacity-70">OFF</span>
+</button>
+</div>
+</div>
+<!-- Editable Memo Field -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-on-surface-variant">위젯 표출 메모 (최대 2줄)</label>
+<span class="font-label-sm text-label-sm text-memo-dot font-bold">위젯에 즉시 반영됨</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-xl flex flex-col gap-space-xs">
+<textarea class="w-full bg-transparent font-body-md text-body-md text-on-surface outline-none resize-none" id="sheet-memo-input" placeholder="일정에 메모를 남기세요..." rows="2">야간 전 헬스, 안전교육 점검</textarea>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-3 bg-surface-container-high text-on-surface rounded-xl font-label-lg text-label-lg active:scale-95 transition-all flex items-center justify-center gap-space-2xs" onclick="resetDefaultPattern()">
+<span class="material-symbols-outlined text-[18px]">restore</span>
+          패턴값 복귀
+        </button>
+<button class="flex-1 py-3 bg-primary text-on-primary rounded-xl font-label-lg text-label-lg active:scale-95 transition-all shadow-md flex items-center justify-center gap-space-2xs" onclick="saveMemoSheet()">
+<span class="material-symbols-outlined text-[18px]">done</span>
+          위젯에 적용
+        </button>
+</div>
+</div>
+</div>
+<!-- Feature Information & Tips Card Section -->
+<div class="px-margin flex flex-col gap-space-md">
+<div class="bg-surface-card rounded-2xl p-space-md shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">touch_app</span>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface font-bold">스마트 안드로이드 위젯 안내</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">바쁜 교대근무자를 위해 잠금화면 및 홈에서 원클릭 확인</p>
+</div>
+</div>
+<!-- Spec bullets -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-2xs">
+<div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-primary font-bold">2×2 하루 위젯</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">출퇴근 시간, 교대 명칭, 음력 및 2줄 메모까지 110×110dp 규격에 집약</p>
+</div>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-primary font-bold">4×2 일주일 위젯</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">월~일 7일간의 스케줄과 주간/야간/휴무 주기, '오늘' 링 하이라이트 제공</p>
+</div>
+</div>
+</div>
+<!-- Additional Quick Stats / Shift Cycle Card -->
+<div class="bg-surface-card rounded-2xl p-space-md shadow-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-shift-standby text-[28px]">published_with_changes</span>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">현재 적용된 교대 패턴</span>
+<div class="font-label-lg text-label-lg text-on-surface font-bold">4조 2교대 (주 - 주 - 야 - 야 - 비 - 휴)</div>
+</div>
+</div>
+<a class="px-space-sm py-1.5 rounded-lg bg-surface-container text-primary font-label-sm text-label-sm font-bold flex items-center gap-1 active:scale-95 transition-transform" href="#">
+        변경
+        <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<script>
+  let currentShiftMode = 'day'; // 'day' or 'night'
+
+  function setWidgetTheme(theme) {
+    const dayWidget = document.getElementById('widget-day-card');
+    const weekWidget = document.getElementById('widget-week-card');
+    const btnLight = document.getElementById('btn-theme-light');
+    const btnDark = document.getElementById('btn-theme-dark');
+    const btnGlass = document.getElementById('btn-theme-glass');
+    const slider = document.getElementById('opacity-slider');
+    const opacityVal = document.getElementById('opacity-val');
+
+    // Reset button states
+    [btnLight, btnDark, btnGlass].forEach(btn => {
+      btn.className = "px-space-sm py-1 rounded-full font-label-sm text-label-sm transition-all text-on-surface-variant hover:text-on-surface";
+    });
+
+    if (theme === 'light') {
+      btnLight.className = "px-space-sm py-1 rounded-full font-label-sm text-label-sm transition-all bg-surface-card text-primary shadow-sm font-bold";
+      slider.value = 95;
+      opacityVal.innerText = '95%';
+      applyWidgetCardStyle(dayWidget, 'light', 0.95);
+      applyWidgetCardStyle(weekWidget, 'light', 0.95);
+    } else if (theme === 'dark') {
+      btnDark.className = "px-space-sm py-1 rounded-full font-label-sm text-label-sm transition-all bg-slate-900 text-white shadow-sm font-bold";
+      slider.value = 90;
+      opacityVal.innerText = '90%';
+      applyWidgetCardStyle(dayWidget, 'dark', 0.90);
+      applyWidgetCardStyle(weekWidget, 'dark', 0.90);
+    } else if (theme === 'glass') {
+      btnGlass.className = "px-space-sm py-1 rounded-full font-label-sm text-label-sm transition-all bg-white/40 text-slate-900 shadow-sm font-bold backdrop-blur-md";
+      slider.value = 65;
+      opacityVal.innerText = '65%';
+      applyWidgetCardStyle(dayWidget, 'glass', 0.65);
+      applyWidgetCardStyle(weekWidget, 'glass', 0.65);
+    }
+  }
+
+  function applyWidgetCardStyle(el, mode, opacity) {
+    if (!el) return;
+    el.style.opacity = opacity;
+    if (mode === 'dark') {
+      el.classList.remove('bg-surface-card', 'text-on-surface');
+      el.classList.add('bg-slate-900', 'text-white');
+    } else if (mode === 'glass') {
+      el.classList.remove('bg-slate-900', 'text-white');
+      el.classList.add('bg-surface-card/75', 'backdrop-blur-xl', 'text-on-surface');
+    } else {
+      el.classList.remove('bg-slate-900', 'text-white', 'bg-surface-card/75', 'backdrop-blur-xl');
+      el.classList.add('bg-surface-card', 'text-on-surface');
+    }
+  }
+
+  function adjustOpacity(val) {
+    document.getElementById('opacity-val').innerText = val + '%';
+    const dayWidget = document.getElementById('widget-day-card');
+    const weekWidget = document.getElementById('widget-week-card');
+    const decimal = val / 100;
+    if (dayWidget) dayWidget.style.opacity = decimal;
+    if (weekWidget) weekWidget.style.opacity = decimal;
+  }
+
+  function toggleShiftTypeDemo() {
+    const badge = document.getElementById('widget-shift-badge');
+    const timeRange = document.getElementById('widget-time-range');
+    const memoText = document.getElementById('widget-memo-text');
+
+    if (currentShiftMode === 'day') {
+      currentShiftMode = 'night';
+      badge.textContent = '야간';
+      badge.className = "px-space-sm py-0.5 rounded-lg bg-shift-night text-on-primary font-headline-md text-headline-md tracking-tight shadow-sm";
+      timeRange.textContent = '22:00 ~ 07:30';
+      memoText.textContent = '교대 전 2시간 수면, 인수인계서 작성';
+    } else {
+      currentShiftMode = 'day';
+      badge.textContent = '주간';
+      badge.className = "px-space-sm py-0.5 rounded-lg bg-shift-day text-on-primary font-headline-md text-headline-md tracking-tight shadow-sm";
+      timeRange.textContent = '07:00 ~ 15:30';
+      memoText.textContent = '야간 전 헬스, 안전교육 점검';
+    }
+  }
+
+  function openMemoSheet() {
+    const sheet = document.getElementById('memo-bottom-sheet');
+    sheet.classList.remove('hidden');
+    sheet.classList.add('flex');
+  }
+
+  function closeMemoSheet(event) {
+    if (event && event.target !== event.currentTarget) return;
+    const sheet = document.getElementById('memo-bottom-sheet');
+    sheet.classList.add('hidden');
+    sheet.classList.remove('flex');
+  }
+
+  function saveMemoSheet() {
+    const inputVal = document.getElementById('sheet-memo-input').value;
+    const memoPreview = document.getElementById('widget-memo-text');
+    if (memoPreview && inputVal.trim()) {
+      memoPreview.textContent = inputVal.trim();
+    }
+    closeMemoSheet(null);
+  }
+
+  function resetDefaultPattern() {
+    const memoPreview = document.getElementById('widget-memo-text');
+    const sheetInput = document.getElementById('sheet-memo-input');
+    memoPreview.textContent = '주간 정규 근무 (패턴 기준)';
+    sheetInput.value = '주간 정규 근무 (패턴 기준)';
+    closeMemoSheet(null);
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-bold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-space-2xs min-w-[56px] h-14 text-on-surface-variant hover:text-on-surface transition-colors" data-path="calendar" href="#"><span class="material-symbols-outlined text-[22px]">calendar_month</span><span class="font-label-sm text-label-sm">달력</span></a><a class="flex flex-col items-center justify-center gap-space-2xs min-w-[56px] h-14 text-on-surface-variant hover:text-on-surface transition-colors" data-path="shift-types" href="#"><span class="material-symbols-outlined text-[22px]">badge</span><span class="font-label-sm text-label-sm">근무 종류</span></a><a class="flex flex-col items-center justify-center gap-space-2xs min-w-[56px] h-14 text-on-surface-variant hover:text-on-surface transition-colors" data-path="shift-patterns" href="#"><span class="material-symbols-outlined text-[22px]">published_with_changes</span><span class="font-label-sm text-label-sm">근무 패턴</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-2xs min-w-[56px] h-14 transition-colors text-primary font-bold" data-path="widget-showcase" href="#"><span class="material-symbols-outlined text-[22px]">widgets</span><span class="font-label-sm text-label-sm">위젯 안내</span></a></div></nav></body></html>

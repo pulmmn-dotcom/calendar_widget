@@ -1,0 +1,637 @@
+<!DOCTYPE html><html lang="ko" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-card": "#FFFFFF", "calendar-today-ring": "#3B82F6", "shift-special": "#E11D48", "primary-container": "#1e3a8a", "surface-container-low": "#eff4ff", "on-primary-container": "#90a8ff", "outline": "#757682", "tertiary-fixed": "#ffdbcb", "on-error-container": "#93000a", "surface-sheet": "#FFFFFF", "background": "#f8f9ff", "surface-container-highest": "#d3e4fe", "on-secondary-container": "#006f66", "primary": "#00236f", "shift-off": "#64748B", "secondary-fixed-dim": "#6bd8cb", "shift-standby": "#06B6D4", "on-primary-fixed": "#00164e", "on-tertiary": "#ffffff", "error-container": "#ffdad6", "calendar-today-bg": "#EFF6FF", "on-background": "#0b1c30", "calendar-saturday": "#2563EB", "memo-dot": "#F59E0B", "surface-dim": "#cbdbf5", "tertiary-container": "#6e2c00", "secondary-container": "#86f2e4", "shift-training": "#EC4899", "inverse-on-surface": "#eaf1ff", "on-primary-fixed-variant": "#264191", "shift-night": "#7C3AED", "secondary-fixed": "#89f5e7", "tertiary-fixed-dim": "#ffb691", "surface-tint": "#4059aa", "on-error": "#ffffff", "surface-container": "#e5eeff", "surface-variant": "#d3e4fe", "border-subtle": "#E2E8F0", "shift-evening": "#F59E0B", "shift-vacation": "#10B981", "on-secondary-fixed": "#00201d", "tertiary": "#4b1c00", "surface-container-lowest": "#ffffff", "on-secondary": "#ffffff", "on-tertiary-container": "#f39461", "outline-variant": "#c5c5d3", "surface-container-high": "#dce9ff", "surface-bright": "#f8f9ff", "on-surface": "#0b1c30", "on-primary": "#ffffff", "primary-fixed": "#dce1ff", "secondary": "#006a61", "shift-day": "#2563EB", "on-tertiary-fixed-variant": "#773205", "on-secondary-fixed-variant": "#005049", "on-surface-variant": "#444651", "inverse-surface": "#213145", "error": "#ba1a1a", "surface": "#f8f9ff", "on-tertiary-fixed": "#341100", "calendar-sunday": "#DC2626", "surface-bg": "#F8FAFC", "primary-fixed-dim": "#b6c4ff", "inverse-primary": "#b6c4ff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xl": "1.5rem", "margin": "1rem", "space-xs": "0.25rem", "space-2xs": "0.125rem", "space-2xl": "2rem", "space-md": "0.75rem", "space-lg": "1rem", "margin-mobile": "0.875rem", "gutter": "0.75rem", "space-sm": "0.5rem" }, fontFamily: { "headline-md": ["Inter"], "label-sm": ["Inter"], "shift-tag": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "label-md": ["Inter"], "widget-numeral": ["Inter"], "headline-lg": ["Inter"], "body-md": ["Inter"], "label-lg": ["Inter"], "body-lg": ["Inter"] }, fontSize: { "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.01em", "fontWeight": "600" }], "shift-tag": ["10.5px", { "lineHeight": "12px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }], "widget-numeral": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "800" }], "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[24px]">event_repeat</span><h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Widget Showcase</h1></div><div class="flex items-center gap-space-sm"><button aria-label="알림" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full">
+<!-- Launcher Showcase Canvas with Realistic Android Wallpaper Framing -->
+<div class="px-margin pt-space-md pb-space-2xl space-y-space-xl">
+<!-- Top Widget Setup Banner & Status -->
+<section class="rounded-xl bg-surface-container-low p-space-lg shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">widgets</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-primary">안드로이드 위젯 컬렉션</span>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">실시간 동기화</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">홈 화면 미리보기</h2>
+</div>
+</div>
+<button aria-label="배경 스타일 전환" class="flex items-center gap-space-2xs px-space-md py-space-xs rounded-full bg-surface-card text-on-surface shadow-sm active:scale-95 transition-transform" id="themeToggleBtn">
+<span class="material-symbols-outlined text-[16px] text-shift-evening" style="font-variation-settings: 'FILL' 1;">palette</span>
+<span class="font-label-sm text-label-sm font-bold" id="themeToggleText">블랙 모드 보기</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm leading-relaxed">
+        교대근무 스케줄을 앱 실행 없이 홈 화면에서 즉시 확인하세요. 터치 한 번으로 메모를 확인하고 월간 일정을 자유롭게 넘겨볼 수 있습니다.
+      </p>
+</section>
+<!-- SECTION 1: 작은 한달 위젯 (Month Compact 3x2, 180x140dp) -->
+<section class="space-y-space-md">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-shift-day"></span>
+<h3 class="font-headline-md text-headline-md text-on-surface">작은 한달 위젯 <span class="font-label-md text-label-md text-outline">3×2 (180×140dp)</span></h3>
+</div>
+<span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">공간 절약형</span>
+</div>
+<!-- Realistic Smartphone Mockup Framing for 3x2 -->
+<div class="relative rounded-xl overflow-hidden shadow-lg p-space-lg text-white launcher-wallpaper" data-alt="Warm cinematic aesthetic mobile phone wallpaper of soft morning sunlight streaming through architectural glass panels, gentle bokeh gradients in deep navy blue, pastel coral and sage tones, clean minimal aesthetic" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAgDAdRu_1bv8Gc4FxEGjPWTq1cMGe4W3fuF4Nr5AGPmd-p5edfITCUh2SnfWx58u0OUU-Z_vdOUkQYZh2Y41d-wmXxGPxWjpPuqH2lkIBdMHEOVD5S2lGyd60LZI39S-L_Df9I-3OPHpDy5k_VTMzOA6S9t0vjzlU7ZdfGQmWNKdLI2mOTT7YMohIRlaJh-9e0R9O_FlXz0JiK9RGOPgAgudIBOp4llrrznfTztzhGnbnqHr3khE0')">
+<div class="absolute inset-0 bg-primary/45 backdrop-blur-[2px]"></div>
+<!-- Android Launcher Status Bar -->
+<div class="relative z-10 flex items-center justify-between text-white/90 font-label-sm text-label-sm mb-space-md select-none">
+<div class="flex items-center gap-space-xs">
+<span class="font-semibold tracking-tight">09:41</span>
+<span class="material-symbols-outlined text-[13px]">alarm</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[14px]">wifi</span>
+<span class="material-symbols-outlined text-[15px]">battery_charging_full</span>
+</div>
+</div>
+<!-- 3x2 Widget Card Instance -->
+<div class="relative z-10 w-full max-w-[280px] mx-auto rounded-xl p-space-md shadow-md widget-glass-card transition-all duration-300 bg-white/90 text-on-surface" id="compactWidgetCard">
+<!-- Widget Header: Month info without arrows (Current Month Fixed) -->
+<div class="flex items-center justify-between mb-space-xs"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-shift-day text-[16px]">calendar_today</span><button aria-label="이전 달" class="w-6 h-6 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-90 text-on-surface" id="compactPrevMonthBtn"><span class="material-symbols-outlined text-[15px]">chevron_left</span></button><span class="font-headline-md text-headline-md widget-header-title tracking-tight text-[15px] select-none" id="compactMonthHeaderLabel">2026. 10</span><button aria-label="다음 달" class="w-6 h-6 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-90 text-on-surface" id="compactNextMonthBtn"><span class="material-symbols-outlined text-[15px]">chevron_right</span></button></div><div class="flex items-center gap-space-2xs"><button aria-label="오늘 날짜로 이동" class="w-7 h-7 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all" id="compactJumpTodayBtn"><span class="material-symbols-outlined text-[16px]">refresh</span></button><button aria-label="작은 위젯 설정" class="w-7 h-7 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all widget-settings-trigger"><span class="material-symbols-outlined text-[16px]">settings</span></button></div></div>
+<!-- Day of Week Row -->
+<div class="grid grid-cols-7 text-center font-label-sm text-label-sm py-space-2xs mb-space-2xs">
+<span class="text-calendar-sunday font-bold">일</span>
+<span class="widget-weekday-text">월</span>
+<span class="widget-weekday-text">화</span>
+<span class="widget-weekday-text">수</span>
+<span class="widget-weekday-text">목</span>
+<span class="widget-weekday-text">금</span>
+<span class="text-calendar-saturday font-bold">토</span>
+</div>
+<!-- Condensed 3x2 Calendar Grid (Color underlines & dots instead of text labels) -->
+<div class="grid grid-cols-7 gap-y-1 gap-x-0.5 text-center font-label-sm text-label-sm">
+<!-- W1 -->
+<div class="py-1 flex flex-col items-center opacity-40"><span class="text-[11px]">27</span><span class="w-3 h-0.5 bg-shift-night rounded-full mt-0.5"></span></div>
+<div class="py-1 flex flex-col items-center opacity-40"><span class="text-[11px]">28</span><span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span></div>
+<div class="py-1 flex flex-col items-center opacity-40"><span class="text-[11px]">29</span><span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span></div>
+<div class="py-1 flex flex-col items-center opacity-40"><span class="text-[11px]">30</span><span class="w-3 h-0.5 bg-shift-evening rounded-full mt-0.5"></span></div>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 1일" data-memo="병동 안전점검의 날" data-shift="주간 근무 (07:00 ~ 15:30)">
+<span class="text-[11px] widget-day-text">1</span>
+<span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90 relative" data-date="10월 2일" data-memo="컨퍼런스 준비" data-shift="주간 근무 (07:00 ~ 15:30)">
+<span class="text-[11px] widget-day-text">2</span>
+<span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span>
+<span class="w-1 h-1 rounded-full bg-memo-dot absolute top-0.5 right-1"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 3일" data-memo="개천절 공휴일 당직" data-shift="야간 근무 (22:00 ~ 07:30)">
+<span class="text-[11px] text-calendar-saturday font-bold">3</span>
+<span class="w-3 h-0.5 bg-shift-night rounded-full mt-0.5"></span>
+</button>
+<!-- W2 -->
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 4일" data-memo="충분한 수면 취하기" data-shift="휴무 (비번)">
+<span class="text-[11px] text-calendar-sunday font-bold">4</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 5일" data-memo="필라테스 예약 14:00" data-shift="휴무">
+<span class="text-[11px] widget-day-text">5</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+<span class="w-1 h-1 rounded-full bg-memo-dot absolute top-0.5 right-1"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 6일" data-memo="신규 간호사 인수인계" data-shift="이브닝 (15:00 ~ 23:00)">
+<span class="text-[11px] widget-day-text">6</span>
+<span class="w-3 h-0.5 bg-shift-evening rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 7일" data-memo="재고 약품 검수" data-shift="이브닝 (15:00 ~ 23:00)">
+<span class="text-[11px] widget-day-text">7</span>
+<span class="w-3 h-0.5 bg-shift-evening rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 8일" data-memo="야간 혈당 라운딩" data-shift="야간 근무 (22:00 ~ 07:30)">
+<span class="text-[11px] widget-day-text">8</span>
+<span class="w-3 h-0.5 bg-shift-night rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 9일" data-memo="가족 모임 식사" data-shift="휴무 (한글날)">
+<span class="text-[11px] text-calendar-sunday font-bold">9</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 10일" data-memo="주말 주간 전담" data-shift="주간 근무 (07:00 ~ 15:30)">
+<span class="text-[11px] text-calendar-saturday font-bold">10</span>
+<span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span>
+</button>
+<!-- W3 (Includes Today = 15) -->
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 11일" data-memo="일요일 주간" data-shift="주간 근무">
+<span class="text-[11px] text-calendar-sunday font-bold">11</span>
+<span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 12일" data-memo="주초 나이트 근무" data-shift="야간 근무">
+<span class="text-[11px] widget-day-text">12</span>
+<span class="w-3 h-0.5 bg-shift-night rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 13일" data-memo="2일차 나이트" data-shift="야간 근무">
+<span class="text-[11px] widget-day-text">13</span>
+<span class="w-3 h-0.5 bg-shift-night rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 14일" data-memo="퇴근 후 휴식" data-shift="휴무 (비번)">
+<span class="text-[11px] widget-day-text">14</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+</button>
+<!-- TODAY Cell with highlight -->
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90 relative rounded-lg bg-calendar-today-bg shadow-sm" data-date="10월 15일 (오늘)" data-memo="[오늘 메모] 오후 3시 원내 소방훈련 및 환자 대피 동선 브리핑" data-shift="당직 근무 (08:30 ~ 익일 09:00)">
+<span class="w-5 h-5 flex items-center justify-center rounded-full bg-calendar-today-ring text-white font-bold text-[11px] shadow-sm">15</span>
+<span class="w-3 h-0.5 bg-shift-special rounded-full mt-0.5"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-memo-dot absolute -top-0.5 -right-0.5 ring-1 ring-white"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 16일" data-memo="건강검진 예약" data-shift="휴무">
+<span class="text-[11px] widget-day-text">16</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap transition-transform active:scale-90" data-date="10월 17일" data-memo="CPR 갱신 교육" data-shift="교육/연수">
+<span class="text-[11px] text-calendar-saturday font-bold">17</span>
+<span class="w-3 h-0.5 bg-shift-training rounded-full mt-0.5"></span>
+</button>
+<!-- W4 & W5 condensed -->
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 18일" data-memo="휴식" data-shift="휴무">
+<span class="text-[11px] text-calendar-sunday font-bold">18</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 19일" data-memo="주간 근무 시작" data-shift="주간 근무">
+<span class="text-[11px] widget-day-text">19</span>
+<span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 20일" data-memo="정기 회의" data-shift="주간 근무">
+<span class="text-[11px] widget-day-text">20</span>
+<span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 21일" data-memo="중환자실 지원" data-shift="이브닝">
+<span class="text-[11px] widget-day-text">21</span>
+<span class="w-3 h-0.5 bg-shift-evening rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 22일" data-memo="저녁 근무" data-shift="이브닝">
+<span class="text-[11px] widget-day-text">22</span>
+<span class="w-3 h-0.5 bg-shift-evening rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 23일" data-memo="야간 당직" data-shift="야간 근무">
+<span class="text-[11px] widget-day-text">23</span>
+<span class="w-3 h-0.5 bg-shift-night rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 24일" data-memo="퇴근 후 취침" data-shift="휴무 (비번)">
+<span class="text-[11px] text-calendar-saturday font-bold">24</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+</button>
+<!-- W5 -->
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 25일" data-memo="등산 모임" data-shift="휴무">
+<span class="text-[11px] text-calendar-sunday font-bold">25</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 26일" data-memo="가을 연차 힐링 여행" data-shift="연차 휴가">
+<span class="text-[11px] text-shift-vacation font-bold">26</span>
+<span class="w-3 h-0.5 bg-shift-vacation rounded-full mt-0.5"></span>
+<span class="w-1 h-1 rounded-full bg-memo-dot absolute top-0.5 right-1"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 27일" data-memo="연차 2일차" data-shift="연차 휴가">
+<span class="text-[11px] text-shift-vacation font-bold">27</span>
+<span class="w-3 h-0.5 bg-shift-vacation rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 28일" data-memo="업무 복귀" data-shift="주간 근무">
+<span class="text-[11px] widget-day-text">28</span>
+<span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 29일" data-memo="인수인계 회의" data-shift="주간 근무">
+<span class="text-[11px] widget-day-text">29</span>
+<span class="w-3 h-0.5 bg-shift-day rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 30일" data-memo="월말 당직" data-shift="야간 근무">
+<span class="text-[11px] widget-day-text">30</span>
+<span class="w-3 h-0.5 bg-shift-night rounded-full mt-0.5"></span>
+</button>
+<button class="py-1 flex flex-col items-center cell-tap" data-date="10월 31일" data-memo="할로윈 데이 휴무" data-shift="휴무 (비번)">
+<span class="text-[11px] text-calendar-saturday font-bold">31</span>
+<span class="w-3 h-0.5 bg-shift-off rounded-full mt-0.5"></span>
+</button>
+</div>
+<!-- Quick Micro Footer Note -->
+<div class="mt-space-xs pt-space-xs flex items-center justify-between text-[10px] text-on-surface-variant/80 border-none">
+
+
+</div>
+</div>
+<p class="relative z-10 text-center text-white/80 font-body-sm text-body-sm mt-space-sm drop-shadow">
+          💡 날짜 텍스트를 터치하면 빠른 메모를 즉시 확인합니다.
+        </p>
+</div>
+</section>
+<!-- SECTION 2: 한달 풀 위젯 (Full Month 4x4, 250x250dp) -->
+<section class="space-y-space-md">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<h3 class="font-headline-md text-headline-md text-on-surface">한달 풀 위젯 <span class="font-label-md text-label-md text-outline">4×4 (250×250dp)</span></h3>
+</div>
+<span class="px-space-sm py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">인-위젯 내비게이션</span>
+</div>
+<!-- Realistic Wallpaper Backdrop with Bottom Phone Dock -->
+<div class="relative rounded-xl overflow-hidden shadow-lg p-space-lg text-white launcher-wallpaper" data-alt="Clean modern minimalist wallpaper featuring subtle geometric shapes (overlapping soft circles, rounded rectangles, subtle refreshing reload / spiral curve geometric accents) in calm slate navy and cool cyan-blue tones, subtle abstract aesthetic phone wallpaper backdrop for Android launcher preview" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuDPJy5DbgvY5X0hwoIz7_PMw5mnbYr3OL_YVSbud-DPlw6HFaZyWm16_3PBd17BYXtHl3MzQ4h8yba7bn7EceTNFmrtbLG4bz6iIT0Yf31D3IDlUr8lOTHkgF_ob00NUkAhDHDAGlYXXxvTUTpHV0p0slTF9oUU97TLUiRgfsFW6Guz7FEzQibQereZpe7TuTijGq8e9vbexcTN6Jw8F21W7tUzr4Hno_n8yDn4-OuxPbCJnaIzMCE&quot;);">
+<div class="absolute inset-0 bg-inverse-surface/50 backdrop-blur-[2px]"></div>
+<!-- Android Launcher Header Bar -->
+<div class="relative z-10 flex items-center justify-between text-white/90 font-label-sm text-label-sm mb-space-md select-none">
+<div class="flex items-center gap-space-xs">
+<span class="font-semibold tracking-tight">09:41</span>
+<span class="material-symbols-outlined text-[13px]">chat</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm font-semibold">LTE</span>
+<span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[14px]">wifi</span>
+<span class="material-symbols-outlined text-[15px]">battery_full</span>
+</div>
+</div>
+<!-- 4x4 Full Widget Interactive Component -->
+<div class="relative z-10 w-full rounded-xl p-space-md shadow-xl widget-glass-card transition-all duration-300 bg-white/90 text-on-surface" id="fullMonthWidgetCard">
+<!-- In-Widget Header: Direct Month Navigation Buttons (◀ 2026. 10 ▶) -->
+<div class="flex items-center justify-between pb-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-shift-day text-[20px]">calendar_month</span>
+<button aria-label="이전 달" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-90" id="prevMonthBtn">
+<span class="material-symbols-outlined text-[18px] text-on-surface">chevron_left</span>
+</button>
+<h4 class="font-headline-md text-headline-md widget-header-title select-none" id="fullMonthHeaderLabel">2026. 10</h4>
+<button aria-label="다음 달" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-90" id="nextMonthBtn">
+<span class="material-symbols-outlined text-[18px] text-on-surface">chevron_right</span>
+</button>
+</div>
+<!-- Quick Jump to Today -->
+<div class="flex items-center gap-space-xs"><button aria-label="오늘 날짜로 이동" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all" id="jumpTodayBtn"><span class="material-symbols-outlined text-[18px]">refresh</span></button><button aria-label="한달 풀 위젯 설정" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all widget-settings-trigger"><span class="material-symbols-outlined text-[18px]">settings</span></button></div>
+</div>
+<!-- Weekday Labels (Sun red, Sat blue) -->
+<div class="grid grid-cols-7 text-center font-label-sm text-label-sm py-space-xs mb-space-2xs rounded-lg bg-surface-container-low/70">
+<span class="text-calendar-sunday font-bold">일</span>
+<span class="widget-weekday-text">월</span>
+<span class="widget-weekday-text">화</span>
+<span class="widget-weekday-text">수</span>
+<span class="widget-weekday-text">목</span>
+<span class="widget-weekday-text">금</span>
+<span class="text-calendar-saturday font-bold">토</span>
+</div>
+<!-- Full 4x4 Grid with Complete Shift Badges and Indicators -->
+<div class="grid grid-cols-7 gap-1 text-center font-label-sm text-label-sm" id="fullCalendarGrid">
+<!-- Row 1 -->
+<div class="p-1 rounded flex flex-col items-center opacity-30 select-none">
+<span class="text-[11px]">27</span>
+<span class="font-shift-tag text-shift-tag text-shift-night mt-0.5">야간</span>
+</div>
+<div class="p-1 rounded flex flex-col items-center opacity-30 select-none">
+<span class="text-[11px]">28</span>
+<span class="font-shift-tag text-shift-tag text-shift-off mt-0.5">휴무</span>
+</div>
+<div class="p-1 rounded flex flex-col items-center opacity-30 select-none">
+<span class="text-[11px]">29</span>
+<span class="font-shift-tag text-shift-tag text-shift-day mt-0.5">주간</span>
+</div>
+<div class="p-1 rounded flex flex-col items-center opacity-30 select-none">
+<span class="text-[11px]">30</span>
+<span class="font-shift-tag text-shift-tag text-shift-evening mt-0.5">이브</span>
+</div>
+<!-- Oct 1 -->
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 1일 목요일" data-memo="10월 첫 근무 브리핑" data-shift="주간 근무 (07:00 ~ 15:30)">
+<span class="text-[11px] widget-day-text">1</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-blue-100 text-shift-day mt-0.5">주간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 2일 금요일" data-memo="병동 팀 컨퍼런스" data-shift="주간 근무 (07:00 ~ 15:30)">
+<span class="text-[11px] widget-day-text">2</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-blue-100 text-shift-day mt-0.5">주간</span>
+<span class="w-1.5 h-1.5 rounded-full bg-memo-dot absolute top-0.5 right-0.5 shadow-sm"></span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 3일 토요일" data-memo="개천절 공휴일 야간조" data-shift="야간 근무 (22:00 ~ 07:30)">
+<span class="text-[11px] text-calendar-saturday font-bold">3</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-purple-100 text-shift-night mt-0.5">야간</span>
+</button>
+<!-- Row 2 -->
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 4일 일요일" data-memo="푹 쉬기" data-shift="휴무 (비번)">
+<span class="text-[11px] text-calendar-sunday font-bold">4</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">비번</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 5일 월요일" data-memo="병원 외래 진료" data-shift="휴무">
+<span class="text-[11px] widget-day-text">5</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">휴무</span>
+<span class="w-1.5 h-1.5 rounded-full bg-memo-dot absolute top-0.5 right-0.5 shadow-sm"></span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 6일 화요일" data-memo="인수인계 꼼꼼히" data-shift="이브닝 근무 (15:00 ~ 23:00)">
+<span class="text-[11px] widget-day-text">6</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-amber-100 text-shift-evening mt-0.5">이브</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 7일 수요일" data-memo="약품함 정기 점검" data-shift="이브닝 근무 (15:00 ~ 23:00)">
+<span class="text-[11px] widget-day-text">7</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-amber-100 text-shift-evening mt-0.5">이브</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 8일 목요일" data-memo="중환자 집중 모니터링" data-shift="야간 근무 (22:00 ~ 07:30)">
+<span class="text-[11px] widget-day-text">8</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-purple-100 text-shift-night mt-0.5">야간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 9일 금요일" data-memo="공휴일 휴식" data-shift="휴무 (한글날)">
+<span class="text-[11px] text-calendar-sunday font-bold">9</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">휴무</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 10일 토요일" data-memo="주말 순번" data-shift="주간 근무 (07:00 ~ 15:30)">
+<span class="text-[11px] text-calendar-saturday font-bold">10</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-blue-100 text-shift-day mt-0.5">주간</span>
+</button>
+<!-- Row 3 (Today = 15) -->
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 11일 일요일" data-memo="주말 주간" data-shift="주간 근무">
+<span class="text-[11px] text-calendar-sunday font-bold">11</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-blue-100 text-shift-day mt-0.5">주간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 12일 월요일" data-memo="야간 시작" data-shift="야간 근무">
+<span class="text-[11px] widget-day-text">12</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-purple-100 text-shift-night mt-0.5">야간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 13일 화요일" data-memo="나이트 2일차" data-shift="야간 근무">
+<span class="text-[11px] widget-day-text">13</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-purple-100 text-shift-night mt-0.5">야간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 14일 수요일" data-memo="수면 및 휴식" data-shift="휴무 (비번)">
+<span class="text-[11px] widget-day-text">14</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">비번</span>
+</button>
+<!-- TODAY Highlighted Cell -->
+<button class="p-1 rounded-lg flex flex-col items-center cell-tap active:scale-95 relative bg-calendar-today-bg shadow-md" data-date="2026년 10월 15일 목요일 (오늘)" data-memo="[오늘 메모] 오후 3시 원내 소방훈련 및 환자 대피 동선 브리핑" data-shift="당직 근무 (08:30 ~ 익일 09:00)">
+<span class="w-5 h-5 flex items-center justify-center rounded-full bg-calendar-today-ring text-white font-bold text-[11px] shadow-sm">15</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-rose-500 text-white mt-0.5 font-bold">당직</span>
+<span class="w-1.5 h-1.5 rounded-full bg-memo-dot absolute -top-0.5 -right-0.5 ring-2 ring-white"></span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 16일 금요일" data-memo="당직 퇴근 후 휴식" data-shift="휴무 (비번)">
+<span class="text-[11px] widget-day-text">16</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">비번</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 17일 토요일" data-memo="직무 보수 교육" data-shift="교육 훈련">
+<span class="text-[11px] text-calendar-saturday font-bold">17</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-pink-100 text-shift-training mt-0.5">교육</span>
+</button>
+<!-- Row 4 -->
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 18일 일요일" data-memo="주말 휴무" data-shift="휴무">
+<span class="text-[11px] text-calendar-sunday font-bold">18</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">휴무</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 19일 월요일" data-memo="주간 근무" data-shift="주간 근무">
+<span class="text-[11px] widget-day-text">19</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-blue-100 text-shift-day mt-0.5">주간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 20일 화요일" data-memo="정기 회의 참석" data-shift="주간 근무">
+<span class="text-[11px] widget-day-text">20</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-blue-100 text-shift-day mt-0.5">주간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 21일 수요일" data-memo="오후 출근" data-shift="이브닝 근무">
+<span class="text-[11px] widget-day-text">21</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-amber-100 text-shift-evening mt-0.5">이브</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 22일 목요일" data-memo="이브닝 2일차" data-shift="이브닝 근무">
+<span class="text-[11px] widget-day-text">22</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-amber-100 text-shift-evening mt-0.5">이브</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 23일 금요일" data-memo="야간 근무" data-shift="야간 근무">
+<span class="text-[11px] widget-day-text">23</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-purple-100 text-shift-night mt-0.5">야간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 24일 토요일" data-memo="퇴근 후 휴식" data-shift="휴무 (비번)">
+<span class="text-[11px] text-calendar-saturday font-bold">24</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">비번</span>
+</button>
+<!-- Row 5 -->
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 25일 일요일" data-memo="가족과 외식" data-shift="휴무">
+<span class="text-[11px] text-calendar-sunday font-bold">25</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">휴무</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 26일 월요일" data-memo="단풍 구경 여행" data-shift="연차 휴가">
+<span class="text-[11px] text-shift-vacation font-bold">26</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-emerald-100 text-shift-vacation mt-0.5 font-bold">연차</span>
+<span class="w-1.5 h-1.5 rounded-full bg-memo-dot absolute top-0.5 right-0.5 shadow-sm"></span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 27일 화요일" data-memo="여행 2일차" data-shift="연차 휴가">
+<span class="text-[11px] text-shift-vacation font-bold">27</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-emerald-100 text-shift-vacation mt-0.5 font-bold">연차</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 28일 수요일" data-memo="주간 근무 복귀" data-shift="주간 근무">
+<span class="text-[11px] widget-day-text">28</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-blue-100 text-shift-day mt-0.5">주간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 29일 목요일" data-memo="환자 상태 인계" data-shift="주간 근무">
+<span class="text-[11px] widget-day-text">29</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-blue-100 text-shift-day mt-0.5">주간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 30일 금요일" data-memo="월말 야간" data-shift="야간 근무">
+<span class="text-[11px] widget-day-text">30</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-purple-100 text-shift-night mt-0.5">야간</span>
+</button>
+<button class="p-1 rounded flex flex-col items-center cell-tap active:scale-95 relative" data-date="2026년 10월 31일 토요일" data-memo="할로윈 휴식" data-shift="휴무 (비번)">
+<span class="text-[11px] text-calendar-saturday font-bold">31</span>
+<span class="px-1 py-0.2 rounded font-shift-tag text-shift-tag bg-slate-100 text-shift-off mt-0.5">비번</span>
+</button>
+</div>
+<!-- Bottom Shift Legend -->
+
+</div>
+<!-- Android Launcher Dock Icons (Authentic home screen look) -->
+<div class="relative z-10 flex items-center justify-around pt-space-xl pb-space-xs select-none">
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-shift-day/90 flex items-center justify-center text-white shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[24px]">call</span>
+</div>
+<span class="font-label-sm text-label-sm text-white/90 drop-shadow">전화</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-shift-vacation/90 flex items-center justify-center text-white shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[24px]">sms</span>
+</div>
+<span class="font-label-sm text-label-sm text-white/90 drop-shadow">메시지</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white shadow-md ring-2 ring-white/50 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[24px]">event_repeat</span>
+</div>
+<span class="font-label-sm text-label-sm text-white font-bold drop-shadow">교대달력</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full bg-shift-evening/90 flex items-center justify-center text-white shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[24px]">photo_camera</span>
+</div>
+<span class="font-label-sm text-label-sm text-white/90 drop-shadow">카메라</span>
+</div>
+</div>
+<!-- Android Home Gesture Bar -->
+<div class="relative z-10 flex justify-center pt-space-xs">
+<div class="w-32 h-1 bg-white/70 rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Interactive Toast / Memo Modal (Simulated in-widget tap preview) -->
+<div class="fixed bottom-20 inset-x-margin max-w-sm mx-auto bg-inverse-surface text-inverse-on-surface p-space-md rounded-xl shadow-xl transition-all duration-300 transform z-50 translate-y-32 opacity-0 pointer-events-none" id="memoToast">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-memo-dot text-[18px]">event_note</span>
+<span class="font-label-lg text-label-lg font-bold" id="toastDate">10월 15일 오늘 날짜로 이동했습니다.</span>
+</div>
+<button aria-label="닫기" class="text-inverse-on-surface/70 hover:text-inverse-on-surface" id="closeToastBtn">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="mt-space-xs">
+<div class="font-label-md text-label-md text-secondary-fixed" id="toastShift">당직 근무</div>
+<p class="font-body-sm text-body-sm text-inverse-on-surface/90 mt-1 line-clamp-2" id="toastMemo">오후 3시 원내 소방훈련 및 환자 대피 동선 브리핑</p>
+</div>
+</div>
+<!-- Widget Features Guide Card -->
+<section class="rounded-xl bg-surface-card p-space-lg shadow-sm space-y-space-md">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-shift-vacation">verified</span>
+<span class="">교대근무자 맞춤 위젯 혜택</span>
+</h3>
+<div class="grid grid-cols-1 gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-shift-day mt-0.5">touch_app</span>
+<div>
+<span class="font-label-md text-label-md text-on-surface block font-bold">인-위젯 즉시 이동</span>
+<span class="">한달 풀 위젯은 앱을 켜지 않고 위젯 안의 화살표로 이전/다음 달 근무를 빠르게 넘겨볼 수 있습니다.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-memo-dot mt-0.5">wb_incandescent</span>
+<div>
+<span class="font-label-md text-label-md text-on-surface block font-bold">직관적인 색상 신호 체계</span>
+<span class="">작은 한달 위젯(3×2)은 좁은 화면에서도 식별 가능한 8색 언더라인으로 근무를 한눈에 파악합니다.</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
+    // Theme toggle state (White Glass / Black Glass)
+    let isDarkModeWidget = false;
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const themeText = document.getElementById('themeToggleText');
+    const compactCard = document.getElementById('compactWidgetCard');
+    const fullCard = document.getElementById('fullMonthWidgetCard');
+
+    function updateWidgetStyles() {
+      const cards = [compactCard, fullCard];
+      if (isDarkModeWidget) {
+        themeText.textContent = '화이트 모드 보기';
+        cards.forEach(card => {
+          card.classList.remove('bg-white/90', 'text-on-surface');
+          card.classList.add('bg-neutral-900/90', 'text-white');
+        });
+        document.querySelectorAll('.widget-header-title').forEach(el => el.classList.add('text-white'));
+        document.querySelectorAll('.widget-weekday-text').forEach(el => el.classList.add('text-neutral-400'));
+        document.querySelectorAll('.widget-day-text').forEach(el => el.classList.add('text-white'));
+        document.querySelectorAll('.widget-subtext').forEach(el => el.classList.add('text-neutral-400'));
+      } else {
+        themeText.textContent = '블랙 모드 보기';
+        cards.forEach(card => {
+          card.classList.remove('bg-neutral-900/90', 'text-white');
+          card.classList.add('bg-white/90', 'text-on-surface');
+        });
+        document.querySelectorAll('.widget-header-title').forEach(el => el.classList.remove('text-white'));
+        document.querySelectorAll('.widget-weekday-text').forEach(el => el.classList.remove('text-neutral-400'));
+        document.querySelectorAll('.widget-day-text').forEach(el => el.classList.remove('text-white'));
+        document.querySelectorAll('.widget-subtext').forEach(el => el.classList.remove('text-neutral-400'));
+      }
+    }
+
+    // Default initialization
+    updateWidgetStyles();
+
+    themeBtn.addEventListener('click', () => {
+      isDarkModeWidget = !isDarkModeWidget;
+      updateWidgetStyles();
+    });
+
+    // In-Widget Navigation Simulation (◀ 2026. 10 ▶)
+    let currentMonth = 10;
+    let currentYear = 2026;
+    const headerLabel = document.getElementById('fullMonthHeaderLabel');
+    const prevBtn = document.getElementById('prevMonthBtn');
+    const nextBtn = document.getElementById('nextMonthBtn');
+    const jumpTodayBtn = document.getElementById('jumpTodayBtn');
+
+    function updateMonthHeader() {
+      headerLabel.textContent = `${currentYear}. ${String(currentMonth).padStart(2, '0')}`;
+    }
+
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (currentMonth === 1) {
+        currentMonth = 12;
+        currentYear--;
+      } else {
+        currentMonth--;
+      }
+      updateMonthHeader();
+      triggerHapticFeedback();
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (currentMonth === 12) {
+        currentMonth = 1;
+        currentYear++;
+      } else {
+        currentMonth++;
+      }
+      updateMonthHeader();
+      triggerHapticFeedback();
+    });
+
+    jumpTodayBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentYear = 2026;
+      currentMonth = 10;
+      updateMonthHeader();
+      showToast('10월 15일 오늘 날짜로 이동했습니다.', '당직 근무', '오후 3시 원내 소방훈련 및 환자 대피 동선 브리핑');
+      triggerHapticFeedback();
+    });
+
+    // Tap cell to view Memo Toast
+    const memoToast = document.getElementById('memoToast');
+    const toastDate = document.getElementById('toastDate');
+    const toastShift = document.getElementById('toastShift');
+    const toastMemo = document.getElementById('toastMemo');
+    const closeToastBtn = document.getElementById('closeToastBtn');
+    let toastTimeout;
+
+    function showToast(date, shift, memo) {
+      toastDate.textContent = date;
+      toastShift.textContent = shift;
+      toastMemo.textContent = memo;
+
+      memoToast.classList.remove('translate-y-32', 'opacity-0', 'pointer-events-none');
+      memoToast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        hideToast();
+      }, 4000);
+    }
+
+    function hideToast() {
+      memoToast.classList.add('translate-y-32', 'opacity-0', 'pointer-events-none');
+      memoToast.classList.remove('translate-y-0', 'opacity-100');
+    }
+
+    closeToastBtn.addEventListener('click', hideToast);
+
+    document.querySelectorAll('.cell-tap').forEach(cell => {
+      cell.addEventListener('click', (e) => {
+        const date = cell.getAttribute('data-date');
+        const shift = cell.getAttribute('data-shift');
+        const memo = cell.getAttribute('data-memo');
+        if (date && memo) {
+          showToast(date, shift, memo);
+          triggerHapticFeedback();
+        }
+      });
+    });
+
+    function triggerHapticFeedback() {
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(15);
+      }
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-bold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-space-2xs min-w-[56px] h-14 text-on-surface-variant hover:text-on-surface transition-colors" data-path="calendar" href="#"><span class="material-symbols-outlined text-[22px]">calendar_month</span><span class="font-label-sm text-label-sm">달력</span></a><a class="flex flex-col items-center justify-center gap-space-2xs min-w-[56px] h-14 text-on-surface-variant hover:text-on-surface transition-colors" data-path="shift-types" href="#"><span class="material-symbols-outlined text-[22px]">badge</span><span class="font-label-sm text-label-sm">근무 종류</span></a><a class="flex flex-col items-center justify-center gap-space-2xs min-w-[56px] h-14 text-on-surface-variant hover:text-on-surface transition-colors" data-path="shift-patterns" href="#"><span class="material-symbols-outlined text-[22px]">published_with_changes</span><span class="font-label-sm text-label-sm">근무 패턴</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-2xs min-w-[56px] h-14 transition-colors text-primary font-bold" data-path="widget-showcase" href="#"><span class="material-symbols-outlined text-[22px]">widgets</span><span class="font-label-sm text-label-sm">위젯 안내</span></a></div></nav>
+
+<div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" id="widgetSettingsModal"><div class="absolute inset-0 bg-inverse-surface/50 backdrop-blur-sm transition-opacity" id="widgetSettingsBackdrop"></div><div class="relative z-10 w-full max-w-sm bg-surface-card rounded-t-2xl sm:rounded-2xl shadow-xl p-space-lg transform translate-y-full sm:translate-y-8 transition-transform duration-300 space-y-space-md border-t sm:border border-border-subtle" id="widgetSettingsSheet"><div class="flex items-center justify-between pb-space-xs border-b border-border-subtle"><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[18px]">settings</span></div><h4 class="font-headline-md text-headline-md text-on-surface text-[17px]">위젯 커스텀 설정</h4></div><button aria-label="설정 닫기" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container text-on-surface-variant transition-colors" id="closeSettingsBtn"><span class="material-symbols-outlined text-[20px]">close</span></button></div><div class="space-y-space-md py-space-xs text-on-surface"><div class="space-y-1"><label class="font-label-md text-label-md text-on-surface-variant block">배경 테마 스타일</label><div class="grid grid-cols-2 gap-space-xs"><button type="button" id="modalThemeWhite" class="py-2 px-space-sm rounded-lg border-2 border-primary bg-surface-container-low font-label-md text-label-md text-primary font-bold flex items-center justify-center gap-space-xs"><span class="w-3 h-3 rounded-full bg-white border border-outline"></span> 화이트 글래스</button><button type="button" id="modalThemeBlack" class="py-2 px-space-sm rounded-lg border border-border-subtle bg-surface-card font-label-md text-label-md text-on-surface-variant flex items-center justify-center gap-space-xs"><span class="w-3 h-3 rounded-full bg-neutral-900"></span> 블랙 글래스</button></div></div><div class="space-y-1.5"><div class="flex justify-between items-center"><label class="font-label-md text-label-md text-on-surface-variant">배경 불투명도</label><span class="font-label-sm text-label-sm text-primary font-bold" id="opacityValueText">90%</span></div><input type="range" min="20" max="100" value="90" step="5" id="opacityRangeInput" class="w-full accent-primary h-1.5 bg-surface-container rounded-lg cursor-pointer"></div><div class="space-y-1.5"><label class="font-label-md text-label-md text-on-surface-variant block">텍스트 크기 비율</label><div class="flex items-center gap-space-xs"><button type="button" class="flex-1 py-1.5 rounded-lg border border-border-subtle text-on-surface-variant font-label-sm text-label-sm active:bg-surface-container">작게 (90%)</button><button type="button" class="flex-1 py-1.5 rounded-lg border-2 border-primary bg-primary/10 text-primary font-label-sm text-label-sm font-bold">기본 (100%)</button><button type="button" class="flex-1 py-1.5 rounded-lg border border-border-subtle text-on-surface-variant font-label-sm text-label-sm active:bg-surface-container">크게 (110%)</button></div></div><div class="flex items-center justify-between pt-space-xs"><span class="font-label-md text-label-md text-on-surface">음력 및 절기 표시</span><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" value="" class="sr-only peer" checked=""><div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div></label></div></div><div class="pt-space-xs"><button type="button" class="w-full py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold shadow-md hover:opacity-95 active:scale-95 transition-all text-center" id="applySettingsBtn">설정 적용 및 닫기</button></div></div></div><script class="">(function(){let cYear=2026,cMonth=10;const cLabel=document.getElementById('compactMonthHeaderLabel');const cPrev=document.getElementById('compactPrevMonthBtn');const cNext=document.getElementById('compactNextMonthBtn');if(cPrev&&cNext&&cLabel){function updateCompactHeader(){cLabel.textContent=`${cYear}. ${String(cMonth).padStart(2,'0')}`;}cPrev.addEventListener('click',(e)=>{e.stopPropagation();if(cMonth===1){cMonth=12;cYear--;}else{cMonth--;}updateCompactHeader();if(window.navigator&&window.navigator.vibrate)window.navigator.vibrate(15);});cNext.addEventListener('click',(e)=>{e.stopPropagation();if(cMonth===12){cMonth=1;cYear++;}else{cMonth++;}updateCompactHeader();if(window.navigator&&window.navigator.vibrate)window.navigator.vibrate(15);});}const settingsModal=document.getElementById('widgetSettingsModal');const settingsSheet=document.getElementById('widgetSettingsSheet');const closeBtn=document.getElementById('closeSettingsBtn');const backdrop=document.getElementById('widgetSettingsBackdrop');const applyBtn=document.getElementById('applySettingsBtn');function openSettings(){settingsModal.classList.remove('opacity-0','pointer-events-none');settingsSheet.classList.remove('translate-y-full','sm:translate-y-8');settingsSheet.classList.add('translate-y-0');}function closeSettings(){settingsSheet.classList.remove('translate-y-0');settingsSheet.classList.add('translate-y-full','sm:translate-y-8');setTimeout(()=>{settingsModal.classList.add('opacity-0','pointer-events-none');},200);}document.querySelectorAll('.widget-settings-trigger').forEach(btn=>{btn.addEventListener('click',(e)=>{e.stopPropagation();openSettings();});});if(closeBtn)closeBtn.addEventListener('click',closeSettings);if(backdrop)backdrop.addEventListener('click',closeSettings);if(applyBtn)applyBtn.addEventListener('click',closeSettings);const opacityInput=document.getElementById('opacityRangeInput');const opacityText=document.getElementById('opacityValueText');if(opacityInput&&opacityText){opacityInput.addEventListener('input',(e)=>{opacityText.textContent=`${e.target.value}%`;});}const mWhite=document.getElementById('modalThemeWhite');const mBlack=document.getElementById('modalThemeBlack');if(mWhite&&mBlack){mWhite.addEventListener('click',()=>{mWhite.classList.add('border-2','border-primary','bg-surface-container-low','text-primary','font-bold');mWhite.classList.remove('border-border-subtle','bg-surface-card','text-on-surface-variant');mBlack.classList.remove('border-2','border-primary','bg-surface-container-low','text-primary','font-bold');mBlack.classList.add('border-border-subtle','bg-surface-card','text-on-surface-variant');if(isDarkModeWidget){const themeBtn=document.getElementById('themeToggleBtn');if(themeBtn)themeBtn.click();}});mBlack.addEventListener('click',()=>{mBlack.classList.add('border-2','border-primary','bg-surface-container-low','text-primary','font-bold');mBlack.classList.remove('border-border-subtle','bg-surface-card','text-on-surface-variant');mWhite.classList.remove('border-2','border-primary','bg-surface-container-low','text-primary','font-bold');mWhite.classList.add('border-border-subtle','bg-surface-card','text-on-surface-variant');if(!isDarkModeWidget){const themeBtn=document.getElementById('themeToggleBtn');if(themeBtn)themeBtn.click();}});}})();</script></body></html>
