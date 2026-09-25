@@ -66,7 +66,7 @@ private val WEEKDAY_LABELS = mapOf(
     DayOfWeek.SATURDAY to "토"
 )
 
-private fun weekStartOf(today: LocalDate, weekStartMonday: Boolean): LocalDate =
+internal fun weekStartOf(today: LocalDate, weekStartMonday: Boolean): LocalDate =
     if (weekStartMonday) today.minusDays(((today.dayOfWeek.value + 6) % 7).toLong())
     else today.minusDays((today.dayOfWeek.value % 7).toLong())
 
