@@ -42,34 +42,30 @@ class MemoEditActivity : ComponentActivity() {
                 loaded = true
             }
 
+            // 스펙 4.x: "저장 버튼 없이 즉시 반영" — 메모 편집에는 "취소(변경 폐기)" 개념이 없다.
+            // 저장 버튼, 취소 버튼, 바깥 탭, 뒤로가기 등 모든 닫기 경로가 동일하게 저장 후 종료한다.
+            val saveAndFinish: () -> Unit = {
+                if (loaded && text != loadedText) {
+                    scope.launch {
+                        repository.setMemo(epochDay, text)
+                        finish()
+                    }
+                } else {
+                    finish()
+                }
+            }
+
             MaterialTheme {
                 AlertDialog(
-                    onDismissRequest = {
-                        if (loaded && text != loadedText) {
-                            scope.launch {
-                                repository.setMemo(epochDay, text)
-                                finish()
-                            }
-                        } else {
-                            finish()
-                        }
-                    },
+                    onDismissRequest = saveAndFinish,
                     title = { Text(date.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일")) + " 메모") },
                     text = {
                         OutlinedTextField(value = text, onValueChange = { text = it }, modifier = Modifier.fillMaxWidth())
                     },
                     confirmButton = {
-                        TextButton(
-                            enabled = loaded,
-                            onClick = {
-                                scope.launch {
-                                    repository.setMemo(epochDay, text)
-                                    finish()
-                                }
-                            }
-                        ) { Text("저장") }
+                        TextButton(enabled = loaded, onClick = saveAndFinish) { Text("저장") }
                     },
-                    dismissButton = { TextButton(onClick = { finish() }) { Text("취소") } }
+                    dismissButton = { TextButton(onClick = saveAndFinish) { Text("취소") } }
                 )
             }
         }
