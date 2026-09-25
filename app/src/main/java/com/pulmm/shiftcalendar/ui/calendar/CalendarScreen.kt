@@ -67,8 +67,8 @@ import java.time.YearMonth
 private val MinCellHeight = 44.dp
 
 @Composable
-fun CalendarScreen() {
-    val viewModel: CalendarViewModel = viewModel(factory = CalendarViewModel.Factory(rememberRepository()))
+fun CalendarScreen(startMonth: YearMonth? = null) {
+    val viewModel: CalendarViewModel = viewModel(factory = CalendarViewModel.Factory(rememberRepository(), startMonth))
     val month by viewModel.currentMonth.collectAsState()
     val dayInfos by viewModel.monthDayInfos.collectAsState()
     val shiftTypes by viewModel.shiftTypes.collectAsState()

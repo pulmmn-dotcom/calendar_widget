@@ -39,7 +39,9 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import com.pulmm.shiftcalendar.MainActivity
 import com.pulmm.shiftcalendar.R
+import java.time.YearMonth
 
 /**
  * 근무 이름 알약 배지.
@@ -165,3 +167,8 @@ class RefreshWidgetAction : ActionCallback {
         WidgetRefresher.refreshAll(context)
     }
 }
+
+/** 누르면 앱의 달력 화면을 [month]로 여는 동작. 위젯 윗줄의 년월 글자에 쓴다. */
+@Composable
+fun openCalendarAction(month: YearMonth): Action =
+    actionStartActivity(MainActivity.calendarIntent(LocalContext.current, month))

@@ -1,5 +1,7 @@
 package com.pulmm.shiftcalendar
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,13 +40,16 @@ import com.pulmm.shiftcalendar.ui.shifttype.ShiftTypeScreen
 import com.pulmm.shiftcalendar.ui.theme.CalendarColors
 import com.pulmm.shiftcalendar.ui.theme.ShiftCalendarTheme
 import com.pulmm.shiftcalendar.ui.widgethelp.WidgetHelpScreen
+import java.time.YearMonth
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val startTab = if (intent?.getStringExtra(EXTRA_START_TAB) == START_TAB_PATTERN) Tab.PATTERN else Tab.CALENDAR
+        val startMonth = intent?.getStringExtra(EXTRA_START_MONTH)
+            ?.let { runCatching { YearMonth.parse(it) }.getOrNull() }
         setContent {
-            ShiftCalendarTheme { MainScreen(startTab) }
+            ShiftCalendarTheme { MainScreen(startTab, startMonth) }
         }
     }
 
@@ -52,6 +57,15 @@ class MainActivity : ComponentActivity() {
         /** 앱을 열 때 처음 보여줄 탭을 정하는 값. 없으면 달력. */
         const val EXTRA_START_TAB = "tab"
         const val START_TAB_PATTERN = "pattern"
+
+        /** 달력 탭을 처음 열 때 보여줄 달("2026-10" 형식). 없으면 이번 달. */
+        const val EXTRA_START_MONTH = "month"
+
+        /** 위젯에서 앱의 달력을 [month]로 여는 인텐트. 이미 떠 있는 앱은 새로 열어 그 달로 맞춘다. */
+        fun calendarIntent(context: Context, month: YearMonth): Intent =
+            Intent(context, MainActivity::class.java)
+                .putExtra(EXTRA_START_MONTH, month.toString())
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
     }
 }
 
@@ -67,7 +81,7 @@ private enum class Tab(
 }
 
 @Composable
-private fun MainScreen(startTab: Tab) {
+private fun MainScreen(startTab: Tab, startMonth: YearMonth?) {
     var selectedTab by remember { mutableStateOf(startTab) }
 
     Scaffold(
@@ -102,7 +116,7 @@ private fun MainScreen(startTab: Tab) {
     ) { padding ->
         Box(modifier = Modifier.padding(padding).consumeWindowInsets(padding)) {
             when (selectedTab) {
-                Tab.CALENDAR -> CalendarScreen()
+                Tab.CALENDAR -> CalendarScreen(startMonth)
                 Tab.SHIFT_TYPE -> ShiftTypeScreen()
                 Tab.PATTERN -> PatternScreen()
                 Tab.WIDGET_HELP -> WidgetHelpScreen()

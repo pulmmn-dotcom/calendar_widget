@@ -16,9 +16,12 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
 
-class CalendarViewModel(private val repository: ShiftRepository) : ViewModel() {
+class CalendarViewModel(
+    private val repository: ShiftRepository,
+    startMonth: YearMonth? = null
+) : ViewModel() {
 
-    private val visibleMonth = MutableStateFlow(YearMonth.now())
+    private val visibleMonth = MutableStateFlow(startMonth ?: YearMonth.now())
     val currentMonth: StateFlow<YearMonth> = visibleMonth
 
     val shiftTypes: StateFlow<List<ShiftType>> = repository.observeShiftTypes()
@@ -43,8 +46,11 @@ class CalendarViewModel(private val repository: ShiftRepository) : ViewModel() {
         viewModelScope.launch { repository.setMemo(date.toEpochDay(), text) }
     }
 
-    class Factory(private val repository: ShiftRepository) : ViewModelProvider.Factory {
+    class Factory(
+        private val repository: ShiftRepository,
+        private val startMonth: YearMonth? = null
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = CalendarViewModel(repository) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = CalendarViewModel(repository, startMonth) as T
     }
 }

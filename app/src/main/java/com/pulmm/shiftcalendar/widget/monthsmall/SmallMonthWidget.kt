@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.LocalSize
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.SizeMode
@@ -35,6 +36,7 @@ import com.pulmm.shiftcalendar.widget.common.WidgetFit
 import com.pulmm.shiftcalendar.widget.common.WidgetHeaderButtons
 import com.pulmm.shiftcalendar.widget.common.WidgetRoot
 import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
+import com.pulmm.shiftcalendar.widget.common.openCalendarAction
 import com.pulmm.shiftcalendar.widget.common.toWidgetStyle
 import com.pulmm.shiftcalendar.widget.common.widgetPalette
 import kotlinx.coroutines.flow.first
@@ -90,6 +92,7 @@ class SmallMonthWidget : GlanceAppWidget() {
                         Text(
                             "${month.year}. ${"%02d".format(month.monthValue)}",
                             maxLines = 1,
+                            modifier = GlanceModifier.clickable(openCalendarAction(month)),
                             style = TextStyle(
                                 fontSize = if (compact) 14.sp else 17.sp,
                                 fontWeight = FontWeight.Bold,

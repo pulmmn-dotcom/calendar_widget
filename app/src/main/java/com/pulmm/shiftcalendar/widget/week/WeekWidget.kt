@@ -54,6 +54,7 @@ import com.pulmm.shiftcalendar.widget.common.WidgetRoot
 import com.pulmm.shiftcalendar.widget.common.WidgetShiftPill
 import com.pulmm.shiftcalendar.widget.common.WidgetStyle
 import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
+import com.pulmm.shiftcalendar.widget.common.openCalendarAction
 import com.pulmm.shiftcalendar.widget.common.toWidgetStyle
 import com.pulmm.shiftcalendar.widget.common.widgetPalette
 import kotlinx.coroutines.flow.first
@@ -151,6 +152,7 @@ class WeekWidget : GlanceAppWidget() {
                         Text(
                             "${today.monthValue}월 ${weekOfMonth}주차 ($rangeText)",
                             maxLines = 1,
+                            modifier = GlanceModifier.clickable(openCalendarAction(YearMonth.from(today))),
                             style = TextStyle(
                                 fontSize = 13.sp,
                                 fontWeight = FontWeight.Bold,
