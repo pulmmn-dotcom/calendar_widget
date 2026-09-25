@@ -19,6 +19,10 @@ class ShiftTypeViewModel(private val repository: ShiftRepository) : ViewModel() 
         viewModelScope.launch { repository.addShiftType(name, colorArgb, shiftTypes.value.size) }
     }
 
+    fun updateShiftType(shiftType: ShiftType) {
+        viewModelScope.launch { repository.updateShiftType(shiftType) }
+    }
+
     fun deleteShiftType(shiftType: ShiftType) {
         viewModelScope.launch { repository.deleteShiftType(shiftType) }
     }

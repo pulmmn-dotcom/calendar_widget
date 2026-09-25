@@ -18,10 +18,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -54,6 +56,7 @@ fun ShiftTypeScreen() {
     val viewModel: ShiftTypeViewModel = viewModel(factory = ShiftTypeViewModel.Factory(rememberRepository()))
     val shiftTypes by viewModel.shiftTypes.collectAsState()
     var showAddDialog by remember { mutableStateOf(false) }
+    var editingShiftType by remember { mutableStateOf<ShiftType?>(null) }
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("근무 종류 관리") }) },
@@ -65,13 +68,21 @@ fun ShiftTypeScreen() {
     ) { padding ->
         LazyColumn(modifier = Modifier.padding(padding).fillMaxSize()) {
             items(shiftTypes, key = { it.id }) { shiftType ->
-                ShiftTypeRow(shiftType = shiftType, onDelete = { viewModel.deleteShiftType(shiftType) })
+                ShiftTypeRow(
+                    shiftType = shiftType,
+                    onEdit = { editingShiftType = shiftType },
+                    onDelete = { viewModel.deleteShiftType(shiftType) }
+                )
             }
         }
     }
 
     if (showAddDialog) {
-        AddShiftTypeDialog(
+        ShiftTypeDialog(
+            title = "근무 종류 추가",
+            initialName = "",
+            initialColor = PALETTE.first(),
+            confirmLabel = "추가",
             onDismiss = { showAddDialog = false },
             onConfirm = { name, color ->
                 viewModel.addShiftType(name, color)
@@ -79,14 +90,31 @@ fun ShiftTypeScreen() {
             }
         )
     }
+
+    editingShiftType?.let { target ->
+        ShiftTypeDialog(
+            title = "근무 종류 수정",
+            initialName = target.name,
+            initialColor = target.colorArgb,
+            confirmLabel = "저장",
+            onDismiss = { editingShiftType = null },
+            onConfirm = { name, color ->
+                viewModel.updateShiftType(target.copy(name = name, colorArgb = color))
+                editingShiftType = null
+            }
+        )
+    }
 }
 
 @Composable
-private fun ShiftTypeRow(shiftType: ShiftType, onDelete: () -> Unit) {
+private fun ShiftTypeRow(shiftType: ShiftType, onEdit: () -> Unit, onDelete: () -> Unit) {
     var showDeleteConfirm by remember { mutableStateOf(false) }
 
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onEdit() }
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column {
@@ -96,6 +124,9 @@ private fun ShiftTypeRow(shiftType: ShiftType, onDelete: () -> Unit) {
         }
         Spacer(modifier = Modifier.width(12.dp))
         Text(shiftType.name, modifier = Modifier.weight(1f, fill = true))
+        IconButton(onClick = onEdit) {
+            Icon(Icons.Default.Edit, contentDescription = "수정")
+        }
         TextButton(onClick = { showDeleteConfirm = true }) { Text("삭제") }
     }
 
@@ -118,13 +149,20 @@ private fun ShiftTypeRow(shiftType: ShiftType, onDelete: () -> Unit) {
 }
 
 @Composable
-private fun AddShiftTypeDialog(onDismiss: () -> Unit, onConfirm: (String, Int) -> Unit) {
-    var name by remember { mutableStateOf("") }
-    var selectedColor by remember { mutableStateOf(PALETTE.first()) }
+private fun ShiftTypeDialog(
+    title: String,
+    initialName: String,
+    initialColor: Int,
+    confirmLabel: String,
+    onDismiss: () -> Unit,
+    onConfirm: (String, Int) -> Unit
+) {
+    var name by remember { mutableStateOf(initialName) }
+    var selectedColor by remember { mutableStateOf(initialColor) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("근무 종류 추가") },
+        title = { Text(title) },
         text = {
             Column {
                 OutlinedTextField(value = name, onValueChange = { name = it }, label = { Text("이름 (예: 주간)") })
@@ -152,7 +190,7 @@ private fun AddShiftTypeDialog(onDismiss: () -> Unit, onConfirm: (String, Int) -
         },
         confirmButton = {
             TextButton(onClick = { if (name.isNotBlank()) onConfirm(name, selectedColor) }, enabled = name.isNotBlank()) {
-                Text("추가")
+                Text(confirmLabel)
             }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("취소") } }

@@ -31,17 +31,29 @@ class MemoEditActivity : ComponentActivity() {
         setContent {
             val date = remember { LocalDate.ofEpochDay(epochDay) }
             var text by remember { mutableStateOf("") }
+            var loadedText by remember { mutableStateOf<String?>(null) }
             var loaded by remember { mutableStateOf(false) }
             val scope = rememberCoroutineScope()
 
             LaunchedEffect(epochDay) {
-                text = repository.getDayInfoOnce(epochDay).memoText ?: ""
+                val initial = repository.getDayInfoOnce(epochDay).memoText ?: ""
+                text = initial
+                loadedText = initial
                 loaded = true
             }
 
             MaterialTheme {
                 AlertDialog(
-                    onDismissRequest = { finish() },
+                    onDismissRequest = {
+                        if (loaded && text != loadedText) {
+                            scope.launch {
+                                repository.setMemo(epochDay, text)
+                                finish()
+                            }
+                        } else {
+                            finish()
+                        }
+                    },
                     title = { Text(date.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일")) + " 메모") },
                     text = {
                         OutlinedTextField(value = text, onValueChange = { text = it }, modifier = Modifier.fillMaxWidth())

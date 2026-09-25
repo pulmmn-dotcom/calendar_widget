@@ -45,7 +45,7 @@ fun DayEditSheet(
 ) {
     var memoText by remember(date) { mutableStateOf(dayInfo?.memoText ?: "") }
 
-    ModalBottomSheet(onDismissRequest = onDismiss) {
+    ModalBottomSheet(onDismissRequest = { onSaveMemo(memoText); onDismiss() }) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(date.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일")), style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(12.dp))

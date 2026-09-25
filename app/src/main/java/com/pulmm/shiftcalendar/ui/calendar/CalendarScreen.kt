@@ -141,6 +141,8 @@ private fun MonthGrid(
                                 Text("${date.dayOfMonth}", fontWeight = if (date == today) FontWeight.Bold else FontWeight.Normal)
                                 if (shiftType != null) {
                                     Text(shiftType.name, style = MaterialTheme.typography.labelSmall, color = Color(shiftType.colorArgb))
+                                } else if (dayInfo?.shiftTypeId != null) {
+                                    Text("삭제됨", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
                                 }
                                 if (dayInfo?.memoText?.isNotBlank() == true) {
                                     Box(modifier = Modifier.size(4.dp).clip(CircleShape).background(Color(0xFFF1C40F)))

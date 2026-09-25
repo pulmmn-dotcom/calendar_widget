@@ -135,7 +135,7 @@ private fun MonthDayCell(
                 Box(modifier = GlanceModifier.fillMaxWidth().height(2.dp).background(ColorProvider(Color(shiftType.colorArgb)))) {}
             }
             if (dayInfo?.memoText?.isNotBlank() == true) {
-                Box(modifier = GlanceModifier.height(3.dp).background(ColorProvider(Color(0xFFF1C40F)))) {}
+                Box(modifier = GlanceModifier.fillMaxWidth().height(3.dp).background(ColorProvider(Color(0xFFF1C40F)))) {}
             }
         }
     }
