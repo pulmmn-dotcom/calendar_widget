@@ -82,10 +82,10 @@ private class BgSwatch(val name: String, val argb: Int)
 /** 배경색 6가지. 흰색이 첫 번째(기본값). */
 private val BG_PALETTE = listOf(
     BgSwatch("화이트", 0xFFFFFFFF.toInt()),
+    BgSwatch("블랙", 0xFF000000.toInt()),
     BgSwatch("연한 회색", 0xFFF1F5F9.toInt()),
     BgSwatch("짙은 남회색", 0xFF0F172A.toInt()),
     BgSwatch("네이비", 0xFF1E3A8A.toInt()),
-    BgSwatch("딥 틸", 0xFF0F766E.toInt()),
     BgSwatch("딥 바이올렛", 0xFF5B21B6.toInt())
 )
 

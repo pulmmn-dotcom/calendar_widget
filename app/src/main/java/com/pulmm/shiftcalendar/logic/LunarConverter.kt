@@ -28,4 +28,13 @@ object LunarConverter {
             isLeapMonth = calendar.isIntercalation
         )
     }
+
+    /** 음력(평달) 날짜를 양력으로 바꾼다. 라이브러리 지원 범위를 벗어나면 null. */
+    @Synchronized
+    fun toSolar(lunarYear: Int, lunarMonth: Int, lunarDay: Int): LocalDate? {
+        val calendar = KoreanLunarCalendar.getInstance()
+        val ok = calendar.setLunarDate(lunarYear, lunarMonth, lunarDay, false)
+        if (!ok) return null
+        return LocalDate.of(calendar.solarYear, calendar.solarMonth, calendar.solarDay)
+    }
 }

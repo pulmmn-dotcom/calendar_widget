@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pulmm.shiftcalendar.R
+import com.pulmm.shiftcalendar.logic.KoreanHolidays
 import com.pulmm.shiftcalendar.ui.theme.OnSurface
 import com.pulmm.shiftcalendar.ui.theme.SurfaceContainerHigh
 import com.pulmm.shiftcalendar.widget.common.WidgetFit
@@ -117,7 +118,8 @@ fun DayWidgetPreview(
     val compact = size.height < COMPACT_HEIGHT
     val weekday = today.dayOfWeek.getDisplayName(JavaTextStyle.FULL, Locale.KOREAN)
     val lunar = if (rawStyle.showLunar) day?.lunarText else null
-    val weekdayLine = weekday + (lunar?.let { " (음 $it)" } ?: "")
+    val holiday = KoreanHolidays.nameOf(today)
+    val weekdayLine = weekday + (holiday?.let { " · $it" } ?: "") + (lunar?.let { " (음 $it)" } ?: "")
     // 실제 위젯과 같은 규칙으로, 이 크기에 안 들어가는 글자 배율은 줄여서 그린다.
     val style = WidgetFit.day(
         rawStyle, size.width.value, size.height.value, compact, weekdayLine,
@@ -127,6 +129,7 @@ fun DayWidgetPreview(
         memo
     )
     val palette = widgetPalette(style)
+    val weekdayColor = if (holiday != null) palette.sunday else palette.textSecondary
 
     PreviewCard(style, size, modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -136,7 +139,7 @@ fun DayWidgetPreview(
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             PText("오늘", 10f * style.dateFontScale, palette.sunday, FontWeight.Bold)
                             Spacer(Modifier.width(4.dp))
-                            PText(weekdayLine, 10f * style.dateFontScale, palette.textSecondary)
+                            PText(weekdayLine, 10f * style.dateFontScale, weekdayColor)
                         }
                     } else {
                         PText("오늘", 10f * style.dateFontScale, palette.sunday, FontWeight.Bold)
@@ -152,7 +155,7 @@ fun DayWidgetPreview(
                     PreviewIconButton(R.drawable.ic_widget_settings, palette, 22.dp, 14.dp)
                 }
             }
-            if (!compact) PText(weekdayLine, 11f * style.dateFontScale, palette.textSecondary)
+            if (!compact) PText(weekdayLine, 11f * style.dateFontScale, weekdayColor)
             Spacer(Modifier.weight(1f))
             if (shift != null) {
                 PreviewPill(
@@ -278,14 +281,15 @@ private fun WeekDayColumn(
     compact: Boolean
 ) {
     val dow = date.dayOfWeek
-    val weekdayColor = when (dow) {
-        DayOfWeek.SUNDAY -> palette.sunday
-        DayOfWeek.SATURDAY -> palette.saturday
+    val isHoliday = KoreanHolidays.isHoliday(date)
+    val weekdayColor = when {
+        isHoliday || dow == DayOfWeek.SUNDAY -> palette.sunday
+        dow == DayOfWeek.SATURDAY -> palette.saturday
         else -> palette.textSecondary
     }
-    val dateColor = when (dow) {
-        DayOfWeek.SUNDAY -> palette.sunday
-        DayOfWeek.SATURDAY -> palette.saturday
+    val dateColor = when {
+        isHoliday || dow == DayOfWeek.SUNDAY -> palette.sunday
+        dow == DayOfWeek.SATURDAY -> palette.saturday
         else -> palette.textPrimary
     }
     val shift = info?.shift
@@ -599,6 +603,7 @@ private fun dateColorOf(date: LocalDate, isToday: Boolean, inMonth: Boolean, pal
     isToday -> palette.todayText
     !inMonth -> palette.textDimmed
     date.dayOfWeek == DayOfWeek.SUNDAY -> palette.sunday
+    KoreanHolidays.isHoliday(date) -> palette.sunday
     date.dayOfWeek == DayOfWeek.SATURDAY -> palette.saturday
     else -> palette.textPrimary
 }

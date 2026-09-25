@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pulmm.shiftcalendar.data.entity.ShiftType
 import com.pulmm.shiftcalendar.logic.DayInfo
+import com.pulmm.shiftcalendar.logic.KoreanHolidays
 import com.pulmm.shiftcalendar.ui.theme.CalendarColors
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -85,13 +86,22 @@ fun DayEditSheet(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    date.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일 EEEE", Locale.KOREAN)),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.weight(1f)
-                )
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        date.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일 EEEE", Locale.KOREAN)),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    KoreanHolidays.nameOf(date)?.let { holiday ->
+                        Text(
+                            holiday,
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = CalendarColors.sunday
+                        )
+                    }
+                }
                 IconButton(onClick = saveAndDismiss) {
                     Icon(Icons.Default.Close, contentDescription = "닫기")
                 }

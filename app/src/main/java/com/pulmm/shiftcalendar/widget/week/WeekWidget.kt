@@ -43,6 +43,7 @@ import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.pulmm.shiftcalendar.R
 import com.pulmm.shiftcalendar.ShiftCalendarApp
+import com.pulmm.shiftcalendar.logic.KoreanHolidays
 import com.pulmm.shiftcalendar.logic.LunarConverter
 import com.pulmm.shiftcalendar.logic.LunarDate
 import com.pulmm.shiftcalendar.widget.common.MemoEditActivity
@@ -203,14 +204,15 @@ private fun WeekDayColumn(
     compact: Boolean
 ) {
     val dow = date.dayOfWeek
-    val weekdayColor = when (dow) {
-        DayOfWeek.SUNDAY -> palette.sunday
-        DayOfWeek.SATURDAY -> palette.saturday
+    val isHoliday = KoreanHolidays.isHoliday(date)
+    val weekdayColor = when {
+        isHoliday || dow == DayOfWeek.SUNDAY -> palette.sunday
+        dow == DayOfWeek.SATURDAY -> palette.saturday
         else -> palette.textSecondary
     }
-    val dateColor = when (dow) {
-        DayOfWeek.SUNDAY -> palette.sunday
-        DayOfWeek.SATURDAY -> palette.saturday
+    val dateColor = when {
+        isHoliday || dow == DayOfWeek.SUNDAY -> palette.sunday
+        dow == DayOfWeek.SATURDAY -> palette.saturday
         else -> palette.textPrimary
     }
     val click = GlanceModifier.clickable(

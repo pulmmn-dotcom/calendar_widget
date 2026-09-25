@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -50,12 +49,14 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pulmm.shiftcalendar.data.entity.ShiftType
 import com.pulmm.shiftcalendar.logic.DayInfo
+import com.pulmm.shiftcalendar.logic.KoreanHolidays
 import com.pulmm.shiftcalendar.ui.rememberRepository
 import com.pulmm.shiftcalendar.ui.theme.CalendarColors
 import com.pulmm.shiftcalendar.widget.common.buildMonthGrid
@@ -241,7 +242,8 @@ private fun MonthGrid(
                             isToday = inMonth && date == today,
                             shiftType = shiftId?.let { shiftTypeById[it] },
                             isShiftDeleted = shiftId != null && shiftTypeById[shiftId] == null,
-                            hasMemo = dayInfo?.memoText?.isNotBlank() == true,
+                            holidayName = if (inMonth) KoreanHolidays.nameOf(date) else null,
+                            memo = dayInfo?.memoText?.takeIf { it.isNotBlank() },
                             onClick = if (inMonth) ({ onDayClick(date) }) else null,
                             modifier = Modifier.weight(1f).fillMaxHeight()
                         )
@@ -259,13 +261,14 @@ private fun DayCell(
     isToday: Boolean,
     shiftType: ShiftType?,
     isShiftDeleted: Boolean,
-    hasMemo: Boolean,
+    holidayName: String?,
+    memo: String?,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier
 ) {
     val numberColor = when {
         !inMonth -> CalendarColors.otherMonthText
-        date.dayOfWeek == DayOfWeek.SUNDAY -> CalendarColors.sunday
+        date.dayOfWeek == DayOfWeek.SUNDAY || holidayName != null -> CalendarColors.sunday
         date.dayOfWeek == DayOfWeek.SATURDAY -> CalendarColors.saturday
         else -> MaterialTheme.colorScheme.onSurface
     }
@@ -301,6 +304,17 @@ private fun DayCell(
                     fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium,
                     color = numberColor
                 )
+                if (holidayName != null) {
+                    Text(
+                        holidayName,
+                        fontSize = 9.sp,
+                        lineHeight = 11.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = CalendarColors.sunday,
+                        maxLines = 1,
+                        overflow = TextOverflow.Clip
+                    )
+                }
                 if (inMonth) {
                     Spacer(modifier = Modifier.height(1.dp))
                     if (shiftType != null) {
@@ -309,16 +323,23 @@ private fun DayCell(
                         DeletedShiftBadge()
                     }
                 }
-            }
-            if (hasMemo) {
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(top = 4.dp, end = 4.dp)
-                        .size(3.5.dp)
-                        .clip(CircleShape)
-                        .background(CalendarColors.memoDot)
-                )
+                if (memo != null) {
+                    // 메모는 남은 높이만큼 앞부분을 보여주고, 넘치는 뒷부분은 잘라낸다.
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        memo,
+                        fontSize = 9.sp,
+                        lineHeight = 11.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        overflow = TextOverflow.Clip,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f, fill = false)
+                            .clip(RoundedCornerShape(3.dp))
+                            .background(CalendarColors.memoDot.copy(alpha = 0.12f))
+                            .padding(horizontal = 2.dp)
+                    )
+                }
             }
         }
     }

@@ -29,6 +29,7 @@ import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.pulmm.shiftcalendar.data.entity.ShiftType
 import com.pulmm.shiftcalendar.logic.DayInfo
+import com.pulmm.shiftcalendar.logic.KoreanHolidays
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -157,6 +158,7 @@ private fun MonthDayCell(
         isToday -> palette.todayText
         !isInCurrentMonth -> palette.textDimmed
         date.dayOfWeek == DayOfWeek.SUNDAY -> palette.sunday
+        KoreanHolidays.isHoliday(date) -> palette.sunday
         date.dayOfWeek == DayOfWeek.SATURDAY -> palette.saturday
         else -> palette.textPrimary
     }
@@ -250,6 +252,7 @@ private fun SmallMonthDayCell(
         isToday -> palette.todayText
         !isInCurrentMonth -> palette.textDimmed
         date.dayOfWeek == DayOfWeek.SUNDAY -> palette.sunday
+        KoreanHolidays.isHoliday(date) -> palette.sunday
         date.dayOfWeek == DayOfWeek.SATURDAY -> palette.saturday
         else -> palette.textPrimary
     }

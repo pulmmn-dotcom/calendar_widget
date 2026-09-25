@@ -40,6 +40,7 @@ import androidx.glance.unit.ColorProvider
 import com.pulmm.shiftcalendar.R
 import com.pulmm.shiftcalendar.ShiftCalendarApp
 import com.pulmm.shiftcalendar.logic.DayInfo
+import com.pulmm.shiftcalendar.logic.KoreanHolidays
 import com.pulmm.shiftcalendar.logic.LunarConverter
 import com.pulmm.shiftcalendar.widget.common.MemoEditActivity
 import com.pulmm.shiftcalendar.widget.common.WidgetFit
@@ -87,7 +88,9 @@ class DayWidget : GlanceAppWidget() {
             val size = LocalSize.current
             val compact = size.height < COMPACT_HEIGHT
             val weekday = today.dayOfWeek.getDisplayName(JavaTextStyle.FULL, Locale.KOREAN)
-            val weekdayLine = weekday + (lunar?.let { " (${it.toShortDisplay()})" } ?: "")
+            val holiday = KoreanHolidays.nameOf(today)
+            val weekdayLine = weekday + (holiday?.let { " · $it" } ?: "") +
+                (lunar?.let { " (${it.toShortDisplay()})" } ?: "")
             // 위젯이 작은데 글자 배율이 크면 잘리므로, 이 크기에 들어가는 배율로 줄여서 그린다.
             val style = WidgetFit.day(
                 rawStyle, size.width.value, size.height.value, compact, weekdayLine,
@@ -108,7 +111,7 @@ class DayWidget : GlanceAppWidget() {
                 ) {
                     val weekdayStyle = TextStyle(
                         fontSize = ((if (compact) 10 else 11) * style.dateFontScale).sp,
-                        color = ColorProvider(palette.textSecondary)
+                        color = ColorProvider(if (holiday != null) palette.sunday else palette.textSecondary)
                     )
                     Row(modifier = GlanceModifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
                         Column(modifier = GlanceModifier.defaultWeight()) {
