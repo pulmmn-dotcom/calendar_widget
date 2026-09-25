@@ -1,5 +1,11 @@
 <resources>
-    <style name="Theme.ShiftCalendar" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.ShiftCalendar" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- 상태바/내비게이션바를 앱 배경(#F8FAFC, 흰색)과 맞추고 아이콘은 어둡게 -->
+        <item name="android:statusBarColor">#F8FAFC</item>
+        <item name="android:navigationBarColor">#FFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">#F8FAFC</item>
+    </style>
 
     <style name="Theme.ShiftCalendar.Dialog" parent="android:Theme.Material.Light.Dialog">
         <item name="android:windowIsTranslucent">true</item>
