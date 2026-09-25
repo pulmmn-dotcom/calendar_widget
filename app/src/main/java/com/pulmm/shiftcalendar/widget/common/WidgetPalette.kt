@@ -17,6 +17,9 @@ data class WidgetPalette(
     val memoDot: Color,
     val todayCircle: Color,
     val todayText: Color,
+    val todayRing: Color,
+    val todayFill: Color,
+    val todayLabel: Color,
     val buttonBackground: Color,
     val buttonIcon: Color
 ) {
@@ -43,6 +46,9 @@ fun widgetPalette(isDark: Boolean): WidgetPalette =
             memoDot = Color(0xFFF59E0B),
             todayCircle = Color(0xFF2563EB),
             todayText = Color.White,
+            todayRing = Color(0xFF3B82F6),
+            todayFill = Color(0xFF1E3A5F),
+            todayLabel = Color(0xFF60A5FA),
             buttonBackground = Color(0x29FFFFFF),
             buttonIcon = Color(0xFFE2E8F0)
         )
@@ -57,6 +63,9 @@ fun widgetPalette(isDark: Boolean): WidgetPalette =
             memoDot = Color(0xFFF59E0B),
             todayCircle = Color(0xFF2563EB),
             todayText = Color.White,
+            todayRing = Color(0xFF3B82F6),
+            todayFill = Color(0xFFEFF6FF),
+            todayLabel = Color(0xFF3B82F6),
             buttonBackground = Color(0xFFF1F5F9),
             buttonIcon = Color(0xFF475569)
         )

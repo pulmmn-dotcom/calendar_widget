@@ -26,8 +26,10 @@ import androidx.glance.appwidget.cornerRadius
 import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
+import androidx.glance.layout.Column
 import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
+import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.layout.size
 import androidx.glance.layout.width
@@ -51,7 +53,10 @@ fun WidgetShiftPill(
     style: WidgetStyle,
     modifier: GlanceModifier = GlanceModifier,
     solid: Boolean = false,
-    baseFontSp: Float = 8f
+    baseFontSp: Float = 8f,
+    cornerDp: Float = 6f,
+    padHorizontalDp: Float = 3f,
+    padVerticalDp: Float = 2f
 ) {
     val shift = Color(colorArgb)
     val palette = widgetPalette(style)
@@ -60,8 +65,8 @@ fun WidgetShiftPill(
     Box(
         modifier = modifier
             .background(ColorProvider(bg))
-            .cornerRadius(6.dp)
-            .padding(horizontal = 3.dp, vertical = 2.dp),
+            .cornerRadius(cornerDp.dp)
+            .padding(horizontal = padHorizontalDp.dp, vertical = padVerticalDp.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -103,12 +108,15 @@ fun WidgetIconButton(
     }
 }
 
-/** 헤더 오른쪽의 새로고침 + 설정 버튼. */
+/** 헤더 오른쪽의 새로고침 + 설정 버튼. vertical=true면 세로로 쌓는다(좁은 하루위젯용). */
 @Composable
 fun WidgetHeaderButtons(
     palette: WidgetPalette,
     appWidgetId: Int,
-    configActivityClass: Class<out Activity>
+    configActivityClass: Class<out Activity>,
+    vertical: Boolean = false,
+    boxSize: Dp = 26.dp,
+    iconSize: Dp = 16.dp
 ) {
     val context = LocalContext.current
     val configIntent = Intent()
@@ -116,20 +124,38 @@ fun WidgetHeaderButtons(
         .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         // 위젯마다 서로 다른 PendingIntent가 되도록 data를 붙인다.
         .setData(Uri.parse("shiftcalendar://widget-config/$appWidgetId"))
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    val refresh: @Composable () -> Unit = {
         WidgetIconButton(
             iconRes = R.drawable.ic_widget_refresh,
             description = "새로고침",
             palette = palette,
-            action = actionRunCallback<RefreshWidgetAction>()
+            action = actionRunCallback<RefreshWidgetAction>(),
+            boxSize = boxSize,
+            iconSize = iconSize
         )
-        Spacer(modifier = GlanceModifier.width(6.dp))
+    }
+    val settings: @Composable () -> Unit = {
         WidgetIconButton(
             iconRes = R.drawable.ic_widget_settings,
             description = "위젯 설정",
             palette = palette,
-            action = actionStartActivity(configIntent)
+            action = actionStartActivity(configIntent),
+            boxSize = boxSize,
+            iconSize = iconSize
         )
+    }
+    if (vertical) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            refresh()
+            Spacer(modifier = GlanceModifier.height(4.dp))
+            settings()
+        }
+    } else {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            refresh()
+            Spacer(modifier = GlanceModifier.width(6.dp))
+            settings()
+        }
     }
 }
 
