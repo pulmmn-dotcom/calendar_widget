@@ -43,12 +43,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pulmm.shiftcalendar.data.entity.ShiftType
 import com.pulmm.shiftcalendar.ui.rememberRepository
+import com.pulmm.shiftcalendar.ui.theme.ShiftPalette
 
-private val PALETTE = listOf(
-    0xFF4A90D9.toInt(), 0xFF8E44AD.toInt(), 0xFF27AE60.toInt(),
-    0xFFE67E22.toInt(), 0xFFE74C3C.toInt(), 0xFF7F8C8D.toInt(),
-    0xFF2C3E50.toInt(), 0xFFF1C40F.toInt()
-)
+private val PALETTE = ShiftPalette.colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

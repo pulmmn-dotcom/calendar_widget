@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
+import com.pulmm.shiftcalendar.ui.theme.ShiftCalendarTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -55,7 +55,7 @@ class MemoEditActivity : ComponentActivity() {
                 }
             }
 
-            MaterialTheme {
+            ShiftCalendarTheme {
                 AlertDialog(
                     onDismissRequest = saveAndFinish,
                     title = { Text(date.format(DateTimeFormatter.ofPattern("yyyy년 M월 d일")) + " 메모") },
