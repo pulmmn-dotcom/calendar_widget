@@ -13,7 +13,7 @@ case "$1" in
            for i in $(seq 1 60); do [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ] && echo "부팅 완료" && exit 0; sleep 5; done; echo "부팅 실패"; exit 1;;
   install) adb install -r "$APK";;
   fresh)   adb uninstall $PKG >/dev/null 2>&1; adb install "$APK" && adb shell am start -n $PKG/.MainActivity >/dev/null && sleep 3 && bash "$0" seed;;
-  start)   adb shell am start -n $PKG/.MainActivity >/dev/null; sleep 3;;
+  start)   adb shell am start -n $PKG/.MainActivity >/dev/null; sleep 6;;
   seed)    adb shell am broadcast -a com.pulmm.shiftcalendar.DEBUG_SEED -n $PKG/$PKG.debug.DebugSeedReceiver >/dev/null; sleep 3; adb shell am force-stop $PKG;;
   home)    adb shell input keyevent KEYCODE_HOME; sleep 1;;
   pin)     # pin day|week|small|month : 홈화면에 위젯 추가 (확인 창의 'Add to home screen'까지 누름)
