@@ -23,6 +23,22 @@
 
 위젯마다 배경색, 투명도, 글자 크기, 음력 표시 여부를 따로 설정할 수 있습니다. 위젯 윗줄의 년월을 누르면 앱 달력이 그 달로 열립니다.
 
+## 스크린샷
+
+> 가상 폰(Pixel, 안드로이드 14)에서 샘플 데이터로 찍은 화면입니다. (기준일: 2026-09-26)
+
+| 한달위젯 | 작은한달위젯 |
+|:---:|:---:|
+| <img src="docs/screenshots/widget_month.png" width="360"> | <img src="docs/screenshots/widget_small.png" width="300"> |
+
+| 일주일위젯 | 하루위젯 |
+|:---:|:---:|
+| <img src="docs/screenshots/widget_week.png" width="360"> | <img src="docs/screenshots/widget_day.png" width="200"> |
+
+| 앱 달력 화면 |
+|:---:|
+| <img src="docs/screenshots/app_calendar.png" width="300"> |
+
 ## 개발 환경
 
 - 언어: Kotlin
